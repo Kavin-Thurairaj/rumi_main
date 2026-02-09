@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 // room listing_page import
-import listing_page from './room_listing/listing_page';
+import ListingPage from "./room_listing/listing_page";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         </a>
       </header> */}
 
-      <listing_page/>
+      <ListingPage/>
     </div>
   );
 }
