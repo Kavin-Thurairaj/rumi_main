@@ -52,7 +52,7 @@ function listing_page(){
                         height: 300,
                     }}>
                         <CardContent sx={{p:0, '&last-child':{pb:0}, height:'100%'}}>
-                            <RoomSlider></RoomSlider>
+                            <RoomSlider/>
                         </CardContent>
 
                     </Card>
