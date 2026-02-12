@@ -39,7 +39,7 @@ function listing_page(){
                 bgcolor:'#F1F5F9',
                 color:'#020617',
                 p:2, // the spacing between the left and right boxes are given
-                minHeight:'100vh'
+                minHeight:'100vh',
             }}>
 
                 {/* Left side Box */}
@@ -52,32 +52,37 @@ function listing_page(){
                     pr:1,
                     pb:0,
                     width:'100%',
-                    gap:1
+                    gap:1,
+                    backgroundColor: 'Red'
                 }}>
 
                     {/* Room Slider Component */}
-                    <Box sx={{
-                        display:'flex',
-                        flexDirection:'column',
-                        gap:1,
-                        alignItems:'center' // center the card in the column
-                    }}>
-
-                        <Card varient ="outlined" 
+                    <Box
                         sx={{
-                            bgcolor:'#fffff',
-                            borderRadius:1.5,
-                            border: '1px solid #CBD5E1',
-                            boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
-                            maxWidth: '100%', 
-                            height: 300,
-                        }}>
-                            <CardContent sx={{p:0, '&last-child':{pb:0}, height:'100%'}}>
-                                {/* <RoomSlider rooms={roomobject}/> */}
-                            </CardContent>
-
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 1,
+                            alignItems: 'center', // center the card in the column
+                        }}
+                    >
+                        <Card
+                            variant="outlined"
+                            sx={{
+                                bgcolor: '#FFFFFF',
+                                borderRadius: 1.5,
+                                border: '1px solid #CBD5E1',
+                                boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
+                                maxWidth: '100%', // responsive fallback
+                                height: 300,
+                                width: 500
+                            }}
+                        >
+                            {/* <CardContent sx={{ p: 0, '&:last-child': { pb: 0 }, height: '100%' }}>
+                                <SlidePage slides={slides}/>
+                            </CardContent> */}
                         </Card>
                     </Box>
+                    
 
 
                     {/* Room title card */}
@@ -136,7 +141,8 @@ function listing_page(){
                     pl:1,
                     pr:1,
                     pb:1,
-                    border:'2px solid black'
+                    border:'2px solid black',
+                    backgroundColor: 'yellow'
                 }}>
 
                     <Card
@@ -152,41 +158,41 @@ function listing_page(){
                             {/* This is the Parent container for the room pricing and Schedule and apply now */}
                             <Grid container direction={'row'} justifyContent={'space-between'} spacing={1}>
 
-                                <Grid container direction={'column'}>
+                                <Grid container direction={'column'} spacing={1} justifyContent={'center'}>
                                     <Grid item>
-                                        <Typography>$850/month</Typography>
+                                        <Typography variant="p" fontSize={20} sx={{fontWeight:600}}>$850/month</Typography>
                                     </Grid>
-                                    <Grid container>
+                                    <Grid container direction={'column'} spacing={0.2}>
                                         <Grid item>
-                                            <Typography>All utilities included</Typography>
+                                            <Typography variant='p' fontSize={14} sx={{display:'flex', alignItems:'end',gap:0.2}}> <Check size={16}/> All utilities included</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography>Security deposit: $850</Typography>
+                                            <Typography variant='p' fontSize={14} sx={{display:'flex', alignItems:'end',gap:0.2}}><CircleDollarSign size={16} color='green'/> Security deposit: $850</Typography>
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <Link>View full lease term <ChevronRight size={13}/></Link>
+                                        <Link sx={{fontSize:13,fontWeight:500,color:'primary.main',textDecoration:'none','&:hover':{textDecoration:'underline'},cursor:'pointer',display:'flex',alignItems:'end',gap:0}}>View full lease term <ChevronRight size={13}/></Link>
                                     </Grid>
                                 </Grid>
 
-                                <Grid container>
+                                <Grid container direction={'column'} spacing={1} justifyContent={'center'}>
                                     <Grid container spacing={1} sx={{display:'flex',alignItems:'center',justifyContent:'end'}}>
                                         <Grid item>
-                                            <Typography>Available from</Typography>
+                                            <Typography variant="p" fontSize={12}>Available from</Typography>
                                         </Grid>
 
                                         <Grid item>
-                                            <Typography> <CalendarDays size={15}/> Jan 15, 2025 </Typography>
+                                            <Typography component='p' fontSize={18} sx={{display:'flex', alignItems:'center',gap:0.5}}> <CalendarDays size={15}/> Jan 15, 2025 </Typography>
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container>
+                                    <Grid container alignItems={{xs:'start',md:'end'}} direction={{xs:'column',sm:'row',md:'column', lg:'row'}}>
                                         <Grid item>
-                                            <Button>Schedule Visit</Button>
+                                            <Button type="submit" variant="contained" color="black" size="large" sx={{boxShadow:'0px 1px 2px rgba(0,0,0,0.15)', border:'1px solid gray', fontSize:'13px'}}>Schedule Visit</Button>
                                         </Grid>
 
                                         <Grid item>
-                                            <Button>Apply Now</Button>
+                                            <Button type="submit" variant="contained" size="large" sx={{bgcolor:'#1E293B', boxShadow:'0px 1px 2px rgba(0,0,0,0.15)',border:'1px solid gray',fontSize:"13px",color:'#ffffff', fontWeight:600}}>Apply Now</Button>
                                         </Grid>
                                     </Grid>
                                 </Grid>
