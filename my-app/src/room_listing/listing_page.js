@@ -83,8 +83,6 @@ function listing_page(){
                         </Card>
                     </Box>
                     
-
-
                     {/* Room title card */}
                     <Card varient="outlined"
                         sx={{
@@ -197,6 +195,57 @@ function listing_page(){
                                     </Grid>
                                 </Grid>
 
+                            </Grid>
+                        </CardContent>
+                    </Card>
+
+                    {/* Room rule and details */}
+                    <Card 
+                    sx={{
+                        bgcolor:'#FFFF',
+                        borderRadius:1.5,
+                        border:'1px solid #CBD5E1',
+                        boxShadow:'0 1px 2px rgba(2, 6, 23, 0.08)'
+                    }}>
+                        <CardContent sx={{p:1,'&:last-child': { pb: 1 }}}>
+                            <Grid container direction={'column'}>
+                                <Grid item>
+                                    <Typography>Room Details and Rule</Typography>
+                                </Grid>
+
+                                {/* Room Details Container */}
+                                <Grid container justifyContent={'space-between'}>
+                                    <Grid item>
+                                        <Typography>Private Bedroom</Typography>
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Typography>Shared Bathroom</Typography>
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Typography>3 Bed, 2 Bath</Typography>
+                                    </Grid>
+                                </Grid>
+
+                                {/* Guest Rules container  */}
+                                <Grid container justifyContent={'space-between'}>
+                                    <Grid item>
+                                        <Typography> <Info size={13}/> Quiet hours: 10PM - 8PM</Typography>
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Typography><Info size={13}/> Guests allowed with notice</Typography>
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Typography><Info size={13}/> No smoking</Typography>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item>
+                                    <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}>View all House Rules and Room Details <ChevronRight size={13}/></Link>
+                                </Grid>
                             </Grid>
                         </CardContent>
                     </Card>
