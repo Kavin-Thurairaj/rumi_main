@@ -208,38 +208,38 @@ function listing_page(){
                         boxShadow:'0 1px 2px rgba(2, 6, 23, 0.08)'
                     }}>
                         <CardContent sx={{p:1,'&:last-child': { pb: 1 }}}>
-                            <Grid container direction={'column'}>
+                            <Grid container direction={'column'} gap={0.5}>
                                 <Grid item>
-                                    <Typography>Room Details and Rule</Typography>
+                                    <Typography variant="p">Room Details and Rule</Typography>
                                 </Grid>
 
                                 {/* Room Details Container */}
                                 <Grid container justifyContent={'space-between'}>
                                     <Grid item>
-                                        <Typography>Private Bedroom</Typography>
+                                        <Typography fontSize={14}><BookText size={13}/> Private Bedroom</Typography>
                                     </Grid>
 
                                     <Grid item>
-                                        <Typography>Shared Bathroom</Typography>
+                                        <Typography fontSize={14}><BookText size={13}/> Shared Bathroom</Typography>
                                     </Grid>
 
                                     <Grid item>
-                                        <Typography>3 Bed, 2 Bath</Typography>
+                                        <Typography fontSize={14}  sx={{display:{xs:'none' , sm:'block',md:'none', lg:'block'}}}><BookText size={13}/> 3 Bed, 2 Bath</Typography>
                                     </Grid>
                                 </Grid>
 
                                 {/* Guest Rules container  */}
                                 <Grid container justifyContent={'space-between'}>
                                     <Grid item>
-                                        <Typography> <Info size={13}/> Quiet hours: 10PM - 8PM</Typography>
+                                        <Typography fontSize={14} sx={{display:'flex', alignItems:'center', gap:0.5}}> <Info size={13}/> Quiet hours: 10PM - 8PM</Typography>
                                     </Grid>
 
                                     <Grid item>
-                                        <Typography><Info size={13}/> Guests allowed with notice</Typography>
+                                        <Typography fontSize={14} sx={{display:'flex', alignItems:'center', gap:0.5}}><Info size={13}/> Guests allowed with notice</Typography>
                                     </Grid>
 
                                     <Grid item>
-                                        <Typography><Info size={13}/> No smoking</Typography>
+                                        <Typography fontSize={14} sx={{display:'flex', alignItems:'center', gap:0.5}}><Info size={13}/> No smoking</Typography>
                                     </Grid>
                                 </Grid>
 
