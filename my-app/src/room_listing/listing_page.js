@@ -427,6 +427,83 @@ function listing_page(){
                         </CardContent>
                     </Card>
 
+                    <Grid container gap={1} direction={{ xs: 'column', sm: 'row', md:'column' , lg:'row'}}>
+                        {/* This container the map of where the room is located */}
+                        <Grid item>
+                            <Card
+                                sx={{
+                                bgcolor: '#FFFFFF',
+                                borderRadius: 1.5,
+                                border: '1px solid #CBD5E1',
+                                boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
+                                height: 285
+                                }} 
+                            >
+                                <CardContent sx={{ p: 0,'&:last-child': { pb: 0 }, height: '100%' }}>
+                                    <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5067.662628274249!2d79.852057200656!3d6.894745045165493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25bdee494e9d3%3A0x629c2df0a6d82f99!2sIIT%20School%20Of%20Computing!5e0!3m2!1sen!2slk!4v1765260349607!5m2!1sen!2slk"
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    style={{
+                                        border: 0,
+                                        width: '100%',
+                                        height: '100%', // fill the CardContent
+                                    }}
+                                    />
+                                </CardContent>
+                            </Card>
+                        </Grid>
+
+                        <Grid container direction={'column'} flex={1} spacing={1}>
+                            <Grid item>
+                                <Card
+                                    sx={{
+                                        bgcolor: '#FFFFFF',
+                                        borderRadius: 1.5,
+                                        border: '1px solid #CBD5E1',
+                                        boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)'
+                                    }}
+                                >
+                                    <CardContent sx={{ p: 1, '&:last-child': { pb: 1 } }}>
+                                        <Grid container direction={'column'}>
+                                            <Grid item>
+                                                <Typography variant="p">Your Roommates</Typography>
+                                            </Grid>
+
+                                            <Grid container>
+                                                <Grid item>
+                                                    <Avatar></Avatar>
+                                                </Grid>
+
+                                                <Grid container direction={'column'}>
+
+                                                    <Grid item>
+                                                        <Typography>Alex,28 - Occupation</Typography>
+                                                    </Grid>
+
+                                                    <Grid item>
+                                                        <Typography>Clean, quiet works from home.</Typography>
+                                                    </Grid>
+
+                                                </Grid>
+
+                                            </Grid>
+
+                                            <Grid item>
+                                                <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}>Learn more about your roomates <ChevronRight size={13}/></Link>
+                                            </Grid>
+
+                                        </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+
+                            <Grid item>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Box>
 
 
