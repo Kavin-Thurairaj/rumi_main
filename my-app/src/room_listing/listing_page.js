@@ -161,17 +161,28 @@ function listing_page(){
                                 {/* Avater, Name and Review from the customers */}
                                 <Grid container alignItems="flex-start" spacing={1.5}>
                                     <Grid item>
-                                        <Avatar>NJ</Avatar>
+                                        <Avatar sx={{width:35, height:35,bgcolor:'orange',p:2}}>NJ</Avatar>
                                     </Grid>
 
-                                    <Grid item>
-                                        <Grid container direction={'column'}>
+                                    {/* Name, how long customer stayed and review */}
+                                    <Grid item sx={{flex:1, minWidth:0}}>
+                                        <Grid container direction={'column'} spacing={0}>
                                             <Grid item>
-                                                <Typography>Nehthan Johnson</Typography>
+                                                <Typography sx={{
+                                                    fontSize:'0.75rem', //font size of the text
+                                                    fontWeight: 400,
+                                                    textTransform: 'uppercase',  // Convert all the letter to uppercase
+                                                    letterSpacing: '0.8',
+                                                    lineHeight: 1,  // THe height of the line
+                                                    m: 0,
+                                                    p: 0,
+                                                }}>
+                                                    Nehthan Johnson
+                                                </Typography>
                                             </Grid>
 
                                             <Grid item>
-                                                <Typography sx={{
+                                                <Typography color="gray" sx={{
                                                     fontSize:'0.625rem',
                                                     textTransform:'none',
                                                     lineHeight:1,
@@ -184,7 +195,18 @@ function listing_page(){
 
                                             {/* Review from the customers */}
                                             <Grid item>
-                                                <Typography fontSize={12}>
+                                                <Typography fontSize={12}
+                                                    sx={{
+                                                        maxWidth:'96%',
+                                                        mb:0,
+                                                        lineHeight:1.2,
+                                                        display: '-webkit-box', 
+                                                        WebkitBoxOrient: 'vertical',
+                                                        WebkitLineClamp: 2,   // maximum 2 lines if the line goes beyone the 2 lines, it will be ...
+                                                        overflow: 'hidden',   // hide extra text
+                                                        textOverflow: 'ellipsis',
+                                                    }}
+                                                >
                                                     The empty space just means your content isn't tall enough to fill the viewport — it doesn't break anything. 
                                                     Add more text here to test if the ellipsis appears after two lines.
                                                 </Typography>
@@ -193,10 +215,11 @@ function listing_page(){
                                     </Grid>
 
                                 </Grid>
-
+                                {/* Link to read all the links */}
                                 <Grid item>
                                     <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}> Read all 23 reviews <ChevronRight size={13}/> </Link>
                                 </Grid>
+
                             </Grid>
 
                         </CardContent>
