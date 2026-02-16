@@ -1,0 +1,19 @@
+.swiper {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+}
+
+.swiper-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* This resize the images in the slider and align and justify them center */
+.swiper-slide {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
