@@ -57,7 +57,7 @@ function listing_page(){
                     pb:0,
                     width:'100%',
                     gap:1,
-                    backgroundColor: 'Red'
+                    // backgroundColor: 'Red'
                 }}>
 
                     {/* Room Slider Component */}
@@ -78,12 +78,12 @@ function listing_page(){
                                 boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
                                 maxWidth: '100%', // responsive fallback
                                 height: 300,
-                                width: 500
+                               
                             }}
                         >
-                            {/* <CardContent sx={{ p: 0, '&:last-child': { pb: 0 }, height: '100%' }}>
-                                <SlidePage slides={slides}/>
-                            </CardContent> */}
+                            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 }, height: '100%' }}>
+                                <RoomSlider rooms={roomobject}/>
+                            </CardContent>
                         </Card>
                     </Box>
                     
@@ -276,8 +276,8 @@ function listing_page(){
                     pl:1,
                     pr:1,
                     pb:0,
-                    border:'2px solid black',
-                    backgroundColor: 'yellow',
+                    // border:'2px solid black',
+                    // backgroundColor: 'yellow',
                     gap:1
                 }}>
 
@@ -427,7 +427,7 @@ function listing_page(){
                         </CardContent>
                     </Card>
 
-                    <Grid container gap={1} direction={{ xs: 'column', sm: 'row', md:'column' , lg:'row'}}>
+                    <Grid container gap={1} direction={{ xs: 'column', sm: 'column', md:'column' , lg:'column'}}>
                         {/* This container the map of where the room is located */}
                         <Grid item>
                             <Card
@@ -455,7 +455,7 @@ function listing_page(){
                             </Card>
                         </Grid>
 
-                        <Grid container direction={'column'} flex={1} spacing={1}>
+                        {/* <Grid container direction={'column'} flex={1} spacing={1}>
                             <Grid item>
                                 <Card
                                     sx={{
@@ -502,7 +502,7 @@ function listing_page(){
                             <Grid item>
 
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Box>
 
