@@ -1,8 +1,16 @@
 // Import of Swiper and SwiperSlide
 import {Swiper,SwiperSlide} from 'swiper/react';
 
+// importing the swiper css 
+import 'swiper/css';  
+
 // import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+// import navigation, pagination, scrollbar modules
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 // Import of the room_slider css file
 import '../components/room_slider.css';
