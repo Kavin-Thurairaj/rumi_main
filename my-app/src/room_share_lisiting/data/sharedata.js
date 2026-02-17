@@ -10,7 +10,7 @@ const roomShareData = [
     rent: 25000,
     gender: "any",
     description: "Fully furnished room with shared kitchen.",
-    image: room1
+    image: ""
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const roomShareData = [
     rent: 20000,
     gender: "male",
     description: "Calm environment, close to bus routes.",
-    image: room2
+    image: ""
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const roomShareData = [
     rent: 35000 ,
     gender: "female",
     description: "Ideal for students, WiFi included.",
-    image: room1
+    image: ""
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const roomShareData = [
     rent: 24000 ,
     gender: "any",
     description: "Ideal for students, WiFi included.",
-    image: room2
+    image: ""
   }
 
 ];

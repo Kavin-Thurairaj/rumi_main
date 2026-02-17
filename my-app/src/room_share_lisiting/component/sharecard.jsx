@@ -1,5 +1,5 @@
 import "../styles/share.css";
-
+import roomShareData from "../data/sharedata";
 const RoomShareCard = ({ room }) => {
   return (
     <div className="room-card">
