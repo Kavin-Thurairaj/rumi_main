@@ -35,9 +35,73 @@
   margin-top: 0 !important;  /*The button will be centered vertically and remove the default margin-top*/
   transition: background-color 0.3s ease !important;
   border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   background-color: #1E5AA8  !important;
+}
+
+
+/* Position the buttons */
+.swiper-button-prev {
+  left: 16px !important;
+  right: auto !important;
+}
+
+.swiper-button-next {
+  right: 16px !important;
+  left: auto !important;
+}
+
+
+.swiper-pagination {
+  position: absolute !important;
+  bottom: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  gap: 8px !important;
+  width: auto !important;
+}
+
+/* The dot pagination on the room carosal window */
+.swiper-pagination-bullet{
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+}
+
+/* Styling for the dot pagination in room carosal window when ACTIVE */
+.swiper-pagination-bullet-active {
+  background-color: white !important;
+  width: 10px !important;
+  border-radius: 50% !important;
+}
+
+.swiper-pagination-bullet:hover {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.MuiCard-root .swiper {
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* Here we remove the margin and padding from the content where the swiper is inside the card content in MUI  || this affect only the swiper inside the card content*/
+.MuiCardContent-root .swiper {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* The swiper inside the card will be given a border radius which match the same border radius as Card and any overflow content out of the Card will be hidden */
+.MuiCard-root .swiper {
+  border-radius: inherit;
+  overflow: hidden;
 }
