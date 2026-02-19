@@ -39,7 +39,8 @@ DB_USERNAME=root _(usually root)_ <br>
 DB_PASSWORD= your database password
 <br>
 - Firebase service account :
-<br>FIREBASE_CREDENTIALS=C:\path\to\firebase-service.json <br>_(this file you have to download from firebase project - Firebase service account JSON)_
+<br>FIREBASE_CREDENTIALS= C:\path\to\firebase-service.json 
+<br>_(this file you have to download from firebase project - Firebase service account JSON)_
 
 
 Notes (very important):
