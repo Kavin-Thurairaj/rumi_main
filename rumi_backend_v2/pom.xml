@@ -128,12 +128,12 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Source: https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
         <!-- Firebase maven dependency -->
+        <!-- Source: https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
         <dependency>
             <groupId>com.google.firebase</groupId>
             <artifactId>firebase-admin</artifactId>
-            <version>9.4.3</version>
+            <version>9.7.1</version>
             <scope>compile</scope>
         </dependency>
 
