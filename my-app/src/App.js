@@ -1,3 +1,4 @@
+
 import logo from './logo.svg';
 import './App.css';
 // room listing_page import
@@ -24,6 +25,8 @@ function App() {
       <ListingPage/>
     </div>
   );
+
+
 }
 
 export default App;

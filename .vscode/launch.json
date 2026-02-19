@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot Backend",
+      "request": "launch",
+      "mainClass": "com.rumi.backend.BackendApplication",
+      "projectName": "backend",
+      "cwd": "${workspaceFolder}/backend/backend",
+      "console": "integratedTerminal",
+      "preLaunchTask": "build-backend"
+    }
+  ]
+}
