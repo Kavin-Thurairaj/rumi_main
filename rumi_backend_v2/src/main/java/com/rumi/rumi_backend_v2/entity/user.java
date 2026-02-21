@@ -1,13 +1,19 @@
 package com.rumi.rumi_backend_v2.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="users")
-public class user {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +23,7 @@ public class user {
     @Column(unique = true)
     private String email;
 
+    @ToString.Exclude
     private String password;
 
     @Enumerated(EnumType.STRING)
