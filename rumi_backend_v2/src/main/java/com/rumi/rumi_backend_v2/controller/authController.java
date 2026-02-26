@@ -19,7 +19,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public UserResponse register(@RequestBody RegisterRequest request) {
+    public RegisterResponse register(@RequestBody RegisterRequest request) {
         try {
             User user = new User(
                 null,
@@ -29,7 +29,7 @@ public class AuthController {
                 request.role
             );
             User saved = userService.register(user);
-            return UserResponse.from(saved);
+            return RegisterResponse.success(saved);
         } catch (IllegalArgumentException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
@@ -45,19 +45,19 @@ public class AuthController {
         }
     }
 
-    static class RegisterRequest {
+    public static class RegisterRequest {
         public String name;
         public String email;
         public String password;
         public Role role;
     }
 
-    static class LoginRequest {
+    public static class LoginRequest {
         public String email;
         public String password;
     }
 
-    static class UserResponse {
+    public static class UserResponse {
         public Long id;
         public String name;
         public String email;
@@ -69,6 +69,18 @@ public class AuthController {
             response.name = user.getName();
             response.email = user.getEmail();
             response.role = user.getRole();
+            return response;
+        }
+    }
+
+    public static class RegisterResponse {
+        public String message;
+        public UserResponse user;
+
+        static RegisterResponse success(User user) {
+            RegisterResponse response = new RegisterResponse();
+            response.message = "successful register";
+            response.user = UserResponse.from(user);
             return response;
         }
     }
