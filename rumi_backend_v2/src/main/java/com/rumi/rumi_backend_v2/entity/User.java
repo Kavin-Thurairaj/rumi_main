@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name="user")
+@Table(name="app_user")
 @Builder           // for easy object creation
 @AllArgsConstructor       // needed by @Builder
 @NoArgsConstructor  // required by JPA
@@ -19,7 +19,7 @@ public class User {
     @Id
     @Getter
     @Column(name="user_id", nullable = false, unique = true)
-    private String firebaseUid;
+    private String supabaseUid;
 
     @Getter
     @Column(name="full_name", nullable = false)

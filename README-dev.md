@@ -1,147 +1,120 @@
-🏠 Rumi Room Rental Backend — Setup Instructions
-------------------------------------
+# 🏠 Room Rental Backend `v2`
 
-This project contains the backend infrastructure for the Rumi Room Rental platform.
-<br>
-<br>
-It includes:
-- Firebase Authentication (email/password, phone, Google login)
-- MySQL database (user, roles, profiles)
-- Flyway migrations for database schema versioning
-- Spring Boot backend
+> **Next-generation backend service for the Room Rental Project.** <br> Built with **React** (Frontend) + **Spring Boot** (Backend) and powered by **PostgreSQL** via **Supabase**.
 
-This README will help you set up your environment, run the backend, and test the connections.
+---
 
-_Addition_ : I need your email addresses, to add you'll to the Firebase project.
+## 📚 Tech Stack
 
-1️⃣ **Prerequisites**
-------------------------------------
-- MySQL 8+ running locally or remote 
-- Firebase service account JSON downloaded, from the project I created.
-- IDE (IntelliJ recommended)
+| Component | Technology |
+| :--- | :--- |
+| **Language** | ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=flat&logo=openjdk&logoColor=white) |
+| **Framework** | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white) |
+| **Database** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white) |
+| **Hosting** | ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white) |
+| **Build Tool** | ![Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=flat&logo=Apache%20Maven&logoColor=white) |
 
-MySql - Xampp or MySQL server,
-<br>
-_I use mySQL server + mySQL workbench_
-<br>
+---
 
-2️⃣ **Steps to follow to get the Backend Database running**
----------------
+## 🚀 Getting Started
 
-1)Environment Variables<br>
-------------------------------------
-Create a .env file or use system environment variables.
+Follow these steps carefully to connect your local environment to the **shared TEST development database**.
 
-Required variables:
-- **MySQL** :
-<br>DB_URL=jdbc:mysql://localhost:3306 _(your mysql port, usually - localhost:3306)_<br>
-DB_USERNAME=root _(usually root)_ <br>
-DB_PASSWORD= your database password
-- **Firebase Service Account**
+> [!IMPORTANT]  
+> **Security Rules:**
+> * Use **ONLY** the development database: `rumi-rental-db-test`.
+> * **NEVER** commit your `env.properties` file to GitHub.
+> * **NO CHANGES** needed for `application.properties`.
 
-  Set the environment variable:
+---
 
-  FIREBASE_CREDENTIALS=C:\path\to\firebase-service.json
+## 🛠 Database Setup (Supabase)
 
-**Download this JSON file from your Firebase project:**  
-Firebase Console → Project Settings → Service Accounts → Generate new private key
+### 1️⃣ Access & Connection
+* **Accept Invite:** Check your email for the Supabase workspace invitation.
+* **Get JDBC URL:** 1. Open [Supabase Dashboard](https://supabase.com/dashboard) → `rumi-rental-db-test` (from the Projects).
+    2. Click **Connect** (top-right corner).
+    3. Choose **Connection Type: JDBC** and **Method: Session Pooler**.
+    4. Copy the URL (e.g., `jdbc:postgresql://xxxxx.supabase.co:5432/postgres`).
 
-> ⚠️ **Notes (Very Important)**  
-> `FIREBASE_CREDENTIALS` must point to the Firebase JSON file path on your machine.
+### 2️⃣ Credentials
+* **Get Password:** Will be given by me to the team.
+* Copy the database password for the next step.
 
+---
 
-Notes (very important):
-<br>
-FIREBASE_CREDENTIALS must point to the **Firebase JSON file path on your machine**.
-<br>
-<br>
-Store this file locally in a folder in Documents and copy the path and create the env variable FIREBASE_CREDENTIALS
-- **IMPORTANT : Do not commit this JSON to Git**
+## 📂 Environment Configuration
 
-Make sure .env variables are set.<br><br>
-How to set the env variables ?
-<br>
-Here you go,<br>
-In Command prompt :
+> [!WARNING]  
+> This project uses `env.properties`, **NOT** `.env`. You must create this manually in the root directory.
 
-Windows example:<br>
-setx DB_URL "jdbc:mysql://localhost:3306"<br>
-setx DB_USERNAME "root"<br>
-setx DB_PASSWORD "root123"<br>
-setx FIREBASE_CREDENTIALS "C:\path\to\firebase.json"<br>
-Example information here, give your correct infor and set.<br><BR>
-**IMPORTANT : Please restart your IDE after creating the environmental variables on the system.**
+### 3️⃣ Create `env.properties`
+rumi_backend_v2 → New → File → Name it (**env.properties**)
 
-2)Flyway Database Migration
-------------------------------------
-Flyway will automatically create the database schema and tables if they don’t exist.
+Place this file in the **root folder** ( will appear above `src` and `pom.xml` after created):
 
-Default tables created:
-- roles
-- users
-- rentee_profiles
-- renter_profiles
-- flyway_schema_history
+```text
+rumi_backend_v2/
+ ├── src
+ ├── env.properties   <-- 📄 Create this file here
+ └── pom.xml
+```
+### 4️⃣ Add Credentials
+Inside `env.properties`, add the following lines (replace with your actual values):
 
-Roles inserted: admin, rentee, renter
+```properties
+DB_URL=your_copied_jdbc_url
+DB_USERNAME=the_database_username (In the link you copied from Supabase)
+DB_PASSWORD=your_database_password (I have provided it to you)
+```
 
-**Important : Run "CREATE DATABASE rumi_rental_db" sql statement to create the database on your sql server, before running the application.**
+## ⚙️ Project Status (Already Configured)
+The following configurations are hardcoded—no action needed:
 
-3)Finally Run Spring Boot:
-------------------------------------
-mvn spring-boot:run
+1. **PostgreSQL Dependency: Drivers and JPA dialects are pre-installed (I have done it for you).**
 
-4)Testing Database & Firebase
-------------------------------------
-1. Test MySQL Tables
-GET http://localhost:8080/test/mysql/tables
+2. **Datasource Mapping: <br>application.properties is already linked to your environment variables:**
 
-- Expected output:
-<br>MySQL Connected ✅ | Tables: roles, users, rentee_profiles, renter_profiles
+```properties
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+```
+> [!IMPORTANT]
+> 
+> **You do not have to do any configuration just create the env.properties file.**
 
-2. Test MySQL Tables
-GET http://localhost:8080/test/mysql/database
+### 5️⃣ Remove Old Environment Variables (If Any)
 
-- Expected output:<br>
-MySQL Connected ✅ | rumi_rental_db
+If you previously configured MySQL or another database:
 
-3. Test Firebase Initialization
-GET http://localhost:8080/test/firebase
+1. Go to Edit System Environment Variables (Search in the Windows Search Bar)
+2. Click Environment Variables
+3. Delete the following variables (if they exist):
+   - DB_URL
+   - DB_USERNAME
+   - DB_PASSWORD
+   - FIREBASE_CREDENTIALS
+4. Click OK
 
-- Expected output:
-<br>Firebase Connected ✅ | App name: [DEFAULT]
+> [!IMPORTANT]
+> 
+> **🔁 Restart IntelliJ after deleting them**
 
-3️⃣ Notes on Usage
-------------------------------------
-- User registration & login handled by Firebase.
-- Database stores user metadata and profile information.
-- Database are created using Flyway (Database Migration)
-- Database are created using versioning, so with new versions we can add, update or remove as we go on.
-- All role-specific info is in separate profile tables:
-<br>rentee_profiles, <br>renter_profiles
-- Use profile_completed & phone_verified flags to control first-time flows.
+## Finally What to do
+### ▶️ How to Run
+1. Pull 🔄 the latest code from main branch.
+2. Create 📄 the env.properties file correctly as instructed above.
+3. Run ▶️ the Spring Boot application.
 
-4️⃣ Best Practices
-------------------------------------
+### ✅ Expected Result 
+Application starts on port 8080 (default) without datasource errors.
 
-- Never commit firebase-service.json to Git.
-- Use .env or system variables for credentials.
-<br>
+### 🛠 Troubleshooting
+If you see...Try this...Connection Refused → Verify you are using the Session Pooler (Port 5432).
 
-For production hosting:
-- Use secure DB credentials (never default root).
-- Use cloud-hosted MySQL (e.g., AWS RDS, Google Cloud SQL).
-- Use Firebase for all authentication — backend verifies tokens.
+Property not found → Ensure the file name is exactly env.properties (lowercase).
 
-5️⃣ Finally What to do
-------------------------------------
-1. Give me your email I will add you to the Firebase project.
-2. Download the Firebase service account JSON from the Firebase project.
-3. Store the Json file away from the GitHub Repo, store it locally somewhere _(e.g.Documents/folder)_.
-4. Now set-up the mySQL server and workbench or go with Xampp _(phpmyadmin)_.
-5. Now create the environmental variables _(DB_URL, DB_USERNAME, DB_PASSWORD, FIREBASE_CREDENTIALS)_.
-6. Next restart your IDE.
-7. Now go to mySQL and Create a Database for Rumi with this name rumi_rental_db - use this name only _(CREATE DATABASE rumi_rental_db)_.
-8. Now run the Spring Boot application.
-9. Next test the endpoints to verify, database creation success.
-10. Now start working with the database and the system.
+## 👥 Team Workflow
+
+### 1. Pull 🔄 | 2. Configure Env ⚙️ | 3. Run ▶️ | 4. Code 💻
