@@ -1,7 +1,11 @@
 package com.rumi.rumi_backend_v2.entity;
 
+// IMPORT OF THE GENDERALLOWED ENUM
 import com.rumi.rumi_backend_v2.enums.GenderAllowed;
+
+// IMPORT OF THE ROOMSTATUS ENUM
 import com.rumi.rumi_backend_v2.enums.RoomStatus;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +21,8 @@ public class RoomDetail {
     private Long roomId;
 
     // Many rooms belong to one renter (User)
-    @ManyToOne
+    @Getter
+    @ManyToOne (fetch = FetchType.LAZY)  // fetch = FetchType.LAZY is to load only the room details not whole renter details until asked
     @JoinColumn(name = "user_id", nullable = false) // Here it creates a user_id column in the RoomDetail table
     private User renter;
 
@@ -30,23 +35,23 @@ public class RoomDetail {
     @Setter
     @Getter
     @Column(name="max_roommates",nullable=false)
-    private int max_roommates;
+    private int maxRoommates;
 
     @Setter
     @Getter
     @Column(name="room_title",nullable=false)
-    private String room_title;
+    private String roomTitle;
 
     @Setter
     @Getter
-    @Column(name="room_title",nullable=false)
-    private String room_description;
+    @Column(name="room_description",nullable=false)
+    private String roomDescription;
 
     @Setter
     @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = "room_status", nullable = false)
-    private RoomStatus room_status;
+    private RoomStatus roomStatus;
 
 
 }
