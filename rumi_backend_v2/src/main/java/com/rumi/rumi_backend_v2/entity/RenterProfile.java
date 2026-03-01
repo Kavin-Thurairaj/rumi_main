@@ -2,11 +2,13 @@ package com.rumi.rumi_backend_v2.entity;
 
 import com.rumi.rumi_backend_v2.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="renter_profile")
+@NoArgsConstructor   // Here a default constructor will be created for the RoomDetail class.
+@AllArgsConstructor  // Here a parameterised constructor will be created for the RoomDetail class.
+@Builder
 public class RenterProfile {
     @Id
     @Getter
