@@ -15,7 +15,7 @@ public class RoomImage {
     @Column(name = "image_id")
     private Long imageId;
 
-    @ManyToOne
+    @ManyToOne // Here this is the child entity of the RoomDetail Entity so the foreign key comes from the RoomDetail entity where it is ManyToOne.
     @JoinColumn(name="room_id", nullable=false)
     private RoomDetail room;
 
