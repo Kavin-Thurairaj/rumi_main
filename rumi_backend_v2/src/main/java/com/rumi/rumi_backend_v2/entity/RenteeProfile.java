@@ -9,8 +9,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="rentee_profile")
-@NoArgsConstructor   // Here a default constructor will be created for the RoomDetail class.
-@AllArgsConstructor  // Here a parameterised constructor will be created for the RoomDetail class.
 @Builder
 public class RenteeProfile {
 
@@ -21,7 +19,6 @@ public class RenteeProfile {
 
     // here if we set the user object the firebaseUID will be taken and stored in the id variable by the @MapId
     @Getter
-    @Setter
     @OneToOne  // Here we map that one user belong to one profile (RenteeProfile)
     @MapsId // Here it takes the firebaseUID and match it in the RenteeProfile
     @JoinColumn(name = "rentee_user_id")
