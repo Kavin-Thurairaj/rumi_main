@@ -5,8 +5,6 @@ import lombok.*;
 
 @Entity
 @Table(name="room_image")
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class RoomImage {
     @Id

@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table (name="room_booking_request")
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class RoomBookingRequest {
 
     @Id

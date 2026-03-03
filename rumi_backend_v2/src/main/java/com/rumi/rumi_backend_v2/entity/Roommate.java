@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="roommate")
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Roommate {
 
     @Id
@@ -24,6 +22,7 @@ public class Roommate {
     @ManyToOne
     @JoinColumn(name="room_id", nullable=false)
     @Getter
+    @Setter
     private RoomDetail room;
 
     @ManyToOne

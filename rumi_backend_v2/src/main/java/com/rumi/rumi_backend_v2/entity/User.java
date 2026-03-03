@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="app_user")
 @Builder           // for easy object creation
-@AllArgsConstructor       // needed by @Builder
-@NoArgsConstructor  // required by JPA
 public class User {
 
     @Id
@@ -22,14 +20,17 @@ public class User {
     private String supabaseUid;
 
     @Getter
+    @Setter
     @Column(name="full_name", nullable = false)
     private String full_name;
 
     @Getter
+    @Setter
     @Column(name="email",nullable = false, unique = true)
     private String email;
 
     @Getter
+    @Setter
     @Column(name="phone_number",nullable = false, unique = true)
     private String phone_number;
 

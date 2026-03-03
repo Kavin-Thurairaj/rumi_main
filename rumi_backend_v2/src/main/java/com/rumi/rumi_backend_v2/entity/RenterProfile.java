@@ -6,8 +6,6 @@ import lombok.*;
 
 @Entity
 @Table(name="renter_profile")
-@NoArgsConstructor   // Here a default constructor will be created for the RoomDetail class.
-@AllArgsConstructor  // Here a parameterised constructor will be created for the RoomDetail class.
 @Builder
 public class RenterProfile {
     @Id

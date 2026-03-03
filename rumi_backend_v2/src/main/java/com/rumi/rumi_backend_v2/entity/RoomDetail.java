@@ -14,13 +14,12 @@ import java.util.Set;
 
 @Entity
 @Table(name="room_detail")
-@NoArgsConstructor   // Here a default constructor will be created for the RoomDetail class.
-@AllArgsConstructor  // Here a parameterised constructor will be created for the RoomDetail class.
 @Builder
 public class RoomDetail {
 
     @Id  // This creates an id for th room
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long roomId;
 
     // Many rooms belong to one renter (User)
@@ -51,6 +50,7 @@ public class RoomDetail {
     private String roomDescription;
 
     @ManyToMany  //here it is resolving the many to many relationship
+    @Getter
     @JoinTable(name="room_amenity",
         joinColumns=@JoinColumn(name="room_id"),  // here it will take the primary key from the RoomDetail entity
         inverseJoinColumns=@JoinColumn(name="amenity_id")  //here it will take the primary key from the Amenity entity
@@ -58,6 +58,7 @@ public class RoomDetail {
     private Set<Amenity> amenities = new HashSet<>();  // here the amenities will be stored as set
 
     @ManyToMany
+    @Getter
     @JoinTable(name="room_rule",
             joinColumns=@JoinColumn(name="room_id"),  // here it will take the primary key from the RoomDetail entity
             inverseJoinColumns=@JoinColumn(name="rule_id")  // here it will take the primary key from the Rule entity
@@ -65,6 +66,7 @@ public class RoomDetail {
     private Set<Rule> rules = new HashSet<>();
 
     @ManyToMany
+    @Getter
     @JoinTable(name="room_payment_condition",
             joinColumns=@JoinColumn(name="room_id"),  // here it will take the primary key from the RoomDetail entity
             inverseJoinColumns=@JoinColumn(name="condition_id")  // here it will take the primary key from the PaymentCondition entity
