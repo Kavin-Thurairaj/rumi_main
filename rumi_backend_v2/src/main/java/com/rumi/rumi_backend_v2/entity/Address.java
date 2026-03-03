@@ -6,15 +6,20 @@ import lombok.*;
 
 @Entity
 @Table(name="address")
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Address {
 
+    @Id
+    @Column(name="room_id")
+    @Getter
+    private Long id;   // Here the primary key will be stored where it will be mapped as primary and foreign key
+
     @OneToOne
     @Getter
+    @Setter
+    @MapsId  // This will take the primary key of the RoomDetail and map it as a foreign and primary key for the Address Entity
     @JoinColumn(name="room_id", nullable=false)
-    private RoomDetail room_id;
+    private RoomDetail room;
 
     @Getter
     @Setter
@@ -40,7 +45,5 @@ public class Address {
     @Setter
     @Column(name="map_url", nullable=false)
     private String mapUrl;
-
-
 
 }
