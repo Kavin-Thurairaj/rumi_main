@@ -3,13 +3,13 @@ package com.rumi.rumi_backend_v2.entity;
 
 import com.rumi.rumi_backend_v2.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name="rentee_profile")
+@Builder
 public class RenteeProfile {
 
     @Id
@@ -28,7 +28,7 @@ public class RenteeProfile {
     @Getter
     @Setter
     @Column(name="preferred_location", nullable=false)
-    private String preferred_location;
+    private String preferredLocation;
 
     @Getter
     @Setter
@@ -39,7 +39,7 @@ public class RenteeProfile {
     @Getter
     @Setter
     @Column(name="date_of_birth", nullable=false)
-    private LocalDate date_of_birth;
+    private LocalDate dateofBirth;
 
 
 }

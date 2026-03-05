@@ -2,11 +2,11 @@ package com.rumi.rumi_backend_v2.entity;
 
 import com.rumi.rumi_backend_v2.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="renter_profile")
+@Builder
 public class RenterProfile {
     @Id
     @Getter

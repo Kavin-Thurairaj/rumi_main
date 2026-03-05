@@ -1,7 +1,7 @@
 package com.rumi.rumi_backend_v2.enums;
 
 public enum RoleName {
-    Admin,
-    Renter,
-    Rentee
+    ADMIN,
+    RENTER,
+    RENTEE
 }
