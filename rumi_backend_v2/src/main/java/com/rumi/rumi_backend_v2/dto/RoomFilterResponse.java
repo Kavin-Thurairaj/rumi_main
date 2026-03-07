@@ -21,12 +21,3 @@ public class RoomFilterResponse {
     private int amount;
     private BillingCycle billingCycle;
 }
-```
-
-After pasting:
-        1. Press **Ctrl + S** to save
-2. Press **Ctrl + K** to open commit window
-3. Tick only **`RoomFilterResponse.java`**
-        4. Type commit message:
-        ```
-feat: add RoomFilterResponse DTO
