@@ -25,6 +25,6 @@ public class RoleNameConverter implements AttributeConverter<RoleName, String> {
         if (normalized.isEmpty()) {
             return null;
         }
-        return RoleName.fromValue(normalized);
+        return RoleName.valueOf(normalized.toUpperCase(Locale.ROOT));
     }
 }
