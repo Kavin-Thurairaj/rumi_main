@@ -1,0 +1,149 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-03-13T00:38:56.433+05:30  INFO 18060 --- [rumi_backend_v2] [           main] c.r.r.RumiBackendV2Application           : Starting RumiBackendV2Application v0.0.1-SNAPSHOT using Java 21.0.10 with PID 18060 (C:\Users\senir\OneDrive\ドキュメント\GitHub\rumi_main\rumi_main\rumi_backend_v2\target\rumi_backend_v2-0.0.1-SNAPSHOT.jar started by senir in C:\Users\senir\OneDrive\ドキュメント\GitHub\rumi_main\rumi_main\rumi_backend_v2)
+2026-03-13T00:38:56.451+05:30  INFO 18060 --- [rumi_backend_v2] [           main] c.r.r.RumiBackendV2Application           : No active profile set, falling back to 1 default profile: "default"
+2026-03-13T00:38:59.048+05:30  INFO 18060 --- [rumi_backend_v2] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-13T00:38:59.082+05:30  INFO 18060 --- [rumi_backend_v2] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-13T00:38:59.407+05:30  INFO 18060 --- [rumi_backend_v2] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 305 ms. Found 1 JPA repository interface.
+2026-03-13T00:39:00.753+05:30  INFO 18060 --- [rumi_backend_v2] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-03-13T00:39:00.818+05:30  INFO 18060 --- [rumi_backend_v2] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-13T00:39:00.853+05:30  INFO 18060 --- [rumi_backend_v2] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-03-13T00:39:00.953+05:30  INFO 18060 --- [rumi_backend_v2] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4389 ms
+2026-03-13T00:39:01.542+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-13T00:39:01.715+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-03-13T00:39:03.185+05:30  INFO 18060 --- [rumi_backend_v2] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-13T00:39:03.285+05:30  INFO 18060 --- [rumi_backend_v2] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-13T00:39:05.916+05:30  INFO 18060 --- [rumi_backend_v2] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7fbbdd8a
+2026-03-13T00:39:05.949+05:30  INFO 18060 --- [rumi_backend_v2] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-13T00:39:06.601+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-13T00:39:08.190+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.Roommate] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.234+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.RoomImage] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.251+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.PaymentCondition] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.278+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.Address] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.296+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.RenteeProfile] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.310+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.RenterProfile] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.324+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.Amenity] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.353+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.RoomDetail] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.374+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.RoomPrice] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.392+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.RoomBookingRequest] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.404+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.Rule] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.424+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000182: No default (no-argument) constructor for class [com.rumi.rumi_backend_v2.entity.User] (class must be instantiated by Interceptor)
+2026-03-13T00:39:08.847+05:30  INFO 18060 --- [rumi_backend_v2] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-13T00:39:10.113+05:30  INFO 18060 --- [rumi_backend_v2] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-13T00:39:10.307+05:30  INFO 18060 --- [rumi_backend_v2] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-13T00:39:10.847+05:30  WARN 18060 --- [rumi_backend_v2] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-13T00:39:12.100+05:30  INFO 18060 --- [rumi_backend_v2] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-03-13T00:39:12.144+05:30  INFO 18060 --- [rumi_backend_v2] [           main] c.r.r.RumiBackendV2Application           : Started RumiBackendV2Application in 17.057 seconds (process running for 18.69)
+2026-03-13T01:14:30.564+05:30  WARN 18060 --- [rumi_backend_v2] [l-1:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7856f298 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-13T01:14:43.460+05:30  WARN 18060 --- [rumi_backend_v2] [onnection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Pool is empty, failed to create/setup connection (d386d6f9-ffab-4bff-aff6-3d9aa2f1ad8e)
+
+org.postgresql.util.PSQLException: The connection attempt failed.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:385) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:752) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731) ~[HikariCP-7.0.2.jar!/:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.net.UnknownHostException: aws-1-ap-southeast-1.pooler.supabase.com
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:567) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:751) ~[na:na]
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:261) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.PGStream.<init>(PGStream.java:122) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:146) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.8.jar!/:42.7.8]
+	... 14 common frames omitted
+
+2026-03-13T01:15:48.575+05:30  WARN 18060 --- [rumi_backend_v2] [onnection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Pool is empty, failed to create/setup connection (6167d416-56c8-4e47-8c12-704f7454a667)
+
+org.postgresql.util.PSQLException: FATAL: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:778) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:234) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:752) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731) ~[HikariCP-7.0.2.jar!/:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-03-13T01:16:56.021+05:30  WARN 18060 --- [rumi_backend_v2] [onnection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Pool is empty, failed to create/setup connection (5de55899-8944-4ef2-a623-8e241c5ed669)
+
+org.postgresql.util.PSQLException: FATAL: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2861) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:178) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:344) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:752) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731) ~[HikariCP-7.0.2.jar!/:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-03-13T01:18:02.927+05:30  WARN 18060 --- [rumi_backend_v2] [onnection-adder] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Pool is empty, failed to create/setup connection (e5c7d975-d4d2-4b84-aade-72fa3f0e0a59)
+
+org.postgresql.util.PSQLException: FATAL: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2861) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:178) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:344) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:279) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.makeConnection(Driver.java:448) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.8.jar!/:42.7.8]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:752) ~[HikariCP-7.0.2.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731) ~[HikariCP-7.0.2.jar!/:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
