@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 // room listing_page import
 import ListingPage from "./room_listing/listing_page";
+import RoomImageUpload from './components/room_image_upload';
 
 function App() {
   return (
@@ -22,8 +23,10 @@ function App() {
         </a>
       </header> */}
 
-      <ListingPage/>
+      {/* <ListingPage/> */}
+      <RoomImageUpload />
     </div>
+
   );
 
 
