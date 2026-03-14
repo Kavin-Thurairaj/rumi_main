@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./App.css";
+import "../../App.css";
 import {
   MapPin,
   ShieldAlert,
@@ -114,7 +114,9 @@ const RoomInfoSection = ({ data, setData }) => {
       type="button"
       onClick={onClick}
       className={`p-3 border rounded-xl w-full flex justify-between ${
-        selected ? "bg-indigo-50 border-indigo-500" : "bg-slate-50"
+        selected
+          ? "bg-cyan-50 border-cyan-500 text-cyan-700"
+          : "bg-slate-50 border-slate-200 hover:border-slate-300"
       }`}
     >
       <div className="flex items-center gap-2">
@@ -122,7 +124,7 @@ const RoomInfoSection = ({ data, setData }) => {
         {label}
       </div>
 
-      {selected && <CheckCircle2 size={18} className="text-indigo-600" />}
+      {selected && <CheckCircle2 size={18} className="text-cyan-600" />}
     </button>
   );
 
@@ -419,11 +421,11 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="landlord-page-shell">
+      <div className="landlord-page-card">
         <Header />
 
-        <div className="bg-white p-6 rounded-xl border space-y-10">
+        <div className="landlord-form-card">
           <RoomInfoSection
             data={formData}
             setData={setFormData}
@@ -442,14 +444,14 @@ const App = () => {
           <div className="flex gap-4">
             <button
               onClick={() => save("Publish")}
-              className="flex-1 bg-indigo-600 text-white py-3 rounded-xl"
+              className="flex-1 bg-[#004a99] text-white py-3 rounded-xl font-semibold"
             >
               Publish
             </button>
 
             <button
               onClick={() => save("Draft")}
-              className="flex-1 bg-slate-200 py-3 rounded-xl"
+              className="flex-1 bg-[#e2e8f0] text-[#1e293b] py-3 rounded-xl font-semibold"
             >
               Draft
             </button>

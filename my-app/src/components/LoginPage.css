@@ -78,7 +78,32 @@
 .lp-form-inner {
   display: flex;
   flex-direction: column;
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 10px 24px rgba(0, 67, 128, 0.08);
+  position: relative;
+  overflow: hidden;
 }
+
+.lp-form-inner::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.35), transparent 65%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.lp-form-header, .lp-form, .lp-role-selector, .lp-signup-row, .lp-divider, .lp-social-btns {
+  position: relative;
+  z-index: 1;
+}
+
 
 .lp-form-header {
   text-align: center;

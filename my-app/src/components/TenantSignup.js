@@ -40,8 +40,9 @@ const TenantSignup = () => {
       </div>
 
       <div className="ts-form-section">
-        <div className="ts-form-header">
-          <div className="ts-user-icon">
+        <div className="ts-form-inner">
+          <div className="ts-form-header">
+            <div className="ts-user-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="10" stroke="#ccc" strokeWidth="2"/>
               <circle cx="12" cy="8" r="3" stroke="#ccc" strokeWidth="2"/>
@@ -91,6 +92,7 @@ const TenantSignup = () => {
         <div className="ts-login-row">
           <p>Already have an account? <span className="ts-link" style={{cursor:'pointer'}} onClick={() => navigate('/login')}>Login</span></p>
         </div>
+      </div>
 
         <div className="ts-divider"><span>or</span></div>
 
