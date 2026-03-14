@@ -1,0 +1,59 @@
+.login-page {
+  display: flex;
+  background: #fff;
+  width: min(95vw, 1100px);
+  min-height: 92vh;
+  margin: 2vh auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+.lp-image-section {
+  flex: 1;
+  position: relative;
+  min-height: 90vh;
+  overflow: hidden;
+}
+
+.lp-logo-section { position: absolute; top: 22px; left: 22px; z-index: 2; }
+.lp-logo { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; }
+.lp-logo-text { color: #004a99; font-size: 14px; font-weight: bold; letter-spacing: 0.5px; }
+
+.lp-bg-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13, 34, 78, 0.15) 0%, rgba(0, 0, 0, 0.75) 100%); display: flex; align-items: flex-end; padding: 36px; }
+.lp-overlay-text h2 { margin: 0; color: #fff; font-size: clamp(1.3rem, 3vw, 2rem); line-height: 1.2; font-weight: 500; }
+
+.lp-form-section { flex: 1; padding: 30px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(180deg, #f2f7ff 0%, #e7f0ff 100%); }
+.lp-form-inner { width: 100%; max-width: 400px; margin: 0 auto; }
+.lp-form-header { text-align: center; margin-bottom: 20px; }
+.lp-title { font-size: 26px; margin: 0 0 6px; color: #0f234d; }
+.lp-subtitle { font-size: 14px; color: #4a5d80; margin: 0; }
+
+.lp-role-selector { display: flex; gap: 8px; margin-bottom: 18px; }
+.lp-role-btn { flex: 1; border: 1px solid #cfd9ee; background: white; color: #0f234d; border-radius: 8px; padding: 10px 12px; cursor: pointer; font-weight: 600; }
+.lp-role-btn.active { background: #004a99; border-color: #004a99; color: #fff; }
+
+.lp-form { display: flex; flex-direction: column; gap: 12px; }
+.lp-input { width: 100%; padding: 12px 14px; border: 1px solid #d7e0f0; border-radius: 8px; outline: none; font-size: 14px; }
+.lp-input:focus { border-color: #00b8d9; box-shadow: 0 0 0 3px rgba(0, 184, 217, 0.14); }
+
+.lp-password-wrapper { position: relative; }
+.lp-eye-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; }
+
+.lp-forgot-row { text-align: right; }
+.lp-forgot-link { color: #004a99; font-size: 13px; text-decoration: none; }
+
+.lp-submit-btn { margin-top: 8px; background: #004a99; color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer; }
+.lp-submit-btn:hover { background: #003f7f; }
+
+.lp-signup-row { text-align: center; font-size: 14px; color: #4a5d80; margin-top: 16px; }
+.lp-link { color: #004a99; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .login-page { flex-direction: column; width: 92vw; border-radius: 12px; margin: 1vh auto; }
+  .lp-image-section { min-height: 250px; }
+  .lp-form-section { padding: 20px; }
+}
