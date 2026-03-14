@@ -30,9 +30,13 @@ import Button from "@mui/material/Button";
 import {  MapPin, CalendarDays, MessageCircle, CircleDollarSign, ChevronRight, Check , BookText, Info, CircleStar} from 'lucide-react';
 import { User } from 'lucide-react';
 import Avatar from "@mui/material/Avatar";
+import RatingStars from "../components/rating_system/component/ratingStars";
+import { useState } from "react";
 
 
-function listing_page(){
+function ListingPage(){
+    const [rating, setRating] = useState(4.2);
+    const [showRatingInput, setShowRatingInput] = useState(false);
     return(
 
         <div>
@@ -119,8 +123,45 @@ function listing_page(){
                                     </Grid>
 
                                     <Grid item>
-                                        <Typography variant='caption' sx={{display:'flex',gap:0.2}}> <MapPin size={15}/>Colombo, City Center</Typography>
+                                        <Typography variant='caption' sx={{display:'flex',gap:0.2}}><MapPin size={15}/>Colombo, City Center</Typography>
                                     </Grid>
+                                    <Grid item>
+                                        <Typography variant='caption' sx={{display:'flex', flexDirection:'column', gap:0.2}}>
+                                            <span style={{ fontWeight:600, fontSize:'0.7rem' }}>Rating</span>
+                                            <span><RatingStars rating={rating} /></span>
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Button
+                                            variant='outlined'
+                                            size='small'
+                                            onClick={() => setShowRatingInput((prev) => !prev)}
+                                            sx={{ textTransform: 'none', fontSize: 11 }}
+                                        >
+                                            {showRatingInput ? 'Hide rating' : 'Rate this room'}
+                                        </Button>
+                                    </Grid>
+
+                                    {showRatingInput && (
+                                        <Grid item xs={12}>
+                                            <Typography sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                <span style={{ fontWeight: 500, fontSize: '0.75rem' }}>Select stars:</span>
+                                                <RatingStars rating={rating} onRate={setRating} />
+                                                <Button
+                                                    size='small'
+                                                    variant='contained'
+                                                    onClick={() => {
+                                                        setShowRatingInput(false)
+                                                        // placeholder for submit
+                                                    }}
+                                                    sx={{ textTransform: 'none', bgcolor: '#1E293B', color: '#fff', '&:hover': { bgcolor: '#16283f' } }}
+                                                >
+                                                    Save
+                                                </Button>
+                                            </Typography>
+                                        </Grid>
+                                    )}
 
                                 </Grid>
 
@@ -512,4 +553,4 @@ function listing_page(){
     )
 }
 
-export default listing_page;
+export default ListingPage;
