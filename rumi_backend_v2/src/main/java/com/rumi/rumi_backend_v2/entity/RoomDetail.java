@@ -14,6 +14,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="room_detail")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class RoomDetail {
 

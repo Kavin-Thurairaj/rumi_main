@@ -1,5 +1,8 @@
 
 import './App.css';
+// room listing_page import
+import ListingPage from "./room_listing/listing_page";
+import RoomImageUpload from './components/room_image_upload';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import TenantSignup from './components/TenantSignup';
@@ -20,6 +23,8 @@ function App() {
       <Home_statement />
       <PlaceScroller />
 
+      <ListingPage/>
+      {/* <RoomImageUpload/> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandlordPage />} />
@@ -30,6 +35,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+
   );
 }
 

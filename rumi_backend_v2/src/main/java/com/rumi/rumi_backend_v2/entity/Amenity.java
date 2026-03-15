@@ -5,6 +5,8 @@ import lombok.*;
 
 @Entity
 @Table(name="amenity")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Amenity {
 

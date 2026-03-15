@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="roommate")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Roommate {
 

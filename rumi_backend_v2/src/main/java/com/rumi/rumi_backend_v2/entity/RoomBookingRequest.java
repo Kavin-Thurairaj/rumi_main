@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table (name="room_booking_request")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class RoomBookingRequest {
 

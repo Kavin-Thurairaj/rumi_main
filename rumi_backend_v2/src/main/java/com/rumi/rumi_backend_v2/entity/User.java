@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="app_user")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder           // for easy object creation
 public class User {
 

@@ -7,6 +7,8 @@ import lombok.*;
 
 @Entity
 @Table(name="rule")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Rule {
 

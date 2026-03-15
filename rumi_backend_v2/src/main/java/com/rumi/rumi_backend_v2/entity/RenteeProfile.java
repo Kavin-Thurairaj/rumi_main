@@ -9,19 +9,21 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="rentee_profile")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class RenteeProfile {
 
     @Id
     @Getter
     @Column(name="rentee_user_id", nullable=false)
-    private String id;  // Here it is a unique id for the rentee profile the firebaseUID
+    private String id;  // Here it is a unique id for the rentee profile the supabaseUID
 
-    // here if we set the user object the firebaseUID will be taken and stored in the id variable by the @MapId
+    // here if we set the user object the supabaseUID will be taken and stored in the id variable by the @MapId
     @Getter
     @Setter
     @OneToOne  // Here we map that one user belong to one profile (RenteeProfile)
-    @MapsId // Here it takes the firebaseUID and match it in the RenteeProfile
+    @MapsId // Here it takes the supabaseUID and match it in the RenteeProfile
     @JoinColumn(name = "rentee_user_id")
     private User user;  // Here we store the one user related to that UID so we can get the User object details
 

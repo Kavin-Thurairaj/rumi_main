@@ -76,13 +76,15 @@ function listing_page(){
                                 borderRadius: 1.5,
                                 border: '1px solid #CBD5E1',
                                 boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
+                                width:'100%',  //This gives the card to have a full width
                                 maxWidth: '100%', // responsive fallback
                                 height: 300,
+                                
                                
                             }}
                         >
                             <CardContent sx={{ p: 0, '&:last-child': { pb: 0 }, height: '100%' }}>
-                                <RoomSlider rooms={roomobject}/>
+                                <RoomSlider /> 
                             </CardContent>
                         </Card>
                     </Box>

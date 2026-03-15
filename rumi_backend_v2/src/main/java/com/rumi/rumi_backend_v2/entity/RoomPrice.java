@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Table(name="room_price")
 public class RoomPrice {

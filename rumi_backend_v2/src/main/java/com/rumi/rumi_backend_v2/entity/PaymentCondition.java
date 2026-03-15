@@ -6,6 +6,8 @@ import lombok.*;
 
 @Entity
 @Table(name="payment_condition")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class PaymentCondition {
 
