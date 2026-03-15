@@ -24,7 +24,6 @@ public class SupabaseStorageService {
 
 
     public String upload(MultipartFile file, String path) {
-
         try {
             String uploadUrl = supabaseUrl + "/storage/v1/object/" + bucket + "/" + path;
             HttpURLConnection connection = getHttpURLConnection(file, uploadUrl);
@@ -35,6 +34,7 @@ public class SupabaseStorageService {
 
             int responseCode = connection.getResponseCode();
             if (responseCode != 200) {
+                System.out.println("SupaBase: "+ connection.getResponseMessage() +" "+ connection.toString() );
                 throw new RuntimeException("Supabase Image Upload Failed: " + connection.getResponseMessage());
             }
 
