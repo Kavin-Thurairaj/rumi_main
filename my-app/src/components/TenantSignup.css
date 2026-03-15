@@ -1,0 +1,190 @@
+.ts-page {
+  display: flex;
+  background: white;
+  width: 90vw;
+  min-height: 90vh;
+  margin: 5vh auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+.ts-image-section {
+  flex: 1;
+  position: relative;
+  min-height: 90vh;
+}
+
+.ts-logo-section {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 2;
+}
+
+.ts-logo {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-logo-text {
+  color: #004a99;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ts-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ts-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.72));
+  padding: 60px 30px 40px;
+}
+
+.ts-overlay-badge {
+  display: inline-block;
+  background: #004a99;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.ts-overlay-text h2 {
+  color: white;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.ts-form-section {
+  flex: 1;
+  padding: 35px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #f8f9fa;
+  overflow-y: auto;
+}
+
+.ts-form-inner {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 10px 24px rgba(0, 67, 128, 0.08);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-form-inner::before {
+  content: '';
+  position: absolute;
+  top: -35px;
+  right: -35px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.35), transparent 66%);
+  z-index: 0;
+}
+
+.ts-form-inner > * { position: relative; z-index: 1; }
+
+.ts-form-header { text-align: center; margin-bottom: 18px; }
+.ts-title { font-size: 24px; margin: 0 0 4px; color: #333; font-weight: 600; }
+.ts-subtitle { font-size: 14px; color: #888; margin: 0; }
+
+.ts-form { display: flex; flex-direction: column; gap: 13px; }
+.ts-row { display: flex; gap: 10px; }
+
+.ts-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: white;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.ts-input:focus { border-color: #00b8d9; box-shadow: 0 0 0 3px rgba(0, 184, 217, 0.12); }
+.ts-full { width: 100%; }
+
+.ts-password-wrapper { position: relative; }
+.ts-password-wrapper .ts-input { padding-right: 45px; }
+
+.ts-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.ts-terms { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
+.ts-terms input[type='checkbox'] { accent-color: #004a99; width: 16px; height: 16px; cursor: pointer; }
+.ts-link { color: #004a99; text-decoration: none; font-weight: 500; }
+.ts-link:hover { text-decoration: underline; }
+
+.ts-submit-btn {
+  background: #004a99;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s ease;
+}
+
+.ts-submit-btn:hover { background: #003f7f; }
+.ts-login-row { text-align: center; margin: 14px 0 0; font-size: 14px; color: #666; }
+
+.ts-divider { text-align: center; margin: 14px 0; position: relative; }
+.ts-divider::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: #ddd; z-index: 1; }
+.ts-divider span { background: #f8f9fa; padding: 0 10px; position: relative; z-index: 2; font-size: 12px; color: #999; }
+
+.ts-social-btns { display: flex; gap: 10px; }
+.ts-social-btn {
+  flex: 1; padding: 10px; border: 1px solid #ddd; background: white;
+  border-radius: 8px; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 8px; font-size: 14px; font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+.ts-social-btn:hover { border-color: #20B2AA; }
+
+@media (max-width: 768px) {
+  .ts-page { flex-direction: column; width: 100%; border-radius: 0; }
+  .ts-image-section { min-height: 220px; }
+  .ts-row { flex-direction: column; }
+}

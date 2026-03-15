@@ -1,0 +1,31 @@
+
+.scroller-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.scroller-track-left{
+  display: flex;
+  width: calc(400px * 8); 
+  animation: scroll 20s linear infinite;
+}
+
+.scroller-image {
+  width: 700px;
+  height: 300px;
+  border-radius: 20px;
+  margin-left: 2%;
+  margin-top: 2%;
+  object-fit: cover;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1600px);
+  }
+}
+
