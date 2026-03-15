@@ -30,13 +30,19 @@ function RoomSlider(){
 
     const handleFetch = async () => {
         try {
-        const result = await imageApi.getImage(5) // here we call the getImage method in the imageApi the get endpoint fetch
-        console.log("the result: "+result.data)
-        setFetchImg(result.data)  // In the state variable fetchImg we save the result data
+            const result = await imageApi.getImage(5) // here we call the getImage method in the imageApi the get endpoint fetch
+            console.log("the result: "+result.data)
+            setFetchImg(result.data)  // In the state variable fetchImg we save the result data
         } 
         catch (err) {
-        console.log("error: "+err)
-        setError("Failed to load images. Please try again later.")  // This error state will be set if the image fetch failed
+            console.log("error: "+err)
+            if (err.response?.status === 404) {
+                setError("Room not found.")
+            } else if (err.response?.status === 500) {
+                setError("Server error. Please try again later.")
+            } else {
+                setError("Failed to load images. Please try again later.") // This error state will be set if the image fetch failed
+            }   
         }
         finally{
             setLoading(false)

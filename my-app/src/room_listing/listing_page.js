@@ -80,11 +80,10 @@ function listing_page(){
                                 maxWidth: '100%', // responsive fallback
                                 height: 300,
                                 
-                               
                             }}
                         >
                             <CardContent sx={{ p: 0, '&:last-child': { pb: 0 }, height: '100%' }}>
-                                <RoomSlider /> 
+                                <RoomSlider/> 
                             </CardContent>
                         </Card>
                     </Box>
