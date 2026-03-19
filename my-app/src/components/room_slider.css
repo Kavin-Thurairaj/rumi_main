@@ -140,7 +140,7 @@
 
 @keyframes slider-spin {
   to {
-    transform: rotate(180deg);
+    transform: rotate(360deg);
   }
 }
 

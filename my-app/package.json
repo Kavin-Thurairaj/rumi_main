@@ -16,13 +16,14 @@
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.13.1",
     "react-scripts": "5.0.1",
-    "swiper": "^12.1.0",
+    "swiper": "^12.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "react-scripts test --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
