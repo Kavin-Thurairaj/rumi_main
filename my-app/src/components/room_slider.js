@@ -2,7 +2,7 @@
 // Import of Swiper and SwiperSlide
 import {Swiper,SwiperSlide} from 'swiper/react';
 
-import {useState,useEffect} from 'react';
+import { useState,useEffect } from 'react';
 
 
 // importing the swiper css 
