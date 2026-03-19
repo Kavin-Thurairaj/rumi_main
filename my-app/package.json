@@ -25,6 +25,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
+  "jest": {
+  "transformIgnorePatterns": [
+    "/node_modules/(?!(swiper|ssr-window|dom7)/)"
+  ]
+  },
+  
   "eslintConfig": {
     "extends": [
       "react-app",

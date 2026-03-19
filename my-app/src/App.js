@@ -23,7 +23,7 @@ function App() {
       <Home_statement />
       <PlaceScroller />
 
-      {/* <ListingPage/> */}
+      <ListingPage/>
       {/* <RoomImageUpload/> */}
       <BrowserRouter>
         <Routes>
