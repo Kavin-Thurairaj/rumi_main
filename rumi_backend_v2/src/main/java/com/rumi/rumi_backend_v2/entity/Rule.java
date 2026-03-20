@@ -21,9 +21,6 @@ public class Rule {
     @Getter
     @Setter
     @Column(name="rule_name")
-    public String getName() {
-        return ruleName;
-    }
     private String ruleName;
 
 }
