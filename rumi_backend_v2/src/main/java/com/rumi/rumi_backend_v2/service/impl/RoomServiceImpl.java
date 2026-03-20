@@ -110,7 +110,7 @@ public class RoomServiceImpl implements RoomService {
                         .map(r -> RoomDetailResponse.RuleDto.builder().ruleId(r.getRuleId()).name(r.getRuleName()).build())
                         .collect(Collectors.toList()))
                 .paymentConditions(room.getPaymentConditions() == null ? null : room.getPaymentConditions().stream()
-                        .map(pc -> RoomDetailResponse.PaymentConditionDto.builder().conditionId(pc.getConditionId()).name(pc.getConditionName()).build())
+                        .map(pc -> RoomDetailResponse.PaymentConditionDto.builder().conditionId(pc.getConditionId()).name(pc.getConditionName().name()).build())
                         .collect(Collectors.toList()))
                 .renterId(room.getRenter() != null ? room.getRenter().getUserId() : null)
                 .imageUrls(null) // To be filled by RoomImageService if needed
