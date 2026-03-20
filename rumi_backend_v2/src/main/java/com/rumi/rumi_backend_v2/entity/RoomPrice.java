@@ -38,4 +38,7 @@ public class RoomPrice {
     @Setter
     private int advance;
 
+        public void setRoom(RoomDetail room) {
+            this.room = room;
+        }
 }

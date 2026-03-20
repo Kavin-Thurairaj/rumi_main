@@ -19,6 +19,10 @@ public class Amenity {
     @Getter
     @Setter
     @Column(name="amenity_name")
+    
+    public String getName() {
+        return amenityName;
+    }
     private String amenityName;
 
 }

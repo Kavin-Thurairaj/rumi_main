@@ -20,6 +20,9 @@ public class User {
     @Getter
     @Column(name="user_id", nullable = false, unique = true)
     private String supabaseUid;
+    public String getUserId() {
+        return supabaseUid;
+    }
 
     @Getter
     @Setter

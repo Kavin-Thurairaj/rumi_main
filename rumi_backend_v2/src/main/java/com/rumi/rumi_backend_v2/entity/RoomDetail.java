@@ -81,5 +81,30 @@ public class RoomDetail {
     @Column(name = "room_status",columnDefinition = "room_status",nullable = false)
     private RoomStatus roomStatus;
 
+        public void setRenter(User renter) {
+            this.renter = renter;
+        }
+
+        public void setAmenities(Set<Amenity> amenities) {
+            this.amenities = amenities;
+        }
+
+        public void setRules(Set<Rule> rules) {
+            this.rules = rules;
+        }
+
+        public void setPaymentConditions(Set<PaymentCondition> paymentConditions) {
+            this.paymentConditions = paymentConditions;
+        }
+
+        public Address getAddress() {
+            // Implement according to your mapping, placeholder
+            return null;
+        }
+
+        public RoomPrice getRoomPrice() {
+            // Implement according to your mapping, placeholder
+            return null;
+        }
 
 }

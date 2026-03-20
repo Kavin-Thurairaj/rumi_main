@@ -24,5 +24,12 @@ public class PaymentCondition {
     @Column(name="condition_name",columnDefinition = "payment_condition_name",nullable=false )
     private PaymentConditionName conditionName;
 
+        public Long getConditionId() {
+            return condition_id;
+        }
+
+        public String getName() {
+            return conditionName != null ? conditionName.name() : null;
+        }
 
 }
