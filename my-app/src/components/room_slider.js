@@ -30,7 +30,7 @@ function RoomSlider(){
 
     const handleFetch = async () => {
         try {
-            const result = await imageApi.getImage(5) // here we call the getImage method in the imageApi the get endpoint fetch
+            const result = await imageApi.getImage(1) // here we call the getImage method in the imageApi the get endpoint fetch
             console.log("the result: "+result.data)
             setFetchImg(result.data)  // In the state variable fetchImg we save the result data
         } 

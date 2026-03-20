@@ -33,7 +33,7 @@ public class RoomDetail {
     @Setter
     @Getter
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender_allowed", nullable = false)
+    @Column(name = "gender_allowed",columnDefinition = "gender_allowed",nullable = false)
     private GenderAllowed genderAllowed;
 
     @Setter
@@ -78,7 +78,7 @@ public class RoomDetail {
     @Setter
     @Getter
     @Enumerated(EnumType.STRING)
-    @Column(name = "room_status", nullable = false)
+    @Column(name = "room_status",columnDefinition = "room_status",nullable = false)
     private RoomStatus roomStatus;
 
 

@@ -20,7 +20,8 @@ public class PaymentCondition {
     @Enumerated(EnumType.STRING)
     @Getter
     @Setter
-    @Column(name="condition_name", nullable=false)
+    // In Supabase we ran a postreqsql query for the enum creation in the db and columndefinition to link it enum and column.
+    @Column(name="condition_name",columnDefinition = "payment_condition_name",nullable=false )
     private PaymentConditionName conditionName;
 
 

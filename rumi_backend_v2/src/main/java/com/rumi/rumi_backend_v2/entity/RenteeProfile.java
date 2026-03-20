@@ -35,7 +35,7 @@ public class RenteeProfile {
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name="gender", nullable=false)
+    @Column(name="gender",columnDefinition = "gender",nullable=false)
     private Gender gender;
 
     @Getter

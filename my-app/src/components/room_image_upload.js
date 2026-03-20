@@ -37,7 +37,7 @@ export default function RoomUpload() {
     setSuccess(false)
     setError('')
     try {
-      await imageApi.uploadImage(selectedFiles, 5)
+      await imageApi.uploadImage(selectedFiles, 1)
       setSuccess(true)
       setSelectedFiles([])
       setPreviews([])
@@ -56,7 +56,7 @@ export default function RoomUpload() {
   // ✅ Fix 2: fetch wrapped in a function, result stored in state
   const handleFetch = async () => {
     try {
-      const result = await imageApi.getImage(5)
+      const result = await imageApi.getImage(1)
       setFetchImg(result)
     } catch (err) {
       setError("Failed to load gallery")

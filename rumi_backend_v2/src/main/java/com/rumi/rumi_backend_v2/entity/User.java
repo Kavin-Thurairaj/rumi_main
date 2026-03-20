@@ -40,14 +40,15 @@ public class User {
     @Setter
     // Role field using enum
     @Enumerated(EnumType.STRING)
-    @Column(name ="role",nullable = false)
+    @Column(name ="role",columnDefinition = "role_name",nullable = false)
     // here we store only the enum value (Admin, Renter and Rentee)
     private RoleName role;
 
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)   // The enum value will be stored as String
-    @Column(name="status",nullable = false)
+    // In SupaBase we ran a PostgreSQL query for the enum creation in the db and column definition to link it enum and column.
+    @Column(name="status",columnDefinition = "user_status",nullable = false)
     // here we store only the enum value (Active, Inactive, Suspended, Deleted)
     private UserStatus status;
 

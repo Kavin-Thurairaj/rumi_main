@@ -45,7 +45,7 @@ public class Roommate {
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name="status", nullable=false)
+    @Column(name="status",columnDefinition = "roommate_status",nullable=false)
     private RoommateStatus roommateStatus;
 
 }

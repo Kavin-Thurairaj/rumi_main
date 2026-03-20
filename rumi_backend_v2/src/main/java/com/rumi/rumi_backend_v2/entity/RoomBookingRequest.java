@@ -33,7 +33,7 @@ public class RoomBookingRequest {
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name="booking_status", nullable=false)
+    @Column(name="booking_status",columnDefinition = "room_booking_request_status",nullable=false)
     private RoomBookingRequestStatus bookingStatus;
 
     @Getter
