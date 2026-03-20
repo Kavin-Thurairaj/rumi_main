@@ -66,13 +66,13 @@ public class RoomServiceImpl implements RoomService {
         roomPriceRepo.save(price);
         // Amenities
         List<Amenity> amenities = amenityRepo.findByAmenityIdIn(dto.getAmenityIds());
-        room.setAmenities(amenities);
+        room.setAmenities(new java.util.HashSet<>(amenities));
         // Rules
         List<Rule> rules = ruleRepo.findByRuleIdIn(dto.getRuleIds());
-        room.setRules(rules);
+        room.setRules(new java.util.HashSet<>(rules));
         // Payment Conditions
         List<PaymentCondition> paymentConditions = paymentConditionRepo.findByConditionIdIn(dto.getPaymentConditionIds());
-        room.setPaymentConditions(paymentConditions);
+        room.setPaymentConditions(new java.util.HashSet<>(paymentConditions));
         roomRepo.save(room);
         return room.getRoomId();
     }
@@ -104,13 +104,13 @@ public class RoomServiceImpl implements RoomService {
                         .billingCycle(price.getBillingCycle())
                         .build())
                 .amenities(room.getAmenities() == null ? null : room.getAmenities().stream()
-                        .map(a -> RoomDetailResponse.AmenityDto.builder().amenityId(a.getAmenityId()).name(a.getName()).build())
+                        .map(a -> RoomDetailResponse.AmenityDto.builder().amenityId(a.getAmenityId()).name(a.getAmenityName()).build())
                         .collect(Collectors.toList()))
                 .rules(room.getRules() == null ? null : room.getRules().stream()
-                        .map(r -> RoomDetailResponse.RuleDto.builder().ruleId(r.getRuleId()).name(r.getName()).build())
+                        .map(r -> RoomDetailResponse.RuleDto.builder().ruleId(r.getRuleId()).name(r.getRuleName()).build())
                         .collect(Collectors.toList()))
                 .paymentConditions(room.getPaymentConditions() == null ? null : room.getPaymentConditions().stream()
-                        .map(pc -> RoomDetailResponse.PaymentConditionDto.builder().conditionId(pc.getConditionId()).name(pc.getName()).build())
+                        .map(pc -> RoomDetailResponse.PaymentConditionDto.builder().conditionId(pc.getConditionId()).name(pc.getConditionName()).build())
                         .collect(Collectors.toList()))
                 .renterId(room.getRenter() != null ? room.getRenter().getUserId() : null)
                 .imageUrls(null) // To be filled by RoomImageService if needed
