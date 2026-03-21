@@ -1,13 +1,25 @@
 import { useState } from "react";
 import "../styles/sharefilter.css";
 
+const CITIES = [
+  'All Cities', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Chilaw', 'Colombo',
+  'Dambulla', 'Dehiwala', 'Galle', 'Jaffna', 'Kandy', 'Kalutara', 'Kurunegala',
+  'Matara', 'Monaragala', 'Negombo', 'Nuwara Eliya', 'Panadura', 'Peradeniya',
+  'Polonnaruwa', 'Ratnapura', 'Sri Jayawardenepura Kotte', 'Trincomalee',
+];
+
 const ShareFilterBar = ({ onSearch }) => {
-  const [location, setLocation] = useState("");
+  const [city, setCity] = useState("All Cities");
   const [budget, setBudget] = useState("");
   const [gender, setGender] = useState("");
 
   const handleSearch = () => {
-    onSearch({ location, budget, gender });
+      console.log("City being sent:", city);
+    onSearch({
+      city: city === "All Cities" ? "" : city,
+      budget,
+      genderAllowed: gender
+    });
   };
 
   return (
@@ -16,12 +28,9 @@ const ShareFilterBar = ({ onSearch }) => {
 
         <div className="filter-field">
           <label>Location</label>
-          <input
-            type="text"
-            placeholder="e.g., Colombo"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
+          <select onChange={(e) => setCity(e.target.value)}>
+            {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
         </div>
 
         <div className="filter-field">
@@ -38,8 +47,8 @@ const ShareFilterBar = ({ onSearch }) => {
           <label>Roommate Gender</label>
           <select onChange={(e) => setGender(e.target.value)}>
             <option value="">Any Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
           </select>
         </div>
 
@@ -53,4 +62,3 @@ const ShareFilterBar = ({ onSearch }) => {
 };
 
 export default ShareFilterBar;
-
