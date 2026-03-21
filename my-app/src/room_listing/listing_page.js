@@ -150,141 +150,6 @@ function ListingPage(){
                             <RatingDisplay roomId={roomId} />
                         </Box>
                     </Box>
-
-                    {/* User review and tenant Review */}
-                    <Card variant='outlined'
-                    sx={{
-                        bgcolor:'#FFFF',
-                        borderRadius:1.5,
-                        border:'1px solid #CBD5E1',
-                        boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)'
-                    }}
-                    >
-
-                        <CardContent sx={{p:1 ,"&:last-child":{pb:1}}}>  {/*padding for the card content is given and last child bottom of the card content a padding will be given of 1  */}
-
-                            <Grid container direction={'column'} spacing={0.5}>
-                                {/* Tenant Reviews title */}
-                                <Grid item>
-                                    <Typography variant= 'p' color='#1E293B'>Tenant Reviews</Typography>
-                                </Grid>
-
-                                {/* Number of user reviews */}
-                                <Grid container spacing={3}>
-
-                                    <Grid item sx={{display:'flex',alignItems:'center',gap:0.5}}>
-                                        <User size={15} />
-                                        <Typography variant='body2' sx={{ fontSize: 12 }}>
-                                            23 Reviews
-                                        </Typography>
-                                    </Grid>
-
-                                </Grid>
-
-                                {/* Avater, Name and Review from the customers */}
-                                <Grid container alignItems="flex-start" spacing={1.5}>
-                                    <Grid item>
-                                        <Avatar sx={{width:35, height:35,bgcolor:'#0057b8',p:2}}>NJ</Avatar>
-                                    </Grid>
-
-                                    {/* Name, how long customer stayed and review */}
-                                    <Grid item sx={{flex:1, minWidth:0}}>
-                                        <Grid container direction={'column'} spacing={0}>
-                                            <Grid item>
-                                                <Typography sx={{
-                                                    fontSize:'0.75rem', //font size of the text
-                                                    fontWeight: 400,
-                                                    textTransform: 'uppercase',  // Convert all the letter to uppercase
-                                                    letterSpacing: '0.8',
-                                                    lineHeight: 1,  // THe height of the line
-                                                    m: 0,
-                                                    p: 0,
-                                                }}>
-                                                    Nehthan Johnson
-                                                </Typography>
-                                            </Grid>
-
-                                            <Grid item>
-                                                <Typography color="gray" sx={{
-                                                    fontSize:'0.625rem',
-                                                    textTransform:'none',
-                                                    lineHeight:1,
-                                                    letterSpacing:0,
-                                                    p:0,
-                                                    mb:0.5
-                                                }}>
-                                                    Stayed 12 months 6 months ago</Typography>
-                                            </Grid>
-
-                                            {/* Review from the customers */}
-                                            <Grid item>
-                                                <Typography fontSize={12}
-                                                    sx={{
-                                                        maxWidth:'96%',
-                                                        mb:0,
-                                                        lineHeight:1.2,
-                                                        display: '-webkit-box', 
-                                                        WebkitBoxOrient: 'vertical',
-                                                        WebkitLineClamp: 2,   // maximum 2 lines if the line goes beyone the 2 lines, it will be ...
-                                                        overflow: 'hidden',   // hide extra text
-                                                        textOverflow: 'ellipsis',
-                                                    }}
-                                                >
-                                                    The empty space just means your content isn't tall enough to fill the viewport — it doesn't break anything. 
-                                                    Add more text here to test if the ellipsis appears after two lines.
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-
-                                </Grid>
-                                {/* Link to read all the links */}
-                                <Grid item>
-                                    <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}> Read all 23 reviews <ChevronRight size={13}/> </Link>
-                                </Grid>
-
-                            </Grid>
-
-                        </CardContent>
-
-                    </Card>
-
-                    {/* Owner profile card and contact button */}
-                    <Card variant="outlined"
-                        sx={{
-                        bgcolor: '#FFFFFF',
-                        borderRadius: 1.5,
-                        border: '1px solid #CBD5E1',
-                        boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
-                    }}
-                    >
-                        <CardContent sx={{ p: 1, '&:last-child': { pb: 1 } }}>
-                            {/* This container grid holds all the content in the card */}
-                            <Grid container direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-
-                                <Grid container direction={'column'} spacing={1}>
-                                    <Grid container alignItems={'center'}>
-                                        <Grid item>
-                                            <Avatar sx={{bgcolor:'#0057b8'}}>YG</Avatar>
-                                        </Grid>
-                                        
-                                        <Grid item>
-                                            <Typography>Yohan</Typography>
-                                        </Grid> 
-                                    </Grid>
-
-                                    <Grid item>
-                                        <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}>View full profile <ChevronRight size={13}/></Link>
-                                    </Grid>
-                                </Grid>
-
-                                {/* Contact button where the tenant can contact the owner of the room */}
-                                <Grid item>
-                                    <Button type='submit' variant='contained'  size='large' sx={{boxShadow: '0 2px 8px rgba(8, 47, 105, 0.2)',border:'1px solid gray',alignItems: 'center', gap:0.5, fontSize:'14px', bgcolor:'#1E293B',color:'#FFFFFF', fontWeight:600, textTransform:'none', borderRadius:2, px:3,py:1.5, '&hover':{bgcolor: '#1E293B',boxShadow: '0 4px 12px rgba(8, 47, 105, 0.3)',}}}><MessageCircle size={13}/>Contact</Button>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
                 
                 </Box>
 
@@ -406,6 +271,43 @@ function ListingPage(){
 
                                 <Grid item>
                                     <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}>View all House Rules and Room Details <ChevronRight size={13}/></Link>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+
+                    {/* Owner profile card and contact button */}
+                    <Card variant="outlined"
+                        sx={{
+                        bgcolor: '#FFFFFF',
+                        borderRadius: 1.5,
+                        border: '1px solid #CBD5E1',
+                        boxShadow: '0 1px 2px rgba(2, 6, 23, 0.08)',
+                    }}
+                    >
+                        <CardContent sx={{ p: 1, '&:last-child': { pb: 1 } }}>
+                            {/* This container grid holds all the content in the card */}
+                            <Grid container direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+
+                                <Grid container direction={'column'} spacing={1}>
+                                    <Grid container alignItems={'center'}>
+                                        <Grid item>
+                                            <Avatar sx={{bgcolor:'#0057b8'}}>YG</Avatar>
+                                        </Grid>
+                                        
+                                        <Grid item>
+                                            <Typography>Yohan</Typography>
+                                        </Grid> 
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Link sx={{fontSize: 13,fontWeight: 500,color: 'primary.main',textDecoration: 'none','&:hover': {textDecoration: 'underline'}, cursor:'pointer' ,display: 'flex',alignItems: 'end',gap: 0}}>View full profile <ChevronRight size={13}/></Link>
+                                    </Grid>
+                                </Grid>
+
+                                {/* Contact button where the tenant can contact the owner of the room */}
+                                <Grid item>
+                                    <Button type='submit' variant='contained'  size='large' sx={{boxShadow: '0 2px 8px rgba(8, 47, 105, 0.2)',border:'1px solid gray',alignItems: 'center', gap:0.5, fontSize:'14px', bgcolor:'#1E293B',color:'#FFFFFF', fontWeight:600, textTransform:'none', borderRadius:2, px:3,py:1.5, '&hover':{bgcolor: '#1E293B',boxShadow: '0 4px 12px rgba(8, 47, 105, 0.3)',}}}><MessageCircle size={13}/>Contact</Button>
                                 </Grid>
                             </Grid>
                         </CardContent>
