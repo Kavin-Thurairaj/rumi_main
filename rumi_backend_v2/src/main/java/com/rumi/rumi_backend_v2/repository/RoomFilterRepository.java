@@ -31,8 +31,8 @@ public interface RoomFilterRepository extends JpaRepository<RoomDetail, Long> {
     FROM RoomDetail r
     JOIN Address a ON a.room = r
     JOIN RoomPrice p ON p.room = r
-    WHERE (:city IS NULL OR a.city = :city)
-    AND (:country IS NULL OR a.country = :country)
+    WHERE (:city IS NULL OR LOWER(a.city) = LOWER(:city))
+    AND (:country IS NULL OR LOWER(a.country) = LOWER(:country))
     AND (:minPrice IS NULL OR p.amount >= :minPrice)
     AND (:maxPrice IS NULL OR p.amount <= :maxPrice)
     AND (:genderAllowed IS NULL OR r.genderAllowed = :genderAllowed)

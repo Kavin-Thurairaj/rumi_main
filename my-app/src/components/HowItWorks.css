@@ -1,0 +1,434 @@
+/* ═══════════════════════════════════
+   RUMI – HowItWorks.css
+═══════════════════════════════════ */
+
+.hiw-shell {
+  min-height: 100vh;
+  background: linear-gradient(155deg, #dce8ff 0%, #edf3ff 55%, #e8f0ff 100%);
+  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Top bar ── */
+.hiw-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e6eeff;
+  box-shadow: 0 2px 10px rgba(0, 30, 80, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.hiw-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #003f8a;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.38rem 0.75rem;
+  border-radius: 8px;
+  border: 1.5px solid #c8d9ff;
+  background: #f0f5ff;
+  transition: background 0.16s, border-color 0.16s;
+  flex-shrink: 0;
+}
+.hiw-back-btn:hover { background: #e2ecff; border-color: #a0c0ff; }
+
+.hiw-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+}
+
+.hiw-logo {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(140deg, #003f8a 0%, #0057b8 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 87, 184, 0.28);
+  flex-shrink: 0;
+}
+
+.hiw-logo-text {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.hiw-brand-name {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #0b1d40;
+  letter-spacing: -0.2px;
+}
+
+.hiw-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.hiw-signin {
+  padding: 0.42rem 0.9rem;
+  border-radius: 8px;
+  color: #003f8a;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid #c8d9ff;
+  transition: background 0.16s;
+}
+.hiw-signin:hover { background: #eef4ff; }
+
+.hiw-cta {
+  padding: 0.45rem 1rem;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #003f8a 0%, #0057b8 100%);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(0, 87, 184, 0.28);
+  transition: transform 0.16s, box-shadow 0.16s;
+}
+.hiw-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(0, 87, 184, 0.36); }
+
+/* ── Main ── */
+.hiw-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ── Hero ── */
+.hiw-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  animation: hiw-fade-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.hiw-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #003f8a;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 0 0 0.75rem;
+}
+
+.hiw-hero-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  color: #0b1d40;
+  margin: 0 0 1rem;
+  letter-spacing: -1px;
+}
+
+.hiw-hero-sub {
+  font-size: 1rem;
+  color: #5e7ab0;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── Tabs ── */
+.hiw-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1.5px solid #c8d9ff;
+  padding: 0.45rem;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 16px rgba(0, 53, 128, 0.07);
+}
+
+.hiw-tab {
+  flex: 1;
+  padding: 0.62rem 1rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374a6b;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.18s, color 0.18s;
+}
+
+.hiw-tab--active {
+  background: linear-gradient(135deg, #003f8a 0%, #0057b8 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 87, 184, 0.28);
+}
+
+/* ── Steps ── */
+.hiw-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.hiw-step {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1.5px solid #e6eeff;
+  padding: 1.6rem 1.2rem 1.4rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 53, 128, 0.06);
+  animation: hiw-fade-up 0.45s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s) both;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hiw-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 53, 128, 0.12);
+}
+
+.hiw-step-num {
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #c5d8ff;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.hiw-step-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.9rem;
+  line-height: 1;
+}
+
+.hiw-step-title {
+  font-size: 0.97rem;
+  font-weight: 800;
+  color: #0b1d40;
+  margin: 0 0 0.55rem;
+  letter-spacing: -0.2px;
+}
+
+.hiw-step-desc {
+  font-size: 0.82rem;
+  color: #5e7ab0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Arrow between steps */
+.hiw-step-arrow {
+  position: absolute;
+  right: -22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #c8d9ff;
+  box-shadow: 0 2px 8px rgba(0, 53, 128, 0.08);
+}
+
+/* ── CTA Band ── */
+.hiw-cta-band {
+  background: linear-gradient(135deg, #003f8a 0%, #0066cc 100%);
+  border-radius: 20px;
+  padding: 2.8rem 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hiw-cta-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.hiw-cta-inner { position: relative; z-index: 1; }
+
+.hiw-cta-title {
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.4px;
+}
+
+.hiw-cta-sub {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0 0 1.6rem;
+}
+
+.hiw-cta-btns {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hiw-cta-primary {
+  padding: 0.7rem 1.6rem;
+  border-radius: 11px;
+  background: #ffffff;
+  color: #003f8a;
+  font-size: 0.94rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.16s, box-shadow 0.16s;
+}
+.hiw-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.2); }
+
+.hiw-cta-secondary {
+  padding: 0.7rem 1.6rem;
+  border-radius: 11px;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.5);
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.16s, border-color 0.16s;
+}
+.hiw-cta-secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.8); }
+
+/* ── FAQ ── */
+.hiw-faq-section {
+  margin-bottom: 3rem;
+}
+
+.hiw-faq-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0b1d40;
+  margin: 0 0 1.2rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid #003f8a;
+}
+
+.hiw-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.hiw-faq-item {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1.5px solid #e6eeff;
+  overflow: hidden;
+  transition: border-color 0.16s, box-shadow 0.16s;
+}
+
+.hiw-faq-item--open {
+  border-color: #a8c0ff;
+  box-shadow: 0 4px 14px rgba(0, 53, 128, 0.08);
+}
+
+.hiw-faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: transparent;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0b1d40;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.14s;
+}
+.hiw-faq-q:hover { background: #f5f8ff; }
+
+.hiw-faq-chevron {
+  flex-shrink: 0;
+  color: #003f8a;
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hiw-faq-chevron--up { transform: rotate(180deg); }
+
+.hiw-faq-a {
+  padding: 0 1.2rem 1rem;
+  font-size: 0.87rem;
+  color: #5e7ab0;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Trust strip ── */
+.hiw-trust-strip {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.6rem 1rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1.5px solid #e6eeff;
+}
+
+.hiw-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hiw-trust-icon  { font-size: 1.3rem; }
+.hiw-trust-label { font-size: 0.85rem; font-weight: 700; color: #374a6b; }
+
+/* ── Keyframes ── */
+@keyframes hiw-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hiw-steps { grid-template-columns: repeat(2, 1fr); }
+  .hiw-step-arrow { display: none; }
+}
+
+@media (max-width: 560px) {
+  .hiw-steps { grid-template-columns: 1fr; }
+  .hiw-main  { padding: 1.5rem 1rem 3rem; }
+  .hiw-topbar { padding: 0.7rem 1rem; }
+  .hiw-brand-name { display: none; }
+  .hiw-tabs { max-width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hiw-step, .hiw-hero { animation: none; }
+}

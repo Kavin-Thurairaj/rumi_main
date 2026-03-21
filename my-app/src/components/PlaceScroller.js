@@ -1,4 +1,5 @@
 import React from "react";
+import { Home as HomeIcon } from "lucide-react";
 import Kandy from "./Kandy.png";
 import Colombo from "./Colombo.png";
 import Galle from "./Galle.png";
@@ -29,7 +30,7 @@ const PlaceScroller = () => (
           <img src={img} alt={name} className="scroller-img" />
           <div className="scroller-name-tag">{name}</div>
           <div className="scroller-overlay">
-            <span className="scroller-badge">🏠 {listings}</span>
+            <span className="scroller-badge"><HomeIcon size={12} aria-hidden="true" /> {listings}</span>
           </div>
         </div>
       ))}

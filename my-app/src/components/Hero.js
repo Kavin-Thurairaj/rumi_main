@@ -2,6 +2,7 @@ import React from "react";
 import "./Hero.css";
 import heroImage from "./hero-image.png";
 import { useNavigate } from "react-router-dom";
+import { Home } from "lucide-react";
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-content">
-        <p className="hero-eyebrow">🏡 Sri Lanka's #1 Room Rental Platform</p>
+        <p className="hero-eyebrow"><Home size={13} aria-hidden="true" style={{ flexShrink: 0 }} /> Sri Lanka's #1 Room Rental Platform</p>
 
         <h1 className="her_1">Pick it</h1>
         <h1 className="her_2">Rent it</h1>
