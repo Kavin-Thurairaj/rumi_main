@@ -49,11 +49,13 @@ public class RoomImageServiceTest {
 
     private RoomDetail room;
     private User userRenter;
+    private User userRenter02;
 
     @BeforeEach
     void setUp() {
         userRenter= User.builder().supabaseUid("user123").role(RoleName.RENTER).build(); //Used builder to construct the User object as renter
         room = RoomDetail.builder().roomId(1L).renter(userRenter).build(); // Used builder to construct the room and connect the renter to the room.
+        userRenter02= User.builder().supabaseUid("user456").role(RoleName.RENTER).build();
     }
 
 
@@ -83,9 +85,42 @@ public class RoomImageServiceTest {
         assertEquals("http://fake-url.com/image.jpg",savedRoomImage.getImageUrl());
         assertEquals(room,savedRoomImage.getRoom());
 
-        System.out.println("Test");
+        System.out.println("Success Scenario Tested Successfully");
     }
 
+    @Test
+    void testUploadRoomImageRoomNotFound(){
+
+        MockMultipartFile file = new MockMultipartFile("image", "test.jpg", "image/jpeg", "fake-image".getBytes());
+        when(roomRepo.findByRoomId(7L)).thenReturn(null); // here the id 7L return null.
+
+
+        // Now we pass it to the uploadRoomImage method where it will throw a Runtime Exception
+        try{
+            roomImageServiceImpl.uploadRoomImages(7L, List.of(file),"user123");
+        }
+        catch (RuntimeException e){
+            assertEquals("Room not found with id: 7",e.getMessage());
+
+        }
+    }
+
+    @Test
+    void testUploadRoomImageUserNotFound(){
+        MockMultipartFile file = new MockMultipartFile("image", "test.jpg", "image/jpeg", "fake-image".getBytes());
+
+        when(roomRepo.findByRoomId(1L)).thenReturn(room); // here the id 7L return null.
+        when(userRepo.findById("user456")).thenReturn(Optional.ofNullable(userRenter02)); // here we return the userRenter02 id the user id is passed
+
+        // Now we pass it to the uploadRoomImage method where it will throw a Runtime Exception
+        try{
+            roomImageServiceImpl.uploadRoomImages(1L, List.of(file),"user456");
+        }
+        catch (RuntimeException e){
+            assertEquals("You do not own this room",e.getMessage());
+
+        }
+    }
 
 
 
