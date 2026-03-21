@@ -72,12 +72,13 @@ export default function BrowseRooms() {
     }
   };
 
-  const filtered = useMemo(() => {
+const filtered = useMemo(() => {
     let result = [...rooms];
-    if (sort === 'Price: Low → High') result = result.sort((a, b) => a.amount - b.amount);
-    if (sort === 'Price: High → Low') result = result.sort((a, b) => b.amount - a.amount);
+    if (sort === 'Price: Low → High') result = result.sort((a, b) => a.price - b.price);
+    if (sort === 'Price: High → Low') result = result.sort((a, b) => b.price - a.price);
+    if (sort === 'Top Rated') result = result.sort((a, b) => b.rating - a.rating);
     return result;
-  }, [rooms, sort]);
+}, [rooms, sort]);
 
   const clearFilters = () => {
     setCity('All Cities');
