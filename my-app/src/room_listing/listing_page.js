@@ -37,7 +37,7 @@ function listing_page() {
 
     return (
         <div>
-            {/* Master Container*/}
+            {/*  Master Container */}
             <Box sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
@@ -48,7 +48,7 @@ function listing_page() {
                 gap: 1,
             }}>
 
-                {/* LEFT COLUMN */}
+                {/*  LEFT COLUMN  */}
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -57,7 +57,7 @@ function listing_page() {
                     minWidth: 0,
                 }}>
 
-                    {/* ── Room Image Slider ── */}
+                    {/* Room Image Slider*/}
                     <Card variant="outlined" sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -70,7 +70,7 @@ function listing_page() {
                         </CardContent>
                     </Card>
 
-                    {/* ── Room Title ── */}
+                    {/* Room Title */}
                     <Card variant="outlined" sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -96,7 +96,7 @@ function listing_page() {
                         </CardContent>
                     </Card>
 
-                    {/* Pricing */}
+                    {/* Pricing  */}
                     <Card sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -106,7 +106,7 @@ function listing_page() {
                         <CardContent sx={{ p: 1.5, '&:last-child': { pb: 1.5 } }}>
                             <Grid container direction="row" justifyContent="space-between" alignItems="center">
 
-                                {/* Price + utilities */}
+                                
                                 <Grid item>
                                     <Typography fontSize={22} fontWeight={700} sx={{ mb: 0.5 }}>$850/month</Typography>
                                     <Typography fontSize={13} sx={{ display: 'flex', alignItems: 'center', gap: 0.3, mb: 0.3 }}>
@@ -120,7 +120,7 @@ function listing_page() {
                                     </Link>
                                 </Grid>
 
-                                {/* Available from + CTA buttons */}
+                                {/* Available from*/}
                                 <Grid item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 1 }}>
                                     <Typography fontSize={12} color="text.secondary">Available from</Typography>
                                     <Typography fontSize={16} fontWeight={600} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -140,7 +140,7 @@ function listing_page() {
                         </CardContent>
                     </Card>
 
-                    {/* Tenant Reviews */}
+                    {/* Tenant Reviews*/}
                     <Card variant="outlined" sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -181,7 +181,7 @@ function listing_page() {
                         </CardContent>
                     </Card>
 
-                    {/* Owner Profile */}
+                    {/*  Owner Profile + Contact  */}
                     <Card variant="outlined" sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -216,8 +216,7 @@ function listing_page() {
 
 
                 {/* 
-                    RIGHT COLUMN 
-                 */}
+                    RIGHT COLUMN */}
                 <Box sx={{
                     flex: 1,
                     minWidth: 0,
@@ -229,7 +228,7 @@ function listing_page() {
                     alignSelf: { md: 'flex-start' },
                 }}>
 
-                    {/* Room Details and Rules */}
+                    {/* ── Room Details & Rules ── */}
                     <Card sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -276,7 +275,7 @@ function listing_page() {
                         </CardContent>
                     </Card>
 
-                    {/*Amenities*/}
+                    {/* ── Amenities ── */}
                     <Card sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
@@ -308,7 +307,7 @@ function listing_page() {
                         </CardContent>
                     </Card>
 
-                    {/* Map_distance*/}
+                    {/* Map_distance */}
                     <Card sx={{
                         bgcolor: '#FFFFFF',
                         borderRadius: 1.5,
