@@ -3,9 +3,12 @@
 ═══════════════════════════════════ */
 
 .br-shell {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;           /* prevent the shell itself from scrolling */
   background: linear-gradient(155deg, #dce8ff 0%, #edf3ff 55%, #e8f0ff 100%);
   font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Top bar ── */
@@ -105,17 +108,99 @@
 }
 .br-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(0, 87, 184, 0.36); }
 
-/* ── Main ── */
-.br-main {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 3rem;
+
+.br-body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;                    
+  overflow: hidden;           
+  position: relative;
+  align-items: stretch;
 }
 
-/* ── Page heading ── */
-.br-page-hd {
-  margin-bottom: 1.6rem;
+
+.br-main {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem 1.5rem 3rem;
+  transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;           
+  overflow-x: hidden;
+  scrollbar-width: none;
 }
+
+.br-main--shrunk .br-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+
+.br-map-panel {
+  width: 0;
+  min-width: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #edf3ff;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.br-map-panel--open {
+  width: 460px;
+}
+
+
+.br-map-close-btn {
+  position: absolute;
+  left: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  width: 56px;
+  height: 72px;
+  border-radius: 0 72px 72px 0; 
+
+  background: #003f8a;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  box-shadow: 4px 0 16px rgba(0, 30, 80, 0.22);
+  transition: background 0.18s;
+}
+
+.br-map-close-btn:hover {
+  background: #0057b8;
+}
+
+.br-map-close-arrow {
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+
+.br-map-inner {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.br-map-inner > div {
+  height: 100% !important;
+  border-radius: 0;
+}
+
+
+.br-page-hd { margin-bottom: 1.6rem; }
 .br-page-title {
   font-size: 1.7rem;
   font-weight: 800;
@@ -123,13 +208,9 @@
   margin: 0 0 0.3rem;
   letter-spacing: -0.5px;
 }
-.br-page-sub {
-  font-size: 0.9rem;
-  color: #5e7ab0;
-  margin: 0;
-}
+.br-page-sub { font-size: 0.9rem; color: #5e7ab0; margin: 0; }
 
-/* ── Filters ── */
+
 .br-filters {
   display: flex;
   align-items: flex-end;
@@ -217,31 +298,23 @@
 }
 .br-clear-btn:hover { background: #ffe8e8; border-color: #e07070; }
 
-/* ── Results header ── */
-.br-results-hd {
-  margin-bottom: 1rem;
-}
-.br-results-count {
-  font-size: 0.88rem;
-  color: #5e7ab0;
-  margin: 0;
-}
-.br-results-count strong {
-  color: #003f8a;
-  font-size: 1rem;
-}
+/*  Results header  */
+.br-results-hd { margin-bottom: 1rem; }
+.br-results-count { font-size: 0.88rem; color: #5e7ab0; margin: 0; }
+.br-results-count strong { color: #003f8a; font-size: 1rem; }
 
-/* ── Grid ── */
+/*  Room grid  */
 .br-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem;
+  transition: grid-template-columns 0.3s ease;
 }
 
-@media (max-width: 1000px) { .br-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 1100px) { .br-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px)  { .br-grid { grid-template-columns: 1fr; } }
 
-/* ── Empty state ── */
+/*  Empty state  */
 .br-empty {
   display: flex;
   flex-direction: column;
@@ -270,12 +343,108 @@
 }
 .br-empty-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0, 87, 184, 0.36); }
 
-/* ── Responsive ── */
+
+
+.br-globe-btn {
+  position: fixed;
+  right: -28px;               
+  transform: translateY(-50%);
+  z-index: 200;
+
+  width: 56px;
+  height: 72px;
+  border-radius: 72px 0 0 72px;  
+
+  background: #003f8a;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  padding-left: 8px;
+  box-shadow: -4px 0 20px rgba(0, 30, 80, 0.25);
+  transition: background 0.2s ease, right 0.2s ease;
+}
+
+.br-globe-btn:hover {
+  right: -20px;               
+  background: #0057b8;
+  box-shadow: -4px 0 28px rgba(0, 87, 184, 0.35);
+}
+
+.br-globe-icon {
+  font-size: 22px;
+  line-height: 1;
+  writing-mode: horizontal-tb;
+}
+
+/*
+   Mobile
+ */
+
+@media (max-width: 768px) {
+  .br-body { flex-direction: column; }
+
+  .br-main { height: auto; overflow-y: auto; }
+
+  /* Map panel stacks below on mobile */
+  .br-map-panel {
+    width: 100% !important;
+    height: 0;
+    position: relative;
+    flex-direction: column;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .br-map-panel--open {
+    height: 360px;
+    width: 100% !important;
+  }
+
+  /* Close button becomes a top half-circle on mobile */
+  .br-map-close-btn {
+    position: absolute;
+    left: 50%;
+    top: -28px;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 56px;
+    border-radius: 72px 72px 0 0;
+    padding-right: 0;
+    padding-bottom: 6px;
+    justify-content: center;
+    align-items: flex-end;
+    box-shadow: 0 -4px 16px rgba(0, 30, 80, 0.22);
+  }
+
+  /* Globe open button — bottom center half-circle on mobile */
+  .br-globe-btn {
+    right: auto;
+    bottom: 0;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 56px;
+    border-radius: 72px 72px 0 0;
+    padding-left: 0;
+    padding-top: 8px;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 0 -4px 20px rgba(0, 30, 80, 0.25);
+  }
+
+  .br-globe-btn:hover { right: auto; bottom: 4px; }
+
+  .br-main--shrunk .br-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 640px) {
-  .br-topbar { padding: 0.7rem 1rem; }
+  .br-topbar    { padding: 0.7rem 1rem; }
   .br-brand-name { display: none; }
-  .br-filters { padding: 1rem; }
+  .br-filters   { padding: 1rem; }
   .br-filter-group { min-width: calc(50% - 0.375rem); }
-  .br-main { padding: 1.2rem 1rem 2.5rem; }
+  .br-main      { padding: 1.2rem 1rem 2.5rem; }
   .br-page-title { font-size: 1.35rem; }
 }

@@ -30,10 +30,14 @@ const desktopNavLinks = [
 ];
 
 const cityOptions   = [
-  'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Chilaw', 'Dambulla',
-  'Dehiwala', 'Galle', 'Jaffna', 'Kandy', 'Kalutara', 'Kurunegala',
-  'Matara', 'Monaragala', 'Negombo', 'Nuwara Eliya', 'Panadura', 'Peradeniya',
-  'Polonnaruwa', 'Ratnapura', 'Sri Jayawardenepura Kotte', 'Trincomalee',
+  'Ampara', 'Anuradhapura', 'Avissawella', 'Badulla', 'Batticaloa', 'Beruwala', 
+  'Chilaw', 'Colombo', 'Dambulla', 'Dehiwala-Mount Lavinia', 'Galle', 'Gampaha', 
+  'Gampola', 'Hanwella', 'Homagama', 'Jaffna', 'Kalutara', 'Kandy', 'Katunayaka', 
+  'Kelaniya', 'Kotte', 'Kurunegala', 'Maharagama', 'Mannar', 'Matara', 'Mawanella', 
+  'Minuwangoda', 'Mirissa', 'Moratuwa', 'Mullaitivu', 'Nattandiya', 'Negombo', 
+  'Nuwara Eliya', 'Panadura', 'Peradeniya', 'Piliyandala', 'Polonnaruwa', 'Puttalam', 
+  'Ratmalana', 'Ratnapura', 'Sri Jayawardenepura Kotte', 'Thalawakele', 'Trincomalee', 
+  'Unawatuna', 'Vavuniya', 'Wattala', 'Weligama', 'Welisara', 'Wellawatta', 'Yakkala',
 ];
 const typeOptions   = ['Any type', 'Room', 'Annex', 'House', 'Apartment', 'Boarding'];
 const budgetOptions = ['Any budget', 'Under 30k', '30k – 60k', '60k – 120k', '120k+'];
