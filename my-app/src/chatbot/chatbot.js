@@ -1,9 +1,18 @@
-/* eslint-disable */
+
+// Renders the Dialogflow Messenger widget on the page
+// The actual chat UI, responses and suggestion chips are
+// all handled by Dialogflow — this file just mounts the element
+
 import { useEffect, useRef } from 'react';
 import './chatbot.css';
 
+
+
 export default function Chatbot() {
   const containerRef = useRef(null);
+
+    // Ref to the container div so we can append df-messenger into it
+
 
   useEffect(() => {
     const container = containerRef.current;
@@ -23,7 +32,8 @@ export default function Chatbot() {
     container.appendChild(dfMessenger);
 
     return () => {
-      // Cleanup on unmount
+      // Cleanup — remove df-messenger when component unmounts
+      // This prevents duplicates if the component remounts
       const el = document.querySelector('df-messenger');
       if (el) el.remove();
     };
