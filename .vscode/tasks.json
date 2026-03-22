@@ -16,6 +16,36 @@
         "focus": false,
         "panel": "shared"
       }
+    },
+    {
+      "label": "Test Room API",
+      "type": "shell",
+      "command": "node",
+      "args": ["test-room-api.js"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build & Start Backend",
+      "type": "shell",
+      "command": "cd rumi_backend_v2 && cmd /c mvnw.cmd clean install -DskipTests -q && echo Backend built successfully && Start-Sleep -Seconds 2 && java -jar target/rumi_backend_v2-0.0.1-SNAPSHOT.jar",
+      "isBackground": true,
+      "group": {
+        "kind": "build"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false
+      }
     }
   ]
 }

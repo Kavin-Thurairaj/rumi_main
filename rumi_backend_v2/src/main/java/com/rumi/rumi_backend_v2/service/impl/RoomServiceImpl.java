@@ -43,7 +43,7 @@ public class RoomServiceImpl implements RoomService {
                     .supabaseUid(userId)
                     .email("user-" + userId.substring(0, 8) + "@rumi.local")
                     .full_name("Landlord")
-                    .phone_number("0000000000")
+                    .phone_number("auto-" + userId.substring(0, 11))
                     .role(RoleName.RENTER)
                     .status(UserStatus.ACTIVE)
                     .phone_verified(false)

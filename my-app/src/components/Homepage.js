@@ -23,6 +23,7 @@ import PlaceScroller from "./PlaceScroller";
 import Home_statement from "./Home_statement";
 import RoomCard from "./RoomCard";
 import { mockRooms } from "./mockRooms";
+import roomFilterApi from "../api/roomFilterApi";
 import Footer from "./Footer";
 import "./HomepageModern.css";
 import { supabase } from "../auth/supabaseClient";
@@ -264,8 +265,8 @@ export default function Homepage() {
     const fetchFeaturedRooms = async () => {
       try {
         setLoadingFeatured(true);
-        const response = await fetch('http://localhost:8080/api/rooms/search?page=0&size=3');
-        const data = await response.json();
+        const response = await roomFilterApi.searchRooms({}, 0, 3);
+        const data = response.data;
 
         const formatted = data.content.map(room => ({
           id: room.roomId,

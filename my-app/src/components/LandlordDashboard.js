@@ -3,7 +3,7 @@ import './LandlordDashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { supabase } from '../auth/supabaseClient';
-import axios from 'axios';
+import axiosClient from '../api/rumi_client';
 
 const mockListings = [
   {
@@ -82,7 +82,7 @@ const LandlordDashboard = () => {
   const [formData, setFormData] = useState({
     roomTitle: '',
     roomDescription: '',
-    genderAllowed: 'UNSPECIFIED',
+    genderAllowed: 'OTHER',
     maxRoommates: 1,
     roomStatus: 'AVAILABLE',
     roomType: 'STUDIO',
@@ -171,33 +171,47 @@ const LandlordDashboard = () => {
 
 
       // Post room
-      const roomRes = await axios.post(
-        'http://localhost:8080/api/rooms',
+      const roomRes = await axiosClient.post(
+        '/rooms',
         roomPayload,
         { headers }
       );
 
       const roomId = roomRes.data.roomId;
       setSuccessId(roomId);
-      setMessage(`✅ Room created! ID: ${roomId}`);
-
+      
       // Upload images if provided
       if (images.length > 0) {
-        const formDataImg = new FormData();
-        images.forEach(img => formDataImg.append('image', img));
-        
-        await axios.post(
-          `http://localhost:8080/api/rooms/${roomId}/images`,
-          formDataImg,
-          { headers }
-        );
+        try {
+          const formDataImg = new FormData();
+          images.forEach(img => formDataImg.append('image', img));
+          
+          // Use axiosClient without overriding Content-Type to allow multipart
+          await axiosClient.post(
+            `/rooms/${roomId}/images`,
+            formDataImg,
+            { 
+              headers: {
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+          );
+          setMessage(`✅ Room created! ID: ${roomId}`);
+        } catch (imgErr) {
+          // Room was created successfully even if image upload fails
+          setMessage(`✅ Room created! ID: ${roomId} (Image upload skipped)`);
+          console.warn('Image upload skipped:', imgErr.message);
+        }
+      } else {
+        setMessage(`✅ Room created! ID: ${roomId}`);
       }
 
       // Reset form
       setFormData({
         roomTitle: '',
         roomDescription: '',
-        genderAllowed: 'UNSPECIFIED',
+        genderAllowed: 'OTHER',
         maxRoommates: 1,
         roomStatus: 'AVAILABLE',
         roomType: 'STUDIO',
@@ -212,7 +226,7 @@ const LandlordDashboard = () => {
       setImages([]);
 
     } catch (err) {
-      const errorMsg = err.response?.data?.message || err.response?.data || err.message;
+      const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message;
       console.error('Full error:', err.response?.data);
       setMessage(`❌ Error: ${typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)}`);
     } finally {
@@ -310,10 +324,9 @@ const LandlordDashboard = () => {
                 />
                 <div className="ld-form-row">
                   <select name="genderAllowed" value={formData.genderAllowed} onChange={handleInputChange}>
-                    <option value="UNSPECIFIED">Gender Preference</option>
+                    <option value="OTHER">Any Gender</option>
                     <option value="MALE">Male Only</option>
                     <option value="FEMALE">Female Only</option>
-                    <option value="UNSPECIFIED">Any</option>
                   </select>
                   <input
                     type="number"
@@ -328,8 +341,8 @@ const LandlordDashboard = () => {
                 <div className="ld-form-row-full">
                   <select name="roomStatus" value={formData.roomStatus} onChange={handleInputChange}>
                     <option value="AVAILABLE">Status: Available</option>
-                    <option value="OCCUPIED">Occupied</option>
-                    <option value="MAINTENANCE">Maintenance</option>
+                    <option value="FULL">Full</option>
+                    <option value="INACTIVE">Inactive</option>
                   </select>
                   <select name="roomType" value={formData.roomType} onChange={handleInputChange}>
                     <option value="STUDIO">Room Type: Studio</option>
