@@ -94,7 +94,7 @@ public class RoomImageServiceTest {
         assertEquals("http://fake-url.com/image.jpg",savedRoomImage.getImageUrl());
         assertEquals(room,savedRoomImage.getRoom());
 
-        System.out.println("Success Scenario Tested Successfully");
+        //System.out.println("Success Scenario Tested Successfully");
     }
 
     @Test
@@ -110,7 +110,7 @@ public class RoomImageServiceTest {
         }
         catch (RuntimeException e){
             assertEquals("Room not found with id: 7",e.getMessage());
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
         }
     }
@@ -129,7 +129,7 @@ public class RoomImageServiceTest {
         }
         catch (RuntimeException e){
             assertEquals("You do not own this room",e.getMessage());
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
         }
     }
@@ -146,7 +146,7 @@ public class RoomImageServiceTest {
         }
         catch (RuntimeException e){
             assertEquals("Only renters can upload images",e.getMessage());
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -177,7 +177,7 @@ public class RoomImageServiceTest {
         }
         catch (RuntimeException e){
             assertEquals("File type cannot be determined",e.getMessage());
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -206,7 +206,7 @@ public class RoomImageServiceTest {
         }
         catch (RuntimeException e){
             assertEquals("Room not found with id: 3",e.getMessage());
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
     }
