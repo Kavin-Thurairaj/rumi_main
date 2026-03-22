@@ -50,34 +50,32 @@ const LandlordSignup = () => {
 
     setLoading(true);
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      setMessage("");
-      setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            age: parseInt(formData.age) || 0,
+            role: "Landlord",
+          },
+        },
+      });
 
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
+      if (error) return setMessage(error.message);
+      if (!data.user) return setMessage("Could not create user. Try again.");
 
-        if (error) {
-          // Supabase returns this error when email is not verified
-          if (error.message.toLowerCase().includes("email not confirmed")) {
-            return setMessage(
-              "❌ Please verify your email before logging in. Check your inbox for the confirmation link.",
-            );
-          }
-          return setMessage("❌ " + error.message);
-        }
-
-        // AuthContext detects session, App.js redirects automatically
-      } catch (err) {
-        setMessage("❌ Something went wrong. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    };
+      // Email verification enabled — prompt user to check email
+      setMessage(
+        "✅ Account created! Please check your email to verify your account before logging in.",
+      );
+    } catch (err) {
+      setMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -306,7 +304,13 @@ const LandlordSignup = () => {
             </div>
 
             {message && (
-              <p style={{ color: "red", fontSize: 13, margin: "0" }}>
+              <p
+                style={{
+                  color: message.startsWith("✅") ? "green" : "red",
+                  fontSize: 13,
+                  margin: "0",
+                }}
+              >
                 {message}
               </p>
             )}
