@@ -326,33 +326,31 @@ export default function Homepage() {
 
                   {profileOpen && (
                     <div className="hp-profile-dropdown">
-                      <div className="hp-profile-header">
-                        <div className="hp-profile-avatar-lg">{initials}</div>
-                        <div>
-                          <p className="hp-profile-name">
-                            {profile?.first_name} {profile?.last_name}
-                          </p>
-                          <p className="hp-profile-role">
-                            {profile?.role ?? "User"}
-                          </p>
-                        </div>
+                     <div className="hp-profile-header">
+                      <div className="hp-profile-avatar-lg">{initials}</div>
+                      <div>
+                        <p className="hp-profile-name">
+                          {profile?.first_name} {profile?.last_name}
+                        </p>
+                        <p className="hp-profile-role">
+                          {profile?.role === 'Landlord' ? '🏢 Landlord' : '🧑 Tenant'}
+                        </p>
                       </div>
+                    </div>
 
-                      <div className="hp-profile-details">
-                        {[
-                          {
-                            label: "Email",
-                            value: profile?.email ?? user?.email,
-                          },
-                          { label: "Age", value: profile?.age },
-                          { label: "Phone", value: profile?.phone ?? "—" },
-                        ].map((row) => (
-                          <div key={row.label} className="hp-profile-row">
-                            <span className="hp-profile-key">{row.label}</span>
-                            <span className="hp-profile-val">{row.value}</span>
-                          </div>
-                        ))}
-                      </div>
+                    <div className="hp-profile-details">
+                      {[
+                        { label: 'Email', value: profile?.email ?? user?.email },
+                        { label: 'Age',   value: profile?.age   ?? '—'        },
+                        { label: 'Phone', value: profile?.phone || '—'        },
+                        { label: 'Role',  value: profile?.role  ?? '—'        },
+                      ].map(row => (
+                        <div key={row.label} className="hp-profile-row">
+                          <span className="hp-profile-key">{row.label}</span>
+                          <span className="hp-profile-val">{row.value}</span>
+                        </div>
+                      ))}
+                    </div>
 
                       <button
                         className="hp-signout-btn"
