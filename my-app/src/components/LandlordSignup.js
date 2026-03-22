@@ -50,39 +50,34 @@ const LandlordSignup = () => {
 
     setLoading(true);
 
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            age: parseInt(formData.age) || 0,
-            role: "Landlord",
-          },
-        },
-      });
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setMessage("");
+      setLoading(true);
 
-      if (error) return setMessage(error.message);
-      if (!data.user) return setMessage("Could not create user. Try again.");
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
 
-      // Auto sign in after signup
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
+        if (error) {
+          // Supabase returns this error when email is not verified
+          if (error.message.toLowerCase().includes("email not confirmed")) {
+            return setMessage(
+              "❌ Please verify your email before logging in. Check your inbox for the confirmation link.",
+            );
+          }
+          return setMessage("❌ " + error.message);
+        }
 
-      if (signInError) {
-        setMessage("Account created! Please log in.");
-        navigate("/login");
+        // AuthContext detects session, App.js redirects automatically
+      } catch (err) {
+        setMessage("❌ Something went wrong. Please try again.");
+      } finally {
+        setLoading(false);
       }
-      // AuthContext detects session, App.js redirects to /
-    } catch (err) {
-      setMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    };
   };
 
   return (

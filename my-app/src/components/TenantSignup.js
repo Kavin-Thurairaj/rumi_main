@@ -55,8 +55,8 @@ const TenantSignup = () => {
           data: {
             first_name: formData.firstName,
             last_name: formData.lastName,
-            age: 0,
-            role: "Tenant",
+            age: parseInt(formData.age) || 0,
+            role: "Tenant", // or 'Landlord' in LandlordSignup.js
           },
         },
       });
@@ -64,17 +64,10 @@ const TenantSignup = () => {
       if (error) return setMessage(error.message);
       if (!data.user) return setMessage("Could not create user. Try again.");
 
-      // Auto sign in after signup
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (signInError) {
-        setMessage("Account created! Please log in.");
-        navigate("/login");
-      }
-      // AuthContext detects session, App.js redirects to /
+      // Email verification enabled — prompt user to verify before logging in
+      setMessage(
+        "✅ Account created! Please check your email to verify your account before logging in.",
+      );
     } catch (err) {
       setMessage("Something went wrong. Please try again.");
     } finally {

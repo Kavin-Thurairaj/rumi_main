@@ -30,15 +30,24 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
       });
 
-      if (error) return setMessage(error.message);
+      if (error) {
+        // Supabase returns this error when email is not verified
+        if (error.message.toLowerCase().includes("email not confirmed")) {
+          return setMessage(
+            "❌ Please verify your email before logging in. Check your inbox for the confirmation link.",
+          );
+        }
+        return setMessage("❌ " + error.message);
+      }
+
       // AuthContext detects session, App.js redirects automatically
     } catch (err) {
-      setMessage("Something went wrong. Please try again.");
+      setMessage("❌ Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
