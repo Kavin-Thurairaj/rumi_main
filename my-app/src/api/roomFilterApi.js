@@ -10,6 +10,7 @@ const roomFilterApi = {
         if (filters.maxPrice) params.append("maxPrice", filters.maxPrice);
         if (filters.genderAllowed) params.append("genderAllowed", filters.genderAllowed.toUpperCase());
         if (filters.roomStatus) params.append("roomStatus", filters.roomStatus);
+        if (filters.roomType) params.append("roomType", filters.roomType);
 
         params.append("page", page);
         params.append("size", size);
