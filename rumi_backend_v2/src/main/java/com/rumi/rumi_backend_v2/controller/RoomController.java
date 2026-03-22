@@ -33,8 +33,12 @@ public class RoomController {
             log.warn("ResponseStatusException: {}", e.getReason());
             return ResponseEntity.status(e.getStatusCode()).body(Map.of("error", e.getReason()));
         } catch (Exception e) {
-            log.error("Room creation failed with exception", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Room creation failed"));
+            log.error("Room creation failed with exception: {}", e.getMessage(), e);
+            String errorMsg = e.getMessage() != null ? e.getMessage() : "Room creation failed";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                "error", errorMsg,
+                "detail", e.getClass().getSimpleName()
+            ));
         }
     }
 
