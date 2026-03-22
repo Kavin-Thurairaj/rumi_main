@@ -6,6 +6,7 @@ import com.rumi.rumi_backend_v2.enums.GenderAllowed;
 // IMPORT OF THE ROOMSTATUS ENUM
 import com.rumi.rumi_backend_v2.enums.RoomStatus;
 
+import com.rumi.rumi_backend_v2.enums.RoomType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -80,6 +81,12 @@ public class RoomDetail {
     @Enumerated(EnumType.STRING)
     @Column(name = "room_status",columnDefinition = "room_status",nullable = false)
     private RoomStatus roomStatus;
+
+    @Setter
+    @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(name="room_type", columnDefinition = "room_type", nullable = false)
+    private RoomType roomType;
 
 
 }

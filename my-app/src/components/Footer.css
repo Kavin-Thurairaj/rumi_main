@@ -1,0 +1,120 @@
+/* --- FOOTER STYLES --- */
+
+.footer-container {
+  /* The light gray background color from the image */
+  background-color: #f7f9fc;
+  margin-top: 50px;
+  padding: 60px 0px; /* Adjust padding as needed */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 3%;
+}
+
+.footer-content {
+  width: 90%; 
+  max-width: 1200px; /* Example max width */
+  display: flex;
+  gap: 100px; 
+  flex-wrap: wrap; 
+}
+
+.footer-section {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.footer-info {
+  flex: 2; /* Takes up more space */
+  min-width: 300px;
+}
+
+.footer-sitemap, .footer-legal {
+  flex: 1; /* Takes up less, equal space to each other */
+  min-width: 120px;
+}
+
+.footer-logo {
+  width: 150px; 
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.footer-description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: #555;
+  max-width: 400px;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px; /* Space between social icons and back to top */
+}
+
+.social-icon {
+  width: 40px; /* Size of the circular social icons */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* --- Sitemap & Legal Headings --- */
+.footer-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 16px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+/* --- Back to Top Button --- */
+.back-to-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  background-color: white; /* White background */
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.back-to-top:hover {
+  background-color: #f0f0f0;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid #333; /* Upward pointing arrow */
+}
