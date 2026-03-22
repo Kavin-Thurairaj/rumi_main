@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { mockRooms } from './mockRooms';
 import RoomCard from './RoomCard';
+import axiosClient from '../api/rumi_client';
 import './ListingPage.css';
 
 /* ── Amenity icon map ── */
@@ -97,11 +98,57 @@ const ListingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const room = mockRooms.find(r => r.id === Number(id));
+  // States for room data and images
+  const [room, setRoom] = useState(null);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [activeImg, setActiveImg]     = useState(0);
   const [contacted, setContacted]     = useState(false);
   const [shareMsg, setShareMsg]       = useState('');
+
+  // Fetch room data and images from backend
+  useEffect(() => {
+    const fetchRoomData = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch room details
+        const roomResponse = await axiosClient.get(`/rooms/${id}`);
+        const roomData = roomResponse.data;
+        
+        // Fetch images for this room
+        let roomImages = [];
+        try {
+          const imagesResponse = await axiosClient.get(`/rooms/${id}/images`);
+          roomImages = imagesResponse.data.map(img => img.imageUrl).filter(url => url);
+        } catch (imgErr) {
+          console.warn('No images found for room:', imgErr.message);
+          roomImages = [];
+        }
+        
+        setRoom(roomData);
+        setImages(roomImages);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching room data:', err);
+        setError(err.message);
+        
+        // Fallback to mock data if backend isn't available
+        const mockRoom = mockRooms.find(r => r.id === Number(id));
+        if (mockRoom) {
+          setRoom(mockRoom);
+          setImages(mockRoom.images || []);
+          setError(null);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoomData();
+  }, [id]);
 
   /* ── Nearby rooms ── */
   const similar = mockRooms.filter(r => r.id !== Number(id)).slice(0, 3);
@@ -113,7 +160,20 @@ const ListingPage = () => {
     setTimeout(() => setShareMsg(''), 2200);
   };
 
-  /* ── 404 ── */
+  /* ── 404 / Loading ── */
+  if (loading) {
+    return (
+      <div className="lst-shell">
+        <div className="lst-container">
+          <div className="lst-notfound">
+            <p className="lst-notfound-icon">⏳</p>
+            <h2>Loading room details...</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!room) {
     return (
       <div className="lst-shell">
@@ -122,6 +182,7 @@ const ListingPage = () => {
             <p className="lst-notfound-icon">🔍</p>
             <h2>Listing not found</h2>
             <p>The room you're looking for doesn't exist or has been removed.</p>
+            {error && <p style={{fontSize: '0.9rem', color: '#999'}}>Error: {error}</p>}
             <button className="lst-back-inline" onClick={() => navigate('/home')}>
               Back to Home
             </button>
@@ -164,27 +225,27 @@ const ListingPage = () => {
         <div className="lst-gallery">
           <div className="lst-gallery-main" onClick={() => {}}>
             <img
-              src={room.images[activeImg]}
-              alt={`${room.title} — photo ${activeImg + 1}`}
+              src={images.length > 0 ? images[activeImg] : 'https://via.placeholder.com/800x600?text=No+Image'}
+              alt={`${room.roomTitle} — photo ${activeImg + 1}`}
               className="lst-gallery-main-img"
             />
-            {room.images.length > 1 && (
+            {images.length > 1 && (
               <span className="lst-gallery-count-pill">
-                📷 {room.images.length} photos
+                📷 {images.length} photos
               </span>
             )}
           </div>
 
-          {room.images.length > 1 && (
+          {images.length > 1 && (
             <div className="lst-gallery-thumbs">
-              {room.images.slice(1, 3).map((img, i) => (
+              {images.slice(1, 3).map((img, i) => (
                 <button
                   key={i}
                   className={`lst-thumb${activeImg === i + 1 ? ' active' : ''}`}
                   onClick={() => setActiveImg(i + 1)}
                   aria-label={`View photo ${i + 2}`}
                 >
-                  <img src={img} alt={`${room.title} thumbnail ${i + 2}`} loading="lazy" />
+                  <img src={img} alt={`${room.roomTitle} thumbnail ${i + 2}`} loading="lazy" />
                 </button>
               ))}
             </div>
@@ -200,33 +261,25 @@ const ListingPage = () => {
             {/* Title + badges */}
             <div className="lst-title-section">
               <div className="lst-title-row">
-                <h1 className="lst-title">{room.title}</h1>
-                <span className={`lst-avail-badge ${room.available ? 'avail' : 'unavail'}`}>
-                  {room.available ? '● Available' : '● Unavailable'}
+                <h1 className="lst-title">{room.roomTitle}</h1>
+                <span className={`lst-avail-badge ${room.roomStatus === 'AVAILABLE' ? 'avail' : 'unavail'}`}>
+                  {room.roomStatus === 'AVAILABLE' ? '● Available' : `● ${room.roomStatus}`}
                 </span>
               </div>
-              <p className="lst-location">
-                <IconPin />
-                {room.location}
-              </p>
+              {room.address && (
+                <p className="lst-location">
+                  <IconPin />
+                  {`${room.address.addressLine || ''}, ${room.address.city || 'Unknown'}, ${room.address.country || ''}`}
+                </p>
+              )}
 
               <div className="lst-meta-chips">
                 <span className="lst-meta-chip">
-                  <IconBed /> {room.bedrooms} Bedroom{room.bedrooms !== 1 ? 's' : ''}
+                  <IconBed /> {room.maxRoommates || 1} Max Roommate{room.maxRoommates !== 1 ? 's' : ''}
                 </span>
-                <span className="lst-meta-chip">
-                  <IconBath /> {room.bathrooms} Bathroom{room.bathrooms !== 1 ? 's' : ''}
-                </span>
-                <span className="lst-meta-chip">
-                  <IconRuler /> {room.sqft.toLocaleString()} sq ft
-                </span>
-                <span className="lst-meta-chip lst-type-chip">{room.type}</span>
-              </div>
-
-              <div className="lst-rating-row">
-                <StarRating rating={room.rating} size="lg" />
-                <span className="lst-rating-val">{room.rating}</span>
-                <span className="lst-rating-count">({room.reviews} reviews)</span>
+                {room.roomType && (
+                  <span className="lst-meta-chip lst-type-chip">{room.roomType}</span>
+                )}
               </div>
             </div>
 
@@ -235,7 +288,7 @@ const ListingPage = () => {
             {/* About */}
             <div className="lst-section">
               <h2 className="lst-section-title">About this space</h2>
-              <p className="lst-description">{room.description}</p>
+              <p className="lst-description">{room.roomDescription}</p>
             </div>
 
             <div className="lst-divider" />
@@ -244,14 +297,18 @@ const ListingPage = () => {
             <div className="lst-section">
               <h2 className="lst-section-title">Amenities</h2>
               <div className="lst-amenities-grid">
-                {room.amenities.map(a => (
-                  <div className="lst-amenity" key={a}>
-                    <span className="lst-amenity-icon" aria-hidden="true">
-                      {amenityIcons[a] || '✅'}
-                    </span>
-                    <span className="lst-amenity-label">{a}</span>
-                  </div>
-                ))}
+                {room.amenities && room.amenities.length > 0 ? (
+                  room.amenities.map(a => (
+                    <div className="lst-amenity" key={a.amenityId || a.name}>
+                      <span className="lst-amenity-icon" aria-hidden="true">
+                        {amenityIcons[a.name] || '✅'}
+                      </span>
+                      <span className="lst-amenity-label">{a.name}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p style={{ gridColumn: '1 / -1', color: '#999' }}>No amenities listed</p>
+                )}
               </div>
             </div>
 
@@ -261,12 +318,16 @@ const ListingPage = () => {
             <div className="lst-section">
               <h2 className="lst-section-title">House Rules</h2>
               <ul className="lst-rules-list">
-                {room.rules.map(rule => (
-                  <li className="lst-rule" key={rule}>
-                    <span className="lst-rule-icon"><IconCheck /></span>
-                    {rule}
-                  </li>
-                ))}
+                {room.rules && room.rules.length > 0 ? (
+                  room.rules.map(rule => (
+                    <li className="lst-rule" key={rule.ruleId || rule.ruleName}>
+                      <span className="lst-rule-icon"><IconCheck /></span>
+                      {rule.ruleName || rule}
+                    </li>
+                  ))
+                ) : (
+                  <li className="lst-rule" style={{ color: '#999' }}>No specific rules listed</li>
+                )}
               </ul>
             </div>
 
@@ -280,17 +341,13 @@ const ListingPage = () => {
               <div className="lst-price-top">
                 <div>
                   <span className="lst-sidebar-price">
-                    LKR {room.price.toLocaleString('en-LK')}
+                    {room.price ? `LKR ${room.price.amount?.toLocaleString('en-LK') || 'N/A'}` : 'Price on request'}
                   </span>
-                  <span className="lst-sidebar-per"> / month</span>
-                </div>
-                <div className="lst-sidebar-rating">
-                  <span className="lst-star-sm">★</span>
-                  <span className="lst-rating-sm">{room.rating}</span>
+                  <span className="lst-sidebar-per"> / {room.price?.billingCycle?.toLowerCase() || 'month'}</span>
                 </div>
               </div>
 
-              {room.available ? (
+              {room.roomStatus === 'AVAILABLE' ? (
                 <>
                   <button
                     className={`lst-cta-btn${contacted ? ' done' : ''}`}
@@ -321,8 +378,8 @@ const ListingPage = () => {
                   <IconUser />
                 </div>
                 <div>
-                  <p className="lst-landlord-name">{room.landlord.name}</p>
-                  <p className="lst-landlord-since">Member since {room.landlord.joined}</p>
+                  <p className="lst-landlord-name">{room.renter?.full_name || 'Landlord'}</p>
+                  <p className="lst-landlord-since">Contact: {room.renter?.phone_number || 'Available on request'}</p>
                 </div>
               </div>
               <button
