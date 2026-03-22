@@ -1,0 +1,40 @@
+package com.rumi.rumi_backend_v2.controller;
+
+import com.rumi.rumi_backend_v2.entity.RoomImage;
+import com.rumi.rumi_backend_v2.repo.RoomImageRepo;
+import com.rumi.rumi_backend_v2.repo.RoomRepo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
+@RestController
+@RequestMapping("/api/test")
+@RequiredArgsConstructor
+public class TestController {
+
+    private final RoomImageRepo roomImageRepo;
+    private final RoomRepo roomRepo;
+
+    @PostMapping("/add-test-images/{roomId}")
+    public ResponseEntity<?> addTestImages(@PathVariable Long roomId) {
+        if (!roomRepo.existsById(roomId)) {
+            return ResponseEntity.badRequest().body("Room not found");
+        }
+
+        String[] testUrls = {
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=800&auto=format&fit=crop"
+        };
+
+        for (String url : testUrls) {
+            RoomImage img = RoomImage.builder()
+                    .room(roomRepo.findByRoomId(roomId))
+                    .imageUrl(url)
+                    .build();
+            roomImageRepo.save(img);
+        }
+
+        return ResponseEntity.ok("✓ Added 3 test images to room " + roomId);
+    }
+}

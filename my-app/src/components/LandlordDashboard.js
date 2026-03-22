@@ -186,19 +186,25 @@ const LandlordDashboard = () => {
           const formDataImg = new FormData();
           images.forEach(img => formDataImg.append('image', img));
           
+          console.log('Uploading', images.length, 'images to room', roomId);
+          console.log('Authorization header:', headers.Authorization?.substring(0, 20) + '...');
+          
           // axiosClient will automatically handle multipart headers via interceptor
-          await axiosClient.post(
+          const imgRes = await axiosClient.post(
             `/rooms/${roomId}/images`,
             formDataImg,
             { 
               headers
             }
           );
-          setMessage(`✅ Room created! ID: ${roomId}`);
+          console.log('✓ Images uploaded successfully:', imgRes.data);
+          setMessage(`✅ Room created! ID: ${roomId} with ${images.length} images`);
         } catch (imgErr) {
           // Room was created successfully even if image upload fails
-          setMessage(`✅ Room created! ID: ${roomId} (Image upload skipped)`);
-          console.warn('Image upload skipped:', imgErr.message);
+          const errorDetail = imgErr.response?.data?.error || imgErr.response?.data?.message || imgErr.message;
+          console.error('❌ Image upload failed:', errorDetail);
+          console.error('Full error response:', imgErr.response?.data);
+          setMessage(`✅ Room created! ID: ${roomId} but image upload failed: ${errorDetail}`);
         }
       } else {
         setMessage(`✅ Room created! ID: ${roomId}`);

@@ -57,18 +57,21 @@ public class RoomImageController {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", e.getMessage()));
             }
 
-            if(e.getMessage().contains("Authorised, Invalid ")){
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", e.getMessage()));
+            if(e.getMessage().contains("Authorised, Invalid") || e.getMessage().contains("expired token")){
+                System.out.println("Controller: Token validation failed - " + e.getMessage());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid or expired authentication token. Please log in again."));
             }
 
             //TODO: have to show user image type error
             System.out.println("Controller: "+e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Image Upload Failed"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Image Upload Failed: " + e.getMessage()));
         }
 
         catch (Exception e) {
-            System.out.println("Controller: "+e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Image Upload Failed"));
+            System.out.println("Controller: Unexpected error - " + e.getMessage());
+            System.out.println("Exception type: " + e.getClass().getSimpleName());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Image Upload Failed: " + e.getClass().getSimpleName() + " - " + e.getMessage()));
         }
 
     }

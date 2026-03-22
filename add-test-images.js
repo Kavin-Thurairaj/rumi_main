@@ -4,7 +4,7 @@ const http = require('http');
 const options = {
   hostname: 'localhost',
   port: 8080,
-  path: '/api/rooms/5/images',
+  path: '/api/rooms/1/images',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -24,10 +24,14 @@ testImages.forEach(img => {
     let data = '';
     res.on('data', chunk => data += chunk);
     res.on('end', () => {
-      console.log(`✓ Added image ${++completed}/${testImages.length}`);
+      try {
+        const response = JSON.parse(data);
+        console.log(`Image ${++completed} - Status ${res.statusCode}:`, response);
+      } catch(e) {
+        console.log(`Image ${++completed} - Status ${res.statusCode}: ${data}`);
+      }
       if (completed === testImages.length) {
-        console.log('\n✓ All test images added to room 5!');
-        console.log('✓ Reload the app to see the images');
+        console.log('\n✓ All test images processed');
       }
     });
   });
