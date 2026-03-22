@@ -1,0 +1,38 @@
+df-messenger {
+  --df-messenger-button-titlebar-color: #003f8a;
+  --df-messenger-button-titlebar-font-color: #ffffff;
+  --df-messenger-chat-background-color: #f7f9ff;
+  --df-messenger-font-family: 'Segoe UI', sans-serif;
+  --df-messenger-user-message: #003f8a;
+  --df-messenger-user-message-text-color: #ffffff;
+  --df-messenger-bot-message: #ffffff;
+  --df-messenger-bot-message-text-color: #0b1d40;
+  --df-messenger-minimized-icon-color: #ffffff;
+  --df-messenger-send-icon: #003f8a;
+  --df-messenger-input-box-color: #ffffff;
+  --df-messenger-input-font-color: #0b1d40;
+  --df-messenger-input-placeholder-font-color: #a0b4d6;
+  --df-messenger-focus-color: #003f8a;
+  --df-messenger-chat-bubble-background: #003f8a;
+  --df-messenger-chat-bubble-icon-color: #ffffff;
+
+  /* Chip styling — white text on blue background */
+  --df-messenger-chip-background: #003f8a;
+  --df-messenger-chip-border-color: #003f8a;
+  --df-messenger-chip-text-color: #ffffff;
+  --df-messenger-chip-selected-background: #002d66;
+  --df-messenger-chip-selected-border-color: #002d66;
+  --df-messenger-chip-selected-text-color: #ffffff;
+
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+}
+
+@media (max-width: 480px) {
+  df-messenger {
+    bottom: 16px;
+    right: 16px;
+  }
+}
