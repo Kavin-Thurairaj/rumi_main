@@ -4,6 +4,7 @@ import com.rumi.rumi_backend_v2.dto.RoomFilterResponse;
 import com.rumi.rumi_backend_v2.enums.BillingCycle;
 import com.rumi.rumi_backend_v2.enums.GenderAllowed;
 import com.rumi.rumi_backend_v2.enums.RoomStatus;
+import com.rumi.rumi_backend_v2.enums.RoomType;
 import com.rumi.rumi_backend_v2.repository.RoomFilterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,13 +24,15 @@ public class RoomFilterService {
             Integer maxPrice,
             GenderAllowed genderAllowed,
             RoomStatus roomStatus,
+            RoomType roomType,
             Pageable pageable
     ) {
         String genderStr = genderAllowed != null ? genderAllowed.name() : null;
         String statusStr = roomStatus != null ? roomStatus.name() : null;
+        String roomTypeStr = roomType != null ? roomType.name() : null;
 
         Page<Object[]> results = roomFilterRepository.filterRoomsNative(
-                city, country, minPrice, maxPrice, genderStr, statusStr, pageable
+                city, country, minPrice, maxPrice, genderStr, statusStr, roomTypeStr, pageable
         );
 
         return results.map(row -> new RoomFilterResponse(
@@ -43,7 +46,8 @@ public class RoomFilterService {
                 (String) row[7],
                 (String) row[8],
                 ((Number) row[9]).intValue(),
-                BillingCycle.valueOf((String) row[10])
+                BillingCycle.valueOf((String) row[10]),
+                row[11] != null ? RoomType.valueOf((String) row[11]) : null
         ));
     }
 
