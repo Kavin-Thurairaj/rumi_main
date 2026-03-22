@@ -35,7 +35,7 @@ export default function BrowseRooms() {
 
   useEffect(() => {
     fetchRooms();
-  }, [city, budgetIdx, onlyAvail]);
+  }, [city, budgetIdx, onlyAvail, type]);
 
   const fetchRooms = async () => {
     setLoading(true);
@@ -47,6 +47,7 @@ export default function BrowseRooms() {
         minPrice: min === 0 ? null : min,
         maxPrice: max === Infinity ? null : max,
         roomStatus: onlyAvail ? 'AVAILABLE' : null,
+        roomType: type === 'All Types' ? null : type.toUpperCase(),
       };
       const response = await roomFilterApi.searchRooms(filters, 0, 50);
       const mappedRooms = response.data.content.map(room => ({
@@ -54,7 +55,7 @@ export default function BrowseRooms() {
         title: room.roomTitle,
         location: `${room.city}, ${room.country}`,
         price: room.amount,
-        type: 'Apartment',
+        type: room.roomType,
         images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688'],
         available: room.roomStatus === 'AVAILABLE',
         rating: 4.5,
@@ -72,13 +73,13 @@ export default function BrowseRooms() {
     }
   };
 
-const filtered = useMemo(() => {
+  const filtered = useMemo(() => {
     let result = [...rooms];
     if (sort === 'Price: Low → High') result = result.sort((a, b) => a.price - b.price);
     if (sort === 'Price: High → Low') result = result.sort((a, b) => b.price - a.price);
     if (sort === 'Top Rated') result = result.sort((a, b) => b.rating - a.rating);
     return result;
-}, [rooms, sort]);
+  }, [rooms, sort]);
 
   const clearFilters = () => {
     setCity('All Cities');
@@ -174,7 +175,7 @@ const filtered = useMemo(() => {
         ) : filtered.length > 0 ? (
           <div className="br-grid">
             {filtered.map(room => (
-              <RoomCard key={room.roomId} room={room} />
+              <RoomCard key={room.id} room={room} />
             ))}
           </div>
         ) : (
