@@ -1,24 +1,21 @@
-/* Main horizontal layout */
 .listing-wrapper {
-  display: flex;           
+  display: flex;
   gap: 20px;
-  padding: 20px 120px;
+  padding: 20px 48px;
   background: #f8fafc;
-  height: 80vh;            
+  min-height: 80vh;
 }
 
-/* Vertical scrollable room list */
 .room-list {
-  flex: 1;              
+  flex: 1;
   display: flex;
-  flex-direction: column;  
-  overflow-y: auto;        
+  flex-direction: column;
+  overflow-y: auto;
   max-height: 100%;
   padding-right: 10px;
   scrollbar-width: none;
 }
 
-/* Individual room card */
 .room-card {
   display: flex;
   background: white;
@@ -27,47 +24,69 @@
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   cursor: pointer;
+  min-height: 180px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Room image */
+.room-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
 .room-img {
   width: 200px;
-  height: 150px;
+  height: 180px;
   border-radius: 20px;
   object-fit: cover;
   margin: 16px;
+  background: #e5e7eb;
+  flex-shrink: 0;
 }
 
-/* Room info section */
 .room-info {
   padding: 16px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Room details styling */
 .location {
   color: #2563eb;
   font-size: 14px;
+  margin: 4px 0;
 }
 
 .price {
   font-weight: bold;
   margin-top: 6px;
+  font-size: 15px;
+  color: #0b1d40;
 }
 
 .desc {
-  margin-top: 10px;
+  margin-top: 8px;
   color: #555;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .request-btn {
-  margin-top: 12px;
+  margin-top: 14px;
   background: #2563eb;
   color: white;
-  padding: 8px 18px;
+  padding: 9px 20px;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  width: fit-content;
+  transition: background 0.2s;
+}
+
+.request-btn:hover {
+  background: #1a4fa8;
 }
 
 .map-container {
@@ -75,52 +94,29 @@
   height: 100%;
   border-radius: 20px;
   overflow: hidden;
-
-  transform: translateX(100%); 
+  transform: translateX(100%);
   opacity: 0;
   pointer-events: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Show map */
 .map-container.show {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Map animation */
-.map-container {
-  flex: 1;
-  height: 100%;
-  border-radius: 20px;
-  overflow: hidden;
-
-  transform: translateX(100%); 
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* Show map */
-.map-container.show {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* toggle button */
 .toggle-map-btn {
   position: fixed;
-  top: 50%;           
-  right: 0;           
+  top: 50%;
+  right: 0;
   transform: translateY(-50%);
-  width: 50px;       
-  height: 100px;      
+  width: 50px;
+  height: 100px;
   background: #00D2F1;
   color: white;
   border: none;
-  border-radius: 50% 0 0 50%; 
+  border-radius: 50% 0 0 50%;
   cursor: pointer;
   z-index: 1000;
   font-size: 34px;
