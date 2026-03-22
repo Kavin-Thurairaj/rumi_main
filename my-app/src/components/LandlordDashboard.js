@@ -186,15 +186,12 @@ const LandlordDashboard = () => {
           const formDataImg = new FormData();
           images.forEach(img => formDataImg.append('image', img));
           
-          // Use axiosClient without overriding Content-Type to allow multipart
+          // axiosClient will automatically handle multipart headers via interceptor
           await axiosClient.post(
             `/rooms/${roomId}/images`,
             formDataImg,
             { 
-              headers: {
-                ...headers,
-                'Content-Type': 'multipart/form-data'
-              }
+              headers
             }
           );
           setMessage(`✅ Room created! ID: ${roomId}`);
