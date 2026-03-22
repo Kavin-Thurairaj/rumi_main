@@ -88,21 +88,27 @@ public class RoomServiceImpl implements RoomService {
         roomPriceRepo.save(price);
         
         // Amenities
-        List<Amenity> amenities = amenityRepo.findByAmenityIdIn(dto.getAmenityIds());
-        if (!amenities.isEmpty()) {
-            room.setAmenities(new java.util.HashSet<>(amenities));
+        if (dto.getAmenityIds() != null && !dto.getAmenityIds().isEmpty()) {
+            List<Amenity> amenities = amenityRepo.findByAmenityIdIn(dto.getAmenityIds());
+            if (!amenities.isEmpty()) {
+                room.setAmenities(new java.util.HashSet<>(amenities));
+            }
         }
         
         // Rules
-        List<Rule> rules = ruleRepo.findByRuleIdIn(dto.getRuleIds());
-        if (!rules.isEmpty()) {
-            room.setRules(new java.util.HashSet<>(rules));
+        if (dto.getRuleIds() != null && !dto.getRuleIds().isEmpty()) {
+            List<Rule> rules = ruleRepo.findByRuleIdIn(dto.getRuleIds());
+            if (!rules.isEmpty()) {
+                room.setRules(new java.util.HashSet<>(rules));
+            }
         }
         
         // Payment Conditions
-        List<PaymentCondition> paymentConditions = paymentConditionRepo.findByConditionIdIn(dto.getPaymentConditionIds());
-        if (!paymentConditions.isEmpty()) {
-            room.setPaymentConditions(new java.util.HashSet<>(paymentConditions));
+        if (dto.getPaymentConditionIds() != null && !dto.getPaymentConditionIds().isEmpty()) {
+            List<PaymentCondition> paymentConditions = paymentConditionRepo.findByConditionIdIn(dto.getPaymentConditionIds());
+            if (!paymentConditions.isEmpty()) {
+                room.setPaymentConditions(new java.util.HashSet<>(paymentConditions));
+            }
         }
         
         roomRepo.save(room);

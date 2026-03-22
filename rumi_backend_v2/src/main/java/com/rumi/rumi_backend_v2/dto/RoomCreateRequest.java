@@ -35,12 +35,9 @@ public class RoomCreateRequest {
     @Valid
     @NotNull
     private PriceDto price;
-    @NotNull
-    private List<@NotNull Long> amenityIds;
-    @NotNull
-    private List<@NotNull Long> ruleIds;
-    @NotNull
-    private List<@NotNull Long> paymentConditionIds;
+    private List<Long> amenityIds;
+    private List<Long> ruleIds;
+    private List<Long> paymentConditionIds;
 
     @Data
     @Builder

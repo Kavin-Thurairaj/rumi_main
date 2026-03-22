@@ -163,9 +163,9 @@ const LandlordDashboard = () => {
           advance: parseInt(formData.advance),
           billingCycle: formData.billingCycle
         },
-        amenityIds: [1],
-        ruleIds: [1],
-        paymentConditionIds: [1]
+        amenityIds: [],
+        ruleIds: [],
+        paymentConditionIds: []
       };
 
 
