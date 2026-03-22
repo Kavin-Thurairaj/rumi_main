@@ -3,16 +3,21 @@ import ShareFilterBar from "../component/ShareFilterBar";
 import RoomShareCard from "../component/sharecard";
 import Footer from "../component/footer";
 import roomFilterApi from "../../api/roomFilterApi";
+import roomSharePostApi from "../../api/roomSharePostApi";
 import "../styles/share.css";
 import "../styles/sharefilter.css";
 import { Link } from 'react-router-dom';
 
 const RoomShareListing = () => {
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const [tenantPosts, setTenantPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => { fetchRooms({}); }, []);
+  useEffect(() => {
+    fetchRooms({});
+    fetchTenantPosts();
+  }, []);
 
   const fetchRooms = async (filters) => {
     setLoading(true);
@@ -28,19 +33,48 @@ const RoomShareListing = () => {
     }
   };
 
-  const handleSearch = (filters) => {
-    const converted = { ...filters };
-    if (filters.budget === "below20000") {
-      converted.maxPrice = 20000;
-    } else if (filters.budget === "20000to30000") {
-      converted.minPrice = 20000;
-      converted.maxPrice = 30000;
-    } else if (filters.budget === "above30000") {
-      converted.minPrice = 30000;
+  const fetchTenantPosts = async () => {
+    try {
+      const data = await roomSharePostApi.getAllPosts();
+      setTenantPosts(data);
+    } catch (err) {
+      console.error("Could not load tenant posts:", err);
     }
-    delete converted.budget;
+  };
+
+  const handleSearch = (filters) => {
+    const converted = {};
+    if (filters.city && filters.city !== "") converted.city = filters.city;
+    if (filters.genderAllowed && filters.genderAllowed !== "") converted.genderAllowed = filters.genderAllowed;
+    if (filters.budget === "below20000") converted.maxPrice = 20000;
+    else if (filters.budget === "20000to30000") { converted.minPrice = 20000; converted.maxPrice = 30000; }
+    else if (filters.budget === "above30000") converted.minPrice = 30000;
     fetchRooms(converted);
   };
+
+  // Convert tenant post to same shape as room card
+  const convertPostToRoom = (post) => ({
+    roomId: `post-${post.id}`,
+    roomTitle: post.title,
+    roomDescription: post.description,
+    genderAllowed: post.gender_preference?.toUpperCase(),
+    roomStatus: post.available_spots > 0 ? 'AVAILABLE' : 'FULL',
+    maxRoommates: post.total_spots,
+    city: post.location,
+    country: 'Sri Lanka',
+    addressLine: post.location,
+    amount: post.rent_per_person,
+    billingCycle: 'MONTHLY',
+    roomType: 'SHARED',
+    contactNumber: post.contact_number,
+    posterName: post.poster_name,
+    moveInDate: post.move_in_date,
+  });
+
+  const allRooms = [
+    ...filteredRooms,
+    ...tenantPosts.map(convertPostToRoom),
+  ];
 
   return (
     <>
@@ -163,15 +197,15 @@ const RoomShareListing = () => {
       <div className="listing-wrapper">
         <div className="room-list">
           {loading ? (
-            <p style={{ textAlign: "center" }}>Loading rooms...</p>
+            <p style={{ textAlign: "center", gridColumn: "1/-1" }}>Loading rooms...</p>
           ) : error ? (
-            <p style={{ textAlign: "center", color: "red" }}>{error}</p>
-          ) : filteredRooms.length > 0 ? (
-            filteredRooms.map((room) => (
+            <p style={{ textAlign: "center", color: "red", gridColumn: "1/-1" }}>{error}</p>
+          ) : allRooms.length > 0 ? (
+            allRooms.map((room) => (
               <RoomShareCard key={room.roomId} room={room} />
             ))
           ) : (
-            <p style={{ textAlign: "center" }}>No rooms found</p>
+            <p style={{ textAlign: "center", gridColumn: "1/-1" }}>No rooms found</p>
           )}
         </div>
       </div>
