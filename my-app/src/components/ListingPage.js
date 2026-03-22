@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { mockRooms } from './mockRooms';
+
 import RoomCard from './RoomCard';
 import axiosClient from '../api/rumi_client';
 import './ListingPage.css';
@@ -103,6 +103,7 @@ const ListingPage = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [similar, setSimilar] = useState([]);
 
   const [activeImg, setActiveImg]     = useState(0);
   const [contacted, setContacted]     = useState(false);
@@ -130,18 +131,35 @@ const ListingPage = () => {
         
         setRoom(roomData);
         setImages(roomImages);
+        
+        // Fetch similar rooms from backend
+        try {
+          const similarResponse = await axiosClient.get('/rooms/search', {
+            params: { city: roomData.address?.city, limit: 3 }
+          });
+          const similarRooms = (similarResponse.data.content || []).map(r => ({
+            id: r.roomId,
+            title: r.roomTitle,
+            location: `${r.city}, ${r.country}`,
+            price: r.amount,
+            type: 'Apartment',
+            images: [r.imageUrl || 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688'],
+            available: r.roomStatus === 'AVAILABLE',
+            rating: 4.5,
+            reviews: 0,
+            bedrooms: r.maxRoommates || 1
+          })).filter(r => r.id !== Number(id)).slice(0, 3);
+          setSimilar(similarRooms);
+        } catch (simErr) {
+          console.warn('Could not fetch similar rooms', simErr);
+          setSimilar([]);
+        }
+        
         setError(null);
       } catch (err) {
         console.error('Error fetching room data:', err);
         setError(err.message);
-        
-        // Fallback to mock data if backend isn't available
-        const mockRoom = mockRooms.find(r => r.id === Number(id));
-        if (mockRoom) {
-          setRoom(mockRoom);
-          setImages(mockRoom.images || []);
-          setError(null);
-        }
+        setSimilar([]);
       } finally {
         setLoading(false);
       }
@@ -149,9 +167,6 @@ const ListingPage = () => {
 
     fetchRoomData();
   }, [id]);
-
-  /* ── Nearby rooms ── */
-  const similar = mockRooms.filter(r => r.id !== Number(id)).slice(0, 3);
 
   /* ── Share ── */
   const handleShare = () => {

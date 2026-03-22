@@ -22,7 +22,6 @@ import CategoryCarousel from "./CategoryCarousel";
 import PlaceScroller from "./PlaceScroller";
 import Home_statement from "./Home_statement";
 import RoomCard from "./RoomCard";
-import { mockRooms } from "./mockRooms";
 import roomFilterApi from "../api/roomFilterApi";
 import Footer from "./Footer";
 import "./HomepageModern.css";
@@ -293,8 +292,7 @@ export default function Homepage() {
         setFeaturedRooms(formatted);
       } catch (err) {
         console.error('Error fetching featured rooms:', err);
-        // Fall back to mockRooms if there's an error
-        setFeaturedRooms(mockRooms.slice(0, 3));
+        setFeaturedRooms([]);
       } finally {
         setLoadingFeatured(false);
       }
@@ -732,8 +730,8 @@ export default function Homepage() {
             <div className="hp-rooms-grid">
               {loadingFeatured ? (
                 <p style={{ textAlign: 'center', padding: '20px', gridColumn: '1 / -1' }}>Loading featured rooms...</p>
-              ) : (
-                (featuredRooms.length > 0 ? featuredRooms : mockRooms.slice(0, 3)).map((room, i) => (
+              ) : featuredRooms.length > 0 ? (
+                featuredRooms.map((room, i) => (
                   <div
                     key={room.id}
                     className="hp-card-reveal"
@@ -742,6 +740,8 @@ export default function Homepage() {
                     <RoomCard room={room} />
                   </div>
                 ))
+              ) : (
+                <p style={{ textAlign: 'center', padding: '20px', gridColumn: '1 / -1' }}>No featured rooms available</p>
               )}
             </div>
             <div className="hp-view-all-wrap">
