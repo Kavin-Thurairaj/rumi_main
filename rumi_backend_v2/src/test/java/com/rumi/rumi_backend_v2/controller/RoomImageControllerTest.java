@@ -80,7 +80,7 @@ public class RoomImageControllerTest {
     }
 
     @Test
-    void testUploadImageUserNotBelongToRoom() throws Exception {
+    void testUploadImageUserNotRenter() throws Exception {
         MockMultipartFile file = new MockMultipartFile("image", "test.jpg", "image/jpeg", "fake-image".getBytes());
         when(supabaseAuthService.getUserId("valid-token")).thenReturn("user123");
 
