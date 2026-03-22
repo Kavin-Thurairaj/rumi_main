@@ -55,7 +55,7 @@ export default function BrowseRooms() {
         location: `${room.city}, ${room.country}`,
         price: room.amount,
         type: 'Apartment',
-        images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688'],
+        images: [room.imageUrl || 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688'],
         available: room.roomStatus === 'AVAILABLE',
         rating: 4.5,
         reviews: 0,

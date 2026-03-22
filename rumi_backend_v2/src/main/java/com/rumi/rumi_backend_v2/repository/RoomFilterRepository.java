@@ -14,7 +14,8 @@ public interface RoomFilterRepository extends JpaRepository<RoomDetail, Long> {
     @Query(value = """
         SELECT rd.room_id, rd.room_title, rd.room_description, rd.gender_allowed,
                rd.room_status, rd.max_roommates, a.city, a.country, a.address_line,
-               rp.amount, rp.billing_cycle
+               rp.amount, rp.billing_cycle,
+               (SELECT ri.image_url FROM room_image ri WHERE ri.room_id = rd.room_id LIMIT 1) as image_url
         FROM room_detail rd
         JOIN address a ON a.room_id = rd.room_id
         JOIN room_price rp ON rp.room_id = rd.room_id

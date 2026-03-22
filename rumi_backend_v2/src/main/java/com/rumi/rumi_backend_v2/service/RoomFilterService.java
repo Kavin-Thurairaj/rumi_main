@@ -43,7 +43,8 @@ public class RoomFilterService {
                 (String) row[7],
                 (String) row[8],
                 ((Number) row[9]).intValue(),
-                BillingCycle.valueOf((String) row[10])
+                BillingCycle.valueOf((String) row[10]),
+                (String) row[11]
         ));
     }
 

@@ -28,20 +28,35 @@ function RoomSlider(){
 
     const [loading, setLoading] = useState(true)  // add loading state
 
+    // Mock images for demo/fallback
+    const mockImages = [
+      { imageId: 1, imageUrl: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=900' },
+      { imageId: 2, imageUrl: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600' },
+      { imageId: 3, imageUrl: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=600' },
+    ];
+
     const handleFetch = async () => {
         try {
             const result = await imageApi.getImage(1) // here we call the getImage method in the imageApi the get endpoint fetch
             console.log("the result: "+result.data)
-            setFetchImg(result.data)  // In the state variable fetchImg we save the result data
+            if (result.data && result.data.length > 0) {
+              setFetchImg(result.data)  // In the state variable fetchImg we save the result data
+            } else {
+              // Use mock images if API returns empty
+              console.log("No images from API, using mock images")
+              setFetchImg(mockImages)
+            }
         } 
         catch (err) {
             console.log("error: "+err)
+            // Use mock images on error
+            setFetchImg(mockImages)
             if (err.response?.status === 404) {
-                setError("Room not found.")
+                setError("Room not found. Showing demo images.")
             } else if (err.response?.status === 500) {
-                setError("Server error. Please try again later.")
+                setError("Server error. Showing demo images.")
             } else {
-                setError("Failed to load images. Please try again later.") // This error state will be set if the image fetch failed
+                setError("") // Don't show error if we have mock images
             }   
         }
         finally{
@@ -92,7 +107,7 @@ function RoomSlider(){
 
                     {fetchImg.length>0 && !error && !loading &&
                         fetchImg.map((img)=>(  // Map means we loop through the array and get the json object img
-                            <SwiperSlide key={img.image}
+                            <SwiperSlide key={img.imageId}
                                 style={{
                                     display:'flex',
                                     alignItems:'center',
