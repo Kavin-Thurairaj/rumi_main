@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../auth/supabaseClient";
 
+
+//
+// This page handles email verification after a user
+// signs up and clicks the confirmation link in their email.
+//
+
 export default function VerifyEmail() {
   const navigate = useNavigate();
   const [status, setStatus] = useState("verifying");
