@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Home, MapPin, Calendar, Users } from "lucide-react";
 import CreatePostForm from "../component/CreatePostForm";
 import roomSharePostApi from "../../api/roomSharePostApi";
 
@@ -36,7 +37,7 @@ const RoomSharePostPage = () => {
         color: "white",
         marginBottom: "40px"
       }}>
-        <h1 style={{ fontSize: "36px", margin: "0 0 12px 0" }}>🏠 Room Sharing Board</h1>
+        <h1 style={{ fontSize: "36px", margin: "0 0 12px 0" }}><Home size={32} style={{ display: 'inline', marginRight: '12px' }} />Room Sharing Board</h1>
         <p style={{ fontSize: "18px", opacity: 0.8, margin: "0 0 24px 0" }}>
           Find your perfect roommate or post your room sharing ad
         </p>
@@ -99,7 +100,7 @@ const RoomSharePostPage = () => {
                       </span>
                     </div>
 
-                    <p style={{ color: "#2563eb", margin: "0 0 6px 0", fontSize: "14px" }}>📍 {post.location}</p>
+                    <p style={{ color: "#2563eb", margin: "0 0 6px 0", fontSize: "14px" }}><MapPin size={14} style={{ display: 'inline', marginRight: '4px' }} />{post.location}</p>
                     <p style={{ fontWeight: "700", margin: "0 0 10px 0", fontSize: "18px", color: "#1E293B" }}>
                       LKR {post.rent_per_person?.toLocaleString()}
                       <span style={{ fontWeight: "400", fontSize: "14px", color: "#64748B" }}> / person/month</span>
@@ -109,13 +110,13 @@ const RoomSharePostPage = () => {
                     {/* Tags */}
                     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                       <span style={{ background: "#EFF6FF", color: "#2563eb", padding: "4px 12px", borderRadius: "20px", fontSize: "13px" }}>
-                        👤 {post.gender_preference}
+                        <Users size={14} style={{ display: 'inline', marginRight: '4px' }} />{post.gender_preference}
                       </span>
                       <span style={{ background: "#F0FDF4", color: "#16A34A", padding: "4px 12px", borderRadius: "20px", fontSize: "13px" }}>
-                        🏠 {post.available_spots}/{post.total_spots} spots
+                        <Home size={14} style={{ display: 'inline', marginRight: '4px' }} />{post.available_spots}/{post.total_spots} spots
                       </span>
                       <span style={{ background: "#FFF7ED", color: "#EA580C", padding: "4px 12px", borderRadius: "20px", fontSize: "13px" }}>
-                        📅 {post.move_in_date}
+                        <Calendar size={14} style={{ display: 'inline', marginRight: '4px' }} />{post.move_in_date}
                       </span>
                       {post.preferences && (
                         <span style={{ background: "#F8FAFC", color: "#64748B", padding: "4px 12px", borderRadius: "20px", fontSize: "13px" }}>
@@ -155,7 +156,7 @@ const RoomSharePostPage = () => {
           </div>
         ) : (
           <div style={{ textAlign: "center", padding: "80px" }}>
-            <div style={{ fontSize: "64px", marginBottom: "16px" }}>🏠</div>
+            <div style={{ fontSize: "64px", marginBottom: "16px" }}><Home size={64} /></div>
             <h2 style={{ color: "#1E293B", marginBottom: "8px" }}>No posts yet</h2>
             <p style={{ color: "#64748B", marginBottom: "24px" }}>Be the first to post a room sharing ad!</p>
             <button

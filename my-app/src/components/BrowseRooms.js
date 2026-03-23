@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Home, Heart, MapPin, DollarSign, ArrowUpDown, X, Search } from 'lucide-react';
 import RoomCard from './RoomCard';
 import supabase from '../api/supabaseClient';
 import { useAuth } from '../auth/AuthContext';
@@ -259,14 +260,16 @@ const filtered = useMemo(() => {
             className={`br-tab ${!showWishlist ? 'br-tab--active' : ''}`}
             onClick={() => setShowWishlist(false)}
           >
-            🏠 All Rooms
+            <Home size={16} style={{ display: 'inline', marginRight: '6px' }} />
+            All Rooms
           </button>
           {user && (
             <button 
               className={`br-tab ${showWishlist ? 'br-tab--active' : ''}`}
               onClick={() => setShowWishlist(true)}
             >
-              ❤️ Rooms I Like ({wishlistRooms.length})
+              <Heart size={16} style={{ display: 'inline', marginRight: '6px' }} />
+              Rooms I Like ({wishlistRooms.length})
             </button>
           )}
         </div>
@@ -275,28 +278,28 @@ const filtered = useMemo(() => {
           {!showWishlist && (
             <>
               <div className="br-filter-group">
-                <label className="br-filter-label" htmlFor="br-city">📍 City</label>
+                <label className="br-filter-label" htmlFor="br-city"><MapPin size={12} style={{ display: 'inline', marginRight: '4px' }} /> City</label>
                 <select id="br-city" className="br-select" value={city} onChange={e => setCity(e.target.value)}>
                   {CITIES.map(c => <option key={c}>{c}</option>)}
                 </select>
               </div>
 
               <div className="br-filter-group">
-                <label className="br-filter-label" htmlFor="br-type">🏠 Type</label>
+                <label className="br-filter-label" htmlFor="br-type"><Home size={12} style={{ display: 'inline', marginRight: '4px' }} /> Type</label>
                 <select id="br-type" className="br-select" value={type} onChange={e => setType(e.target.value)}>
                   {TYPES.map(t => <option key={t}>{t}</option>)}
                 </select>
               </div>
 
               <div className="br-filter-group">
-                <label className="br-filter-label" htmlFor="br-budget">💰 Budget</label>
+                <label className="br-filter-label" htmlFor="br-budget"><DollarSign size={12} style={{ display: 'inline', marginRight: '4px' }} /> Budget</label>
                 <select id="br-budget" className="br-select" value={budgetIdx} onChange={e => setBudgetIdx(Number(e.target.value))}>
                   {BUDGETS.map((b, i) => <option key={b.label} value={i}>{b.label}</option>)}
                 </select>
               </div>
 
               <div className="br-filter-group">
-                <label className="br-filter-label" htmlFor="br-sort">↕️ Sort</label>
+                <label className="br-filter-label" htmlFor="br-sort"><ArrowUpDown size={12} style={{ display: 'inline', marginRight: '4px' }} /> Sort</label>
                 <select id="br-sort" className="br-select" value={sort} onChange={e => setSort(e.target.value)}>
                   {SortOptions.map(s => <option key={s}>{s}</option>)}
                 </select>
@@ -314,14 +317,14 @@ const filtered = useMemo(() => {
 
               {hasFilters && (
                 <button className="br-clear-btn" onClick={clearFilters}>
-                  ✕ Clear
+                  <X size={14} style={{ display: 'inline', marginRight: '4px' }} /> Clear
                 </button>
               )}
             </>
           )}
           {showWishlist && (
             <div className="br-filter-group">
-              <label className="br-filter-label" htmlFor="br-sort">↕️ Sort</label>
+              <label className="br-filter-label" htmlFor="br-sort"><ArrowUpDown size={12} style={{ display: 'inline', marginRight: '4px' }} /> Sort</label>
               <select id="br-sort" className="br-select" value={sort} onChange={e => setSort(e.target.value)}>
                 {SortOptions.map(s => <option key={s}>{s}</option>)}
               </select>
@@ -341,7 +344,7 @@ const filtered = useMemo(() => {
           <p style={{ textAlign: 'center' }}>Loading rooms...</p>
         ) : showWishlist && !user ? (
           <div className="br-empty">
-            <div className="br-empty-icon">❤️</div>
+            <div className="br-empty-icon"><Heart size={48} /></div>
             <h3 className="br-empty-title">Sign in to save rooms</h3>
             <p className="br-empty-sub">Log in to start saving your favorite rooms.</p>
             <Link to="/login" className="br-empty-btn">Sign In</Link>
@@ -356,7 +359,7 @@ const filtered = useMemo(() => {
           </div>
         ) : (
           <div className="br-empty">
-            <div className="br-empty-icon">{showWishlist ? '❤️' : '🔍'}</div>
+            <div className="br-empty-icon">{showWishlist ? <Heart size={48} /> : <Search size={48} />}</div>
             <h3 className="br-empty-title">
               {showWishlist ? 'No saved rooms' : 'No rooms found'}
             </h3>

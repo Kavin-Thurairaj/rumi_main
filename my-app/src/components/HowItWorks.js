@@ -1,6 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Search, MessageCircle, Calendar, Zap, FileText, CheckCircle, BarChart3, DollarSign, Lock, Users, Shield, Star, User, Building2 } from 'lucide-react';
 import './HowItWorks.css';
+
+// Map icon names to React components
+const getIcon = (iconName) => {
+  const iconMap = {
+    '🔍': <Search size={28} />,
+    '💬': <MessageCircle size={28} />,
+    '🗓': <Calendar size={28} />,
+    '🎉': <Zap size={28} />,
+    '📝': <FileText size={28} />,
+    '✅': <CheckCircle size={28} />,
+    '📊': <BarChart3 size={28} />,
+    '💰': <DollarSign size={28} />,
+    '🔒': <Lock size={28} />,
+    '🤝': <Users size={28} />,
+    '🏆': <Star size={28} />,
+  };
+  return iconMap[iconName] || iconName;
+};
 
 const tenantSteps = [
   {
@@ -112,7 +131,7 @@ export default function HowItWorks() {
             aria-selected={tab === 'tenant'}
             onClick={() => setTab('tenant')}
           >
-            👤 For Tenants
+            <User size={16} style={{ display: 'inline', marginRight: '6px' }} /> For Tenants
           </button>
           <button
             className={`hiw-tab${tab === 'landlord' ? ' hiw-tab--active' : ''}`}
@@ -120,7 +139,7 @@ export default function HowItWorks() {
             aria-selected={tab === 'landlord'}
             onClick={() => setTab('landlord')}
           >
-            🏢 For Landlords
+            <Building2 size={16} style={{ display: 'inline', marginRight: '6px' }} /> For Landlords
           </button>
         </div>
 
@@ -133,7 +152,7 @@ export default function HowItWorks() {
               style={{ '--delay': `${i * 0.08}s` }}
             >
               <div className="hiw-step-num">{step.number}</div>
-              <div className="hiw-step-icon" aria-hidden="true">{step.icon}</div>
+              <div className="hiw-step-icon" aria-hidden="true">{getIcon(step.icon)}</div>
               <h3 className="hiw-step-title">{step.title}</h3>
               <p className="hiw-step-desc">{step.desc}</p>
               {i < steps.length - 1 && (
@@ -210,10 +229,10 @@ export default function HowItWorks() {
         {/* ── Trust strip ── */}
         <div className="hiw-trust-strip">
           {[
-            { icon: '🔒', label: 'Verified Listings' },
-            { icon: '🤝', label: 'Trusted by 12K+ Users' },
-            { icon: '💬', label: 'Secure Messaging' },
-            { icon: '🏆', label: '4.8★ Average Rating' },
+            { icon: <Lock size={20} />, label: 'Verified Listings' },
+            { icon: <Users size={20} />, label: 'Trusted by 12K+ Users' },
+            { icon: <MessageCircle size={20} />, label: 'Secure Messaging' },
+            { icon: <Star size={20} />, label: '4.8★ Average Rating' },
           ].map(t => (
             <div className="hiw-trust-item" key={t.label}>
               <span className="hiw-trust-icon">{t.icon}</span>

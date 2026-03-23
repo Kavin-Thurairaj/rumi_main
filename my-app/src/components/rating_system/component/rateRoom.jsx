@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { CheckCircle } from "lucide-react"
 import { submitRating, hasUserRated } from "../services/ratingService"
 import { checkBooking } from "../utils/checkBooking"
 import "./rateRoom.css"
@@ -68,7 +69,7 @@ function RateRoom({ roomId, userId }) {
       }
 
       if (result.data) {
-        setSubmitMessage("Rating submitted successfully! ✓")
+        setSubmitMessage("Rating submitted successfully!")
         // Mark as rated to prevent future submissions
         setHasAlreadyRated(true)
         // Reset form
@@ -105,7 +106,8 @@ function RateRoom({ roomId, userId }) {
         {/* Already Rated Message */}
         {!checkingRating && hasAlreadyRated ? (
           <div className="already-rated-message">
-            ✓ You have already rated this room. Thank you for your feedback!
+            <CheckCircle size={20} style={{ display: 'inline', marginRight: '8px' }} />
+            You have already rated this room. Thank you for your feedback!
           </div>
         ) : (
           <>

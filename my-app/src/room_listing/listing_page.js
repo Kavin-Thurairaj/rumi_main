@@ -147,7 +147,7 @@ function ListingPage(){
             const result = await createBooking(mockUserId, room?.roomId || room?.id);
             if (result) {
                 setBooked(true);
-                setBookingMsg('✓ Room booked successfully!');
+                setBookingMsg('Room booked successfully!');
                 setTimeout(() => setBookingMsg(''), 3000);
             } else {
                 setBookingMsg('Failed to book room.');
@@ -372,7 +372,7 @@ function ListingPage(){
                                                 }}
                                                 onClick={handleBook}
                                             >
-                                                {isBooking ? 'Booking...' : booked ? '✓ Booked!' : 'Schedule Visit'}
+                                                {isBooking ? 'Booking...' : booked ? <><Check size={16} style={{ display: 'inline', marginRight: '4px' }} />Booked!</> : 'Schedule Visit'}
                                             </Button>
                                         </Grid>
 
@@ -392,7 +392,7 @@ function ListingPage(){
                                                 }}
                                                 onClick={handleBook}
                                             >
-                                                {isBooking ? 'Booking...' : booked ? '✓ Booked!' : 'Book Now'}
+                                                {isBooking ? 'Booking...' : booked ? <><Check size={16} style={{ display: 'inline', marginRight: '4px' }} />Booked!</> : 'Book Now'}
                                             </Button>
                                         </Grid>
                                     </Grid>

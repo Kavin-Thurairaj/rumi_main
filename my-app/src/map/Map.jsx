@@ -1,16 +1,14 @@
 import React from "react";
+import { MapPin } from "lucide-react";
 import GoogleMapReact from "google-map-react";
 
 const Marker = ({ isHighlighted }) => (
   <div
     style={{
-      color: isHighlighted ? "blue" : "red",
-      fontWeight: "bold",
-      fontSize: isHighlighted ? "28px" : "20px", 
       transform: "translate(-50%, -100%)", 
     }}
   >
-    📍
+    <MapPin size={isHighlighted ? 32 : 24} color={isHighlighted ? "blue" : "red"} fill={isHighlighted ? "blue" : "red"} />
   </div>
 );
 

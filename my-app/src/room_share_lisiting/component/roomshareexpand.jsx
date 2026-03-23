@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Star, MapPin, Home } from "lucide-react";
 import "./roomshareexpand.css";
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
         <h2>Private Room in Modern Shared Apartment</h2>
 
         <p className="location">
-          ⭐ 4.9 (23 reviews) | 📍 Colombo, City Center
+          <Star size={16} style={{ display: 'inline', marginRight: '4px' }} /> 4.9 (23 reviews) | <MapPin size={16} style={{ display: 'inline', marginRight: '4px' }} /> Colombo, City Center
         </p>
 
         {/* House Rules */}
@@ -90,7 +91,7 @@ function App() {
           <p>🛏 Private Bedroom</p>
           <p>🚿 Shared Bathroom</p>
           <p>👥 3 People Total</p>
-          <p>🏠 3 Bed, 2 Bath</p>
+          <p><Home size={16} style={{ display: 'inline', marginRight: '4px' }} />3 Bed, 2 Bath</p>
         </div>
 
         {/* Amenities */}
@@ -121,35 +122,35 @@ function App() {
               <div className="room-card" onClick={() => window.location.href = '/room/modern-studio'}>
                 <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688" alt="Room" />
                 <h4>Modern Studio</h4>
-                <p>📍 Colombo, Galle Road</p>
+                <p><MapPin size={14} style={{ display: 'inline', marginRight: '4px' }} />Colombo, Galle Road</p>
                 <p className="price">Rs. 25,000/month</p>
               </div>
 
               <div className="room-card" onClick={() => window.location.href = '/room/cozy-apartment'}>
                 <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994" alt="Room" />
                 <h4>Cozy Apartment</h4>
-                <p>📍 Colombo, Fort</p>
+                <p><MapPin size={14} style={{ display: 'inline', marginRight: '4px' }} />Colombo, Fort</p>
                 <p className="price">Rs. 30,000/month</p>
               </div>
 
               <div className="room-card" onClick={() => window.location.href = '/room/shared-house'}>
                 <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="Room" />
                 <h4>Shared House</h4>
-                <p>📍 Colombo, Rajagiriya</p>
+                <p><MapPin size={14} style={{ display: 'inline', marginRight: '4px' }} />Colombo, Rajagiriya</p>
                 <p className="price">Rs. 20,000/month</p>
               </div>
 
               <div className="room-card" onClick={() => window.location.href = '/room/luxury-room'}>
                 <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2" alt="Room" />
                 <h4>Luxury Room</h4>
-                <p>📍 Colombo, Bambalapitiya</p>
+                <p><MapPin size={14} style={{ display: 'inline', marginRight: '4px' }} />Colombo, Bambalapitiya</p>
                 <p className="price">Rs. 35,000/month</p>
               </div>
 
               <div className="room-card" onClick={() => window.location.href = '/room/budget-room'}>
                 <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6" alt="Room" />
                 <h4>Budget Room</h4>
-                <p>📍 Colombo, Dehiwala</p>
+                <p><MapPin size={14} style={{ display: 'inline', marginRight: '4px' }} />Colombo, Dehiwala</p>
                 <p className="price">Rs. 15,000/month</p>
               </div>
             </div>
