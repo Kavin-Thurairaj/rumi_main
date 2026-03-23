@@ -35,7 +35,7 @@ export default function BrowseRooms() {
 
   useEffect(() => {
     fetchRooms();
-  }, [city, budgetIdx, onlyAvail]);
+  }, [city, budgetIdx, onlyAvail, type]);
 
   const fetchRooms = async () => {
     setLoading(true);
@@ -47,6 +47,7 @@ export default function BrowseRooms() {
         minPrice: min === 0 ? null : min,
         maxPrice: max === Infinity ? null : max,
         roomStatus: onlyAvail ? 'AVAILABLE' : null,
+        roomType: type === 'All Types' ? null : type.toUpperCase(),
       };
       const response = await roomFilterApi.searchRooms(filters, 0, 50);
       const mappedRooms = response.data.content.map(room => ({
@@ -54,7 +55,7 @@ export default function BrowseRooms() {
         title: room.roomTitle,
         location: `${room.city}, ${room.country}`,
         price: room.amount,
-        type: 'Apartment',
+        type: room.roomType,
         images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688'],
         available: room.roomStatus === 'AVAILABLE',
         rating: 4.5,
@@ -72,13 +73,13 @@ export default function BrowseRooms() {
     }
   };
 
-const filtered = useMemo(() => {
+  const filtered = useMemo(() => {
     let result = [...rooms];
     if (sort === 'Price: Low → High') result = result.sort((a, b) => a.price - b.price);
     if (sort === 'Price: High → Low') result = result.sort((a, b) => b.price - a.price);
     if (sort === 'Top Rated') result = result.sort((a, b) => b.rating - a.rating);
     return result;
-}, [rooms, sort]);
+  }, [rooms, sort]);
 
   const clearFilters = () => {
     setCity('All Cities');
@@ -116,29 +117,54 @@ const filtered = useMemo(() => {
         </div>
 
         <div className="br-filters" role="search" aria-label="Filter rooms">
+
           <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-city">📍 City</label>
+            <label className="br-filter-label" htmlFor="br-city">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style={{marginRight: 5, flexShrink: 0}}>
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              City
+            </label>
             <select id="br-city" className="br-select" value={city} onChange={e => setCity(e.target.value)}>
               {CITIES.map(c => <option key={c}>{c}</option>)}
             </select>
           </div>
 
           <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-type">🏠 Type</label>
+            <label className="br-filter-label" htmlFor="br-type">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 5, flexShrink: 0}}>
+                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+                <path d="M9 21V12h6v9"/>
+              </svg>
+              Type
+            </label>
             <select id="br-type" className="br-select" value={type} onChange={e => setType(e.target.value)}>
               {TYPES.map(t => <option key={t}>{t}</option>)}
             </select>
           </div>
 
           <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-budget">💰 Budget</label>
+            <label className="br-filter-label" htmlFor="br-budget">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 5, flexShrink: 0}}>
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+              Budget
+            </label>
             <select id="br-budget" className="br-select" value={budgetIdx} onChange={e => setBudgetIdx(Number(e.target.value))}>
               {BUDGETS.map((b, i) => <option key={b.label} value={i}>{b.label}</option>)}
             </select>
           </div>
 
           <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-sort">↕️ Sort</label>
+            <label className="br-filter-label" htmlFor="br-sort">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 5, flexShrink: 0}}>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="15" y2="12"/>
+                <line x1="3" y1="18" x2="9" y2="18"/>
+              </svg>
+              Sort
+            </label>
             <select id="br-sort" className="br-select" value={sort} onChange={e => setSort(e.target.value)}>
               {SortOptions.map(s => <option key={s}>{s}</option>)}
             </select>
@@ -174,12 +200,16 @@ const filtered = useMemo(() => {
         ) : filtered.length > 0 ? (
           <div className="br-grid">
             {filtered.map(room => (
-              <RoomCard key={room.roomId} room={room} />
+              <RoomCard key={room.id} room={room} />
             ))}
           </div>
         ) : (
           <div className="br-empty">
-            <div className="br-empty-icon">🔍</div>
+            <div className="br-empty-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c8d9ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </div>
             <h3 className="br-empty-title">No rooms found</h3>
             <p className="br-empty-sub">Try adjusting your filters to see more results.</p>
             <button className="br-empty-btn" onClick={clearFilters}>Clear Filters</button>

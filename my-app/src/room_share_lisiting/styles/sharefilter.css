@@ -1,7 +1,7 @@
 .filter-wrapper {
   display: flex;
   justify-content: center;
-  padding: 20px 48px 24px;   /* ← match listing-wrapper side padding */
+  padding: 20px 48px 24px;
   margin: 0;
   background: #f8fafc;
 }
@@ -10,13 +10,13 @@
   display: flex;
   align-items: flex-end;
   gap: 18px;
-  width: 100%;               /* ← was 85%, now full width */
-  max-width: 100%;           /* ← remove the 1100px cap */
+  width: 100%;
+  max-width: 100%;
   background: #ffffff;
   border-radius: 16px;
   padding: 20px 24px;
   border: 1px solid #e6eeff;
-  box-shadow: 0 4px 20px rgba(0, 53, 128, 0.07);
+  box-shadow: 0 4px 20px rgba(0,53,128,0.07);
 }
 
 .filter-field {
