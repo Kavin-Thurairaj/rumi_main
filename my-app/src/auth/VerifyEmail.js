@@ -43,6 +43,8 @@ export default function VerifyEmail() {
         background: "linear-gradient(155deg, #dce8ff 0%, #edf3ff 100%)",
       }}
     >
+
+      
       <div
         style={{
           background: "#fff",
