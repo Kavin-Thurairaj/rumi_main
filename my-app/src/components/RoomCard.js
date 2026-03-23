@@ -44,7 +44,7 @@ const RoomCard = ({ room }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [wishlisted, setWishlisted] = useState(false);
-  const [checkingWishlist, setCheckingWishlist] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   const handleClick = () => navigate(`/listing/${room.id}`);
 
@@ -52,13 +52,11 @@ const RoomCard = ({ room }) => {
   useEffect(() => {
     const checkWishlist = async () => {
       if (!user || !room.id) {
-        setCheckingWishlist(false);
         return
       }
 
       const inWishlist = await isInWishlist(user.id, room.id)
       setWishlisted(inWishlist)
-      setCheckingWishlist(false)
     }
 
     checkWishlist()
@@ -87,6 +85,15 @@ const RoomCard = ({ room }) => {
     }
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  // Use fallback image if primary image fails to load
+  const imageSource = imageError || !room.images || room.images.length === 0
+    ? 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800'
+    : room.images[0];
+
   return (
     <article
       className="rc-card"
@@ -99,10 +106,11 @@ const RoomCard = ({ room }) => {
       {/* ── Image ── */}
       <div className="rc-img-wrap">
         <img
-          src={room.images[0]}
+          src={imageSource}
           alt={room.title}
           className="rc-img"
           loading="lazy"
+          onError={handleImageError}
         />
 
         <span className="rc-type-badge">{room.type}</span>

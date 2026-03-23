@@ -32,7 +32,10 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  background: #e6efff;
+  background: linear-gradient(135deg, #e6efff 0%, #f0f5ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rc-img {
@@ -42,6 +45,7 @@
   display: block;
   transition: transform 0.44s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
+  background: #f0f5ff;
 }
 
 .rc-card:hover .rc-img {

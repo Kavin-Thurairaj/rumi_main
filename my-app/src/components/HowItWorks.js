@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MessageCircle, Calendar, Zap, FileText, CheckCircle, BarChart3, DollarSign, Lock, Users, Shield, Star, User, Building2 } from 'lucide-react';
+import Footer from './Footer';
 import './HowItWorks.css';
 
 // Map icon names to React components
@@ -22,24 +23,24 @@ const getIcon = (iconName) => {
 };
 
 const tenantSteps = [
-  { number: '01', icon: Icons.search,   title: 'Search for Rooms',    desc: 'Browse verified listings filtered by city, budget, and room type. Use our smart filters to find exactly what you need.' },
-  { number: '02', icon: Icons.message,  title: 'Contact Landlords',   desc: 'Message landlords directly through our secure platform. Ask questions, negotiate terms, and get all the details.' },
-  { number: '03', icon: Icons.calendar, title: 'Schedule a Visit',    desc: 'Arrange viewings at your convenience. Visit the property, meet the landlord, and make sure it feels right.' },
-  { number: '04', icon: Icons.home,     title: 'Move In!',            desc: 'Sign your rental agreement and move into your new space. Our platform keeps records safe for both parties.' },
+  { number: '01', icon: '🔍', title: 'Search for Rooms',    desc: 'Browse verified listings filtered by city, budget, and room type. Use our smart filters to find exactly what you need.' },
+  { number: '02', icon: '💬', title: 'Contact Landlords',   desc: 'Message landlords directly through our secure platform. Ask questions, negotiate terms, and get all the details.' },
+  { number: '03', icon: '🗓', title: 'Schedule a Visit',    desc: 'Arrange viewings at your convenience. Visit the property, meet the landlord, and make sure it feels right.' },
+  { number: '04', icon: '🏠', title: 'Move In!',            desc: 'Sign your rental agreement and move into your new space. Our platform keeps records safe for both parties.' },
 ];
 
 const landlordSteps = [
-  { number: '01', icon: Icons.edit,  title: 'Create Your Listing',  desc: "Sign up and post your property in minutes — it's free. Add photos, set your price, and describe your space." },
-  { number: '02', icon: Icons.check, title: 'Get Verified Tenants', desc: 'Receive applications from verified tenants. Review profiles, check references, and choose the best fit.' },
-  { number: '03', icon: Icons.chart, title: 'Manage Everything',    desc: 'Track applications, messages, and listing performance all in one simple dashboard. No spreadsheets needed.' },
-  { number: '04', icon: Icons.money, title: 'Start Earning',        desc: 'Collect rent securely and manage your tenancy with confidence. Expand your portfolio as you grow.' },
+  { number: '01', icon: '📝', title: 'Create Your Listing',  desc: "Sign up and post your property in minutes — it's free. Add photos, set your price, and describe your space." },
+  { number: '02', icon: '✅', title: 'Get Verified Tenants', desc: 'Receive applications from verified tenants. Review profiles, check references, and choose the best fit.' },
+  { number: '03', icon: '📊', title: 'Manage Everything',    desc: 'Track applications, messages, and listing performance all in one simple dashboard. No spreadsheets needed.' },
+  { number: '04', icon: '💰', title: 'Start Earning',        desc: 'Collect rent securely and manage your tenancy with confidence. Expand your portfolio as you grow.' },
 ];
 
 const trustItems = [
-  { icon: Icons.lock,  label: 'Verified Listings'    },
-  { icon: Icons.users, label: 'Trusted by 12K+ Users' },
-  { icon: Icons.chat,  label: 'Secure Messaging'      },
-  { icon: Icons.star,  label: '4.8★ Average Rating'   },
+  { icon: <Lock size={20} />, label: 'Verified Listings' },
+  { icon: <Users size={20} />, label: 'Trusted by 12K+ Users' },
+  { icon: <MessageCircle size={20} />, label: 'Secure Messaging' },
+  { icon: <Star size={20} />, label: '4.8★ Average Rating' },
 ];
 
 const faqs = [
@@ -55,6 +56,7 @@ export default function HowItWorks() {
   const steps = tab === 'tenant' ? tenantSteps : landlordSteps;
 
   return (
+  <>
     <div className="hiw-shell">
 
       <header className="hiw-topbar">
@@ -180,5 +182,7 @@ export default function HowItWorks() {
 
       </main>
     </div>
+    <Footer />
+  </>
   );
 }

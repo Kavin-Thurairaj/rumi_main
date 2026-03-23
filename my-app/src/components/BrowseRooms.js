@@ -5,6 +5,7 @@ import RoomCard from './RoomCard';
 import supabase from '../api/supabaseClient';
 import { useAuth } from '../auth/AuthContext';
 import { getUserWishlists } from '../api/wishlistService';
+import Footer from './Footer';
 import './BrowseRooms.css';
 
 const CITIES = [
@@ -130,7 +131,6 @@ export default function BrowseRooms() {
     setError(null);
     try {
       const { min, max } = BUDGETS[budgetIdx];
-<<<<<<< HEAD
       
       // Build Supabase query
       let query = supabase
@@ -198,29 +198,6 @@ export default function BrowseRooms() {
           bathrooms: room.bathrooms || 1,
           city: room.city
         };
-=======
-      const filters = {
-        city: city === 'All Cities' ? null : city,
-        minPrice: min === 0 ? null : min,
-        maxPrice: max === Infinity ? null : max,
-        roomStatus: onlyAvail ? 'AVAILABLE' : null,
-        roomType: type === 'All Types' ? null : type.toUpperCase(),
-      };
-      const response = await roomFilterApi.searchRooms(filters, 0, 50);
-      const mappedRooms = response.data.content.map(room => ({
-        id: room.roomId,
-        title: room.roomTitle,
-        location: `${room.city}, ${room.country}`,
-        price: room.amount,
-        type: room.roomType,
-        images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688'],
-        available: room.roomStatus === 'AVAILABLE',
-        rating: 4.5,
-        reviews: 0,
-        bedrooms: room.maxRoommates,
-        bathrooms: 1,
-        city: room.city
->>>>>>> origin/main
       }));
       
       setRooms(roomsWithImages);
@@ -243,6 +220,8 @@ const filtered = useMemo(() => {
     return result;
 }, [rooms, wishlistRooms, sort, showWishlist]);
 
+  const hasFilters = city !== 'All Cities' || type !== 'All Types' || budgetIdx !== 0 || onlyAvail || sort !== 'Recommended';
+
   const clearFilters = () => {
     setCity('All Cities');
     setType('All Types');
@@ -251,118 +230,26 @@ const filtered = useMemo(() => {
     setSort('Recommended');
   };
 
-  const hasFilters = city !== 'All Cities' || type !== 'All Types' || budgetIdx !== 0 || onlyAvail;
-
   return (
-    <div className="br-shell">
-      <header className="br-topbar">
-        <Link to="/" className="br-back-btn" aria-label="Back to home">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Back
-        </Link>
-        <Link to="/" className="br-brand" aria-label="Rumi Rentals home">
-          <div className="br-logo"><span className="br-logo-text">RUMI</span></div>
-          <span className="br-brand-name">Rumi Rentals</span>
-        </Link>
-        <div className="br-topbar-right">
-          <Link to="/login" className="br-signin">Sign In</Link>
-          <Link to="/signup/tenant" className="br-cta">Sign Up Free</Link>
-        </div>
-      </header>
-
+    <>
+      <div className="br-container">
       <main className="br-main">
-        <div className="br-page-hd">
-          <h1 className="br-page-title">Browse Rooms</h1>
-          <p className="br-page-sub">Find verified rooms across Sri Lanka</p>
-        </div>
-
-        {/* View Tabs */}
-        <div className="br-view-tabs">
-          <button 
-            className={`br-tab ${!showWishlist ? 'br-tab--active' : ''}`}
-            onClick={() => setShowWishlist(false)}
-          >
-            <Home size={16} style={{ display: 'inline', marginRight: '6px' }} />
-            All Rooms
-          </button>
+        <div className="br-top" role="banner">
+          <div className="br-top-text">
+            <h1 className="br-title">
+              <Home size={28} style={{ display: 'inline', marginRight: '8px' }} />
+              Find Your Room
+            </h1>
+            <p className="br-subtitle">Browse available rooms and filter to your preference</p>
+          </div>
           {user && (
-            <button 
-              className={`br-tab ${showWishlist ? 'br-tab--active' : ''}`}
-              onClick={() => setShowWishlist(true)}
-            >
-              <Heart size={16} style={{ display: 'inline', marginRight: '6px' }} />
-              Rooms I Like ({wishlistRooms.length})
-=======
-        <div className="br-filters" role="search" aria-label="Filter rooms">
-
-          <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-city">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style={{marginRight: 5, flexShrink: 0}}>
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              City
-            </label>
-            <select id="br-city" className="br-select" value={city} onChange={e => setCity(e.target.value)}>
-              {CITIES.map(c => <option key={c}>{c}</option>)}
-            </select>
-          </div>
-
-          <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-type">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 5, flexShrink: 0}}>
-                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
-                <path d="M9 21V12h6v9"/>
-              </svg>
-              Type
-            </label>
-            <select id="br-type" className="br-select" value={type} onChange={e => setType(e.target.value)}>
-              {TYPES.map(t => <option key={t}>{t}</option>)}
-            </select>
-          </div>
-
-          <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-budget">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 5, flexShrink: 0}}>
-                <line x1="12" y1="1" x2="12" y2="23"/>
-                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-              </svg>
-              Budget
-            </label>
-            <select id="br-budget" className="br-select" value={budgetIdx} onChange={e => setBudgetIdx(Number(e.target.value))}>
-              {BUDGETS.map((b, i) => <option key={b.label} value={i}>{b.label}</option>)}
-            </select>
-          </div>
-
-          <div className="br-filter-group">
-            <label className="br-filter-label" htmlFor="br-sort">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: 5, flexShrink: 0}}>
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <line x1="3" y1="12" x2="15" y2="12"/>
-                <line x1="3" y1="18" x2="9" y2="18"/>
-              </svg>
-              Sort
-            </label>
-            <select id="br-sort" className="br-select" value={sort} onChange={e => setSort(e.target.value)}>
-              {SortOptions.map(s => <option key={s}>{s}</option>)}
-            </select>
-          </div>
-
-          <label className="br-avail-check">
-            <input
-              type="checkbox"
-              checked={onlyAvail}
-              onChange={e => setOnlyAvail(e.target.checked)}
-              className="br-checkbox"
-            />
-            Available only
-          </label>
-
-          {hasFilters && (
-            <button className="br-clear-btn" onClick={clearFilters}>
-              ✕ Clear
->>>>>>> origin/main
+            <button className="br-wishlist-btn" onClick={() => setShowWishlist(!showWishlist)} style={{
+              background: showWishlist ? '#ef4444' : 'white',
+              color: showWishlist ? 'white' : '#ef4444',
+              border: '1px solid #ef4444'
+            }}>
+              <Heart size={18} style={{ display: 'inline', marginRight: '6px', fill: showWishlist ? 'white' : 'none' }} />
+              {showWishlist ? 'Saved Rooms' : 'Browse All'}
             </button>
           )}
         </div>
@@ -468,5 +355,7 @@ const filtered = useMemo(() => {
         )}
       </main>
     </div>
-  );
+    <Footer />
+  </>
+);
 }

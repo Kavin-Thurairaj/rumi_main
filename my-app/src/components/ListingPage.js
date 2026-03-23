@@ -6,6 +6,7 @@ import axiosClient from '../api/rumi_client';
 import supabase from '../api/supabaseClient';
 import { createBooking, checkExistingBooking } from './rating_system/services/bookingService';
 import { useAuth } from '../auth/AuthContext';
+import Footer from './Footer';
 import './ListingPage.css';
 
 // Lazy load heavy components

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Home, MapPin, Calendar, Users } from "lucide-react";
-import { Link } from "react-router-dom";
 import CreatePostForm from "../component/CreatePostForm";
 import roomSharePostApi from "../../api/roomSharePostApi";
 
@@ -8,6 +7,7 @@ const RoomSharePostPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => { fetchPosts(); }, []);
 
@@ -182,18 +182,15 @@ const RoomSharePostPage = () => {
             ))}
           </div>
         ) : (
-<<<<<<< HEAD
           <div style={{ textAlign: "center", padding: "80px" }}>
             <div style={{ fontSize: "64px", marginBottom: "16px" }}><Home size={64} /></div>
             <h2 style={{ color: "#1E293B", marginBottom: "8px" }}>No posts yet</h2>
             <p style={{ color: "#64748B", marginBottom: "24px" }}>Be the first to post a room sharing ad!</p>
-            <button
-              onClick={() => setShowForm(true)}
-              style={{
-                background: "#2563eb", color: "white", padding: "12px 28px",
-                border: "none", borderRadius: "8px", cursor: "pointer", fontSize: "16px"
-              }}>
-          <div style={{ textAlign: "center", padding: "80px" }}>
-            <div style={{ fontSize: "64px", marginBottom: "16px" }}><Home size={64} /></div>
-            <h2 style={{ color: "#1E293B", marginBottom: "8px" }}>No posts yet</h2>
-            <p style={{ color: "#64748B", marginBottom: "24px" }}>Be the first to post a room sharing ad!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default RoomSharePostPage;
