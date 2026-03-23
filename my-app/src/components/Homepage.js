@@ -16,18 +16,20 @@ import {
   X,
   Check,
   Search,
+  Map as MapIcon,
 } from "lucide-react";
 import Hero from "./Hero";
 import CategoryCarousel from "./CategoryCarousel";
 import PlaceScroller from "./PlaceScroller";
 import Home_statement from "./Home_statement";
 import RoomCard from "./RoomCard";
-import roomFilterApi from "../api/roomFilterApi";
+import { mockRooms } from "./mockRooms";
 import Footer from "./Footer";
 import "./HomepageModern.css";
 import { supabase } from "../auth/supabaseClient";
 import { useAuth } from "../auth/AuthContext";
-import Chatbot from '../chatbot/chatbot';           // ← add this
+import Chatbot from "../chatbot/chatbot";
+import Map from "../map/Map";
 
 const HomeStatement = Home_statement;
 
@@ -38,87 +40,30 @@ const trustStats = [
 ];
 
 const desktopNavLinks = [
-  { label: "Browse Rooms", to: "/rooms" },
-  { label: "Share a Room", to: "/share" },
-  { label: "How it Works", to: "/how-it-works" },
+  { label: "Browse Rooms",  to: "/rooms"           },
+  { label: "Share a Room",  to: "/share"            },
+  { label: "How it Works",  to: "/how-it-works"     },
+  { label: "List Your Space", to: "/signup/landlord" },
 ];
 
 const cityOptions = [
-  "Ampara",
-  "Anuradhapura",
-  "Avissawella",
-  "Badulla",
-  "Batticaloa",
-  "Beruwala",
-  "Chilaw",
-  "Colombo",
-  "Dambulla",
-  "Dehiwala-Mount Lavinia",
-  "Galle",
-  "Gampaha",
-  "Gampola",
-  "Hanwella",
-  "Homagama",
-  "Jaffna",
-  "Kalutara",
-  "Kandy",
-  "Katunayaka",
-  "Kelaniya",
-  "Kotte",
-  "Kurunegala",
-  "Maharagama",
-  "Mannar",
-  "Matara",
-  "Mawanella",
-  "Minuwangoda",
-  "Mirissa",
-  "Moratuwa",
-  "Mullaitivu",
-  "Nattandiya",
-  "Negombo",
-  "Nuwara Eliya",
-  "Panadura",
-  "Peradeniya",
-  "Piliyandala",
-  "Polonnaruwa",
-  "Puttalam",
-  "Ratmalana",
-  "Ratnapura",
-  "Sri Jayawardenepura Kotte",
-  "Thalawakele",
-  "Trincomalee",
-  "Unawatuna",
-  "Vavuniya",
-  "Wattala",
-  "Weligama",
-  "Welisara",
-  "Wellawatta",
-  "Yakkala",
-];
-const typeOptions = [
-  "Any type",
-  "Room",
-  "Annex",
-  "House",
-  "Apartment",
-  "Boarding",
-];
-const budgetOptions = [
-  "Any budget",
-  "Under 30k",
-  "30k – 60k",
-  "60k – 120k",
-  "120k+",
+  "Ampara", "Anuradhapura", "Avissawella", "Badulla", "Batticaloa",
+  "Beruwala", "Chilaw", "Colombo", "Dambulla", "Dehiwala-Mount Lavinia",
+  "Galle", "Gampaha", "Gampola", "Hanwella", "Homagama", "Jaffna",
+  "Kalutara", "Kandy", "Katunayaka", "Kelaniya", "Kotte", "Kurunegala",
+  "Maharagama", "Mannar", "Matara", "Mawanella", "Minuwangoda", "Mirissa",
+  "Moratuwa", "Mullaitivu", "Nattandiya", "Negombo", "Nuwara Eliya",
+  "Panadura", "Peradeniya", "Piliyandala", "Polonnaruwa", "Puttalam",
+  "Ratmalana", "Ratnapura", "Sri Jayawardenepura Kotte", "Thalawakele",
+  "Trincomalee", "Unawatuna", "Vavuniya", "Wattala", "Weligama",
+  "Welisara", "Wellawatta", "Yakkala",
 ];
 
+const typeOptions   = ["Any type", "Room", "Annex", "House", "Apartment", "Boarding"];
+const budgetOptions = ["Any budget", "Under 30k", "30k – 60k", "60k – 120k", "120k+"];
+
 /* ── Scroll-reveal wrapper ── */
-const RevealSection = ({
-  children,
-  className = "",
-  delay = 0,
-  style,
-  ...rest
-}) => {
+const RevealSection = ({ children, className = "", delay = 0, style, ...rest }) => {
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
 
@@ -127,12 +72,9 @@ const RevealSection = ({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVis(true);
-          observer.disconnect();
-        }
+        if (entry.isIntersecting) { setVis(true); observer.disconnect(); }
       },
-      { threshold: 0.07, rootMargin: "0px 0px -20px 0px" },
+      { threshold: 0.07, rootMargin: "0px 0px -20px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -151,15 +93,7 @@ const RevealSection = ({
 };
 
 /* ── Custom search dropdown field ── */
-const SearchField = ({
-  icon: Icon,
-  label,
-  options,
-  value,
-  onChange,
-  isOpen,
-  onToggle,
-}) => (
+const SearchField = ({ icon: Icon, label, options, value, onChange, isOpen, onToggle }) => (
   <div
     className={`hp-sf${isOpen ? " hp-sf--open" : ""}`}
     onClick={onToggle}
@@ -180,27 +114,17 @@ const SearchField = ({
         aria-hidden="true"
       />
     </div>
-
     {isOpen && (
-      <div
-        className="hp-sf-dropdown"
-        role="listbox"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="hp-sf-dropdown" role="listbox" onClick={(e) => e.stopPropagation()}>
         {options.map((opt) => (
           <button
             key={opt}
             className={`hp-sf-opt${value === opt ? " hp-sf-opt--active" : ""}`}
             role="option"
             aria-selected={value === opt}
-            onClick={() => {
-              onChange(opt);
-              onToggle();
-            }}
+            onClick={() => { onChange(opt); onToggle(); }}
           >
-            {value === opt && (
-              <Check size={12} className="hp-sf-opt-check" aria-hidden="true" />
-            )}
+            {value === opt && <Check size={12} className="hp-sf-opt-check" aria-hidden="true" />}
             {opt}
           </button>
         ))}
@@ -211,19 +135,18 @@ const SearchField = ({
 
 export default function Homepage() {
   const { user, profile } = useAuth();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [signupOpen, setSignupOpen] = useState(false);
+  const [mobileOpen,  setMobileOpen]  = useState(false);
+  const [signupOpen,  setSignupOpen]  = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [activeField, setActiveField] = useState(null);
-  const [cityVal, setCityVal] = useState("Colombo");
-  const [typeVal, setTypeVal] = useState("Any type");
-  const [budgetVal, setBudgetVal] = useState("Any budget");
-  const [featuredRooms, setFeaturedRooms] = useState([]);
-  const [loadingFeatured, setLoadingFeatured] = useState(true);
+  const [cityVal,     setCityVal]     = useState("Colombo");
+  const [typeVal,     setTypeVal]     = useState("Any type");
+  const [budgetVal,   setBudgetVal]   = useState("Any budget");
+  const [showMap,     setShowMap]     = useState(false); // 👈 map toggle
 
-  const signupRef = useRef(null);
+  const signupRef  = useRef(null);
   const profileRef = useRef(null);
-  const searchRef = useRef(null);
+  const searchRef  = useRef(null);
 
   useEffect(() => {
     const h = (e) => {
@@ -254,85 +177,8 @@ export default function Homepage() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
-
-  // Fetch featured rooms (recently created) from Supabase
-  useEffect(() => {
-    const fetchFeaturedRooms = async () => {
-      try {
-        setLoadingFeatured(true);
-        
-        // Fetch recently created rooms from Supabase
-        const { data: roomsData, error: fetchError } = await supabase
-          .from('rooms')
-          .select('*')
-          .eq('roomstatus', 'AVAILABLE')
-          .order('created_at', { ascending: false })
-          .limit(3);
-        
-        if (fetchError) throw fetchError;
-
-        // Fetch images for each featured room
-        const formatted = await Promise.all((roomsData || []).map(async (room) => {
-          let images = ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800'];
-          
-          try {
-            const { data: storageFiles } = await supabase.storage
-              .from('RoomImages')
-              .list(String(room.roomid), { limit: 10 });
-
-            if (storageFiles && storageFiles.length > 0) {
-              const fileUrls = storageFiles
-                .filter(f => f.name.length > 0)
-                .map(file => {
-                  const { data: urlData } = supabase.storage
-                    .from('RoomImages')
-                    .getPublicUrl(`${room.roomid}/${file.name}`);
-                  return urlData?.publicUrl;
-                })
-                .filter(url => url);
-              
-              if (fileUrls.length > 0) images = fileUrls;
-            }
-          } catch (imgErr) {
-            console.warn(`Could not fetch images for room ${room.roomid}:`, imgErr);
-          }
-
-          return {
-            id: room.roomid,
-            title: room.roomtitle || 'Room',
-            location: `${room.city}, ${room.country}`,
-            city: room.city,
-            price: room.amount,
-            type: room.roomtype || 'Apartment',
-            bedrooms: room.bedrooms || room.maxroommates || 1,
-            bathrooms: room.bathrooms || 1,
-            sqft: 500,
-            rating: room.avgrating || 0,
-            reviews: room.totalreviews || 0,
-            available: room.roomstatus === 'AVAILABLE',
-            landlord: { name: 'RUMI', joined: '2024' },
-            amenities: ['WiFi', 'Modern Amenities'],
-            rules: [],
-            description: room.roomdescription || 'Beautiful room available now',
-            images: images
-          };
-        }));
-
-        setFeaturedRooms(formatted);
-      } catch (err) {
-        console.error('Error fetching featured rooms:', err);
-        setFeaturedRooms([]);
-      } finally {
-        setLoadingFeatured(false);
-      }
-    };
-
-    fetchFeaturedRooms();
-  }, []);
 
   const toggleField = (field) =>
     setActiveField((prev) => (prev === field ? null : field));
@@ -350,13 +196,10 @@ export default function Homepage() {
     <>
       <section className="hp-shell">
         <div className="hp-container">
+
           {/* ══ Navbar ══ */}
           <header className="hp-navbar">
-            <Link
-              to="/"
-              className="hp-brand-link"
-              aria-label="Rumi Rentals home"
-            >
+            <Link to="/" className="hp-brand-link" aria-label="Rumi Rentals home">
               <div className="hp-brand">
                 <div className="hp-logo">
                   <span className="hp-logo-text">RUMI</span>
@@ -375,18 +218,11 @@ export default function Homepage() {
                 </Link>
               ))}
               <Link
-                to={user ? "/dashboard/landlord" : "/signup/landlord"}
-                className="hp-nav-link"
-              >
-                List Your Space
-              </Link>
-              <Link
                 to="/"
                 className="hp-nav-link"
                 onClick={(e) => {
                   e.preventDefault();
-                  document
-                    .getElementById("popular-areas")
+                  document.getElementById("popular-areas")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
@@ -405,47 +241,33 @@ export default function Homepage() {
                   >
                     {initials}
                   </button>
-
                   {profileOpen && (
                     <div className="hp-profile-dropdown">
-                     <div className="hp-profile-header">
-                      <div className="hp-profile-avatar-lg">{initials}</div>
-                      <div>
-                        <p className="hp-profile-name">
-                          {profile?.first_name} {profile?.last_name}
-                        </p>
-                        <p className="hp-profile-role">
-                          {profile?.role === 'Landlord' ? '🏢 Landlord' : '🧑 Tenant'}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="hp-profile-details">
-                      {[
-                        { label: 'Email', value: profile?.email ?? user?.email },
-                        { label: 'Age',   value: profile?.age   ?? '—'        },
-                        { label: 'Phone', value: profile?.phone || '—'        },
-                        { label: 'Role',  value: profile?.role  ?? '—'        },
-                      ].map(row => (
-                        <div key={row.label} className="hp-profile-row">
-                          <span className="hp-profile-key">{row.label}</span>
-                          <span className="hp-profile-val">{row.value}</span>
+                      <div className="hp-profile-header">
+                        <div className="hp-profile-avatar-lg">{initials}</div>
+                        <div>
+                          <p className="hp-profile-name">
+                            {profile?.first_name} {profile?.last_name}
+                          </p>
+                          <p className="hp-profile-role">
+                            {profile?.role === "Landlord" ? "🏢 Landlord" : "🧑 Tenant"}
+                          </p>
                         </div>
-                      ))}
-                    </div>
-
-                      <Link
-                        to="/dashboard/landlord"
-                        className="hp-profile-link"
-                        onClick={() => setProfileOpen(false)}
-                      >
-                        <LayoutDashboard size={16} /> Landlord Dashboard
-                      </Link>
-
-                      <button
-                        className="hp-signout-btn"
-                        onClick={handleSignOut}
-                      >
+                      </div>
+                      <div className="hp-profile-details">
+                        {[
+                          { label: "Email", value: profile?.email ?? user?.email },
+                          { label: "Age",   value: profile?.age   ?? "—"         },
+                          { label: "Phone", value: profile?.phone || "—"         },
+                          { label: "Role",  value: profile?.role  ?? "—"         },
+                        ].map((row) => (
+                          <div key={row.label} className="hp-profile-row">
+                            <span className="hp-profile-key">{row.label}</span>
+                            <span className="hp-profile-val">{row.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <button className="hp-signout-btn" onClick={handleSignOut}>
                         ⎋ Sign Out
                       </button>
                     </div>
@@ -453,10 +275,7 @@ export default function Homepage() {
                 </div>
               ) : (
                 <>
-                  <Link to="/login" className="hp-signin-btn">
-                    Sign In
-                  </Link>
-
+                  <Link to="/login" className="hp-signin-btn">Sign In</Link>
                   <div className="hp-signup-wrap" ref={signupRef}>
                     <button
                       className="hp-cta-btn"
@@ -471,7 +290,6 @@ export default function Homepage() {
                         aria-hidden="true"
                       />
                     </button>
-
                     {signupOpen && (
                       <div className="hp-signup-dropdown" role="menu">
                         <Link
@@ -480,14 +298,10 @@ export default function Homepage() {
                           role="menuitem"
                           onClick={() => setSignupOpen(false)}
                         >
-                          <div className="hp-dropdown-icon">
-                            <User size={16} />
-                          </div>
+                          <div className="hp-dropdown-icon"><User size={16} /></div>
                           <span className="hp-dropdown-text">
                             <strong>Tenant</strong>
-                            <span className="hp-dropdown-sub">
-                              Find and book a room
-                            </span>
+                            <span className="hp-dropdown-sub">Find and book a room</span>
                           </span>
                         </Link>
                         <div className="hp-dropdown-divider" />
@@ -497,14 +311,10 @@ export default function Homepage() {
                           role="menuitem"
                           onClick={() => setSignupOpen(false)}
                         >
-                          <div className="hp-dropdown-icon">
-                            <Building2 size={16} />
-                          </div>
+                          <div className="hp-dropdown-icon"><Building2 size={16} /></div>
                           <span className="hp-dropdown-text">
                             <strong>Landlord</strong>
-                            <span className="hp-dropdown-sub">
-                              List and manage properties
-                            </span>
+                            <span className="hp-dropdown-sub">List and manage properties</span>
                           </span>
                         </Link>
                       </div>
@@ -512,15 +322,12 @@ export default function Homepage() {
                   </div>
                 </>
               )}
-
               <button
                 className="hp-hamburger"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open navigation menu"
               >
-                <span />
-                <span />
-                <span />
+                <span /><span /><span />
               </button>
             </div>
           </header>
@@ -534,10 +341,7 @@ export default function Homepage() {
               aria-modal="true"
               aria-label="Navigation menu"
             >
-              <div
-                className="hp-mobile-drawer"
-                onClick={(e) => e.stopPropagation()}
-              >
+              <div className="hp-mobile-drawer" onClick={(e) => e.stopPropagation()}>
                 <div className="hp-drawer-hd">
                   <div className="hp-brand" style={{ gap: "0.5rem" }}>
                     <div className="hp-logo" style={{ width: 36, height: 36 }}>
@@ -553,47 +357,18 @@ export default function Homepage() {
                     <X size={14} />
                   </button>
                 </div>
-
                 <nav className="hp-mobile-nav" aria-label="Mobile navigation">
-                  <Link
-                    to="/rooms"
-                    className="hp-mob-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <span className="hp-mob-icon">
-                      <Home size={17} />
-                    </span>{" "}
-                    Browse Rooms
+                  <Link to="/rooms" className="hp-mob-link" onClick={() => setMobileOpen(false)}>
+                    <span className="hp-mob-icon"><Home size={17} /></span> Browse Rooms
                   </Link>
-                  <Link
-                    to="/share"
-                    className="hp-mob-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <span className="hp-mob-icon">
-                      <Handshake size={17} />
-                    </span>{" "}
-                    Share a Room
+                  <Link to="/share" className="hp-mob-link" onClick={() => setMobileOpen(false)}>
+                    <span className="hp-mob-icon"><Handshake size={17} /></span> Share a Room
                   </Link>
-                  <Link
-                    to="/how-it-works"
-                    className="hp-mob-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <span className="hp-mob-icon">
-                      <HelpCircle size={17} />
-                    </span>{" "}
-                    How it Works
+                  <Link to="/how-it-works" className="hp-mob-link" onClick={() => setMobileOpen(false)}>
+                    <span className="hp-mob-icon"><HelpCircle size={17} /></span> How it Works
                   </Link>
-                  <Link
-                    to={user ? "/dashboard/landlord" : "/signup/landlord"}
-                    className="hp-mob-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <span className="hp-mob-icon">
-                      <ClipboardList size={17} />
-                    </span>{" "}
-                    List Your Space
+                  <Link to="/signup/landlord" className="hp-mob-link" onClick={() => setMobileOpen(false)}>
+                    <span className="hp-mob-icon"><ClipboardList size={17} /></span> List Your Space
                   </Link>
                   <Link
                     to="/"
@@ -601,21 +376,15 @@ export default function Homepage() {
                     onClick={() => {
                       setMobileOpen(false);
                       setTimeout(
-                        () =>
-                          document
-                            .getElementById("popular-areas")
-                            ?.scrollIntoView({ behavior: "smooth" }),
-                        200,
+                        () => document.getElementById("popular-areas")
+                          ?.scrollIntoView({ behavior: "smooth" }),
+                        200
                       );
                     }}
                   >
-                    <span className="hp-mob-icon">
-                      <MapPin size={17} />
-                    </span>{" "}
-                    Popular Areas
+                    <span className="hp-mob-icon"><MapPin size={17} /></span> Popular Areas
                   </Link>
                 </nav>
-
                 <div className="hp-mob-auth">
                   {user ? (
                     <>
@@ -624,10 +393,7 @@ export default function Homepage() {
                       </p>
                       <button
                         className="hp-mob-signup"
-                        onClick={() => {
-                          handleSignOut();
-                          setMobileOpen(false);
-                        }}
+                        onClick={() => { handleSignOut(); setMobileOpen(false); }}
                       >
                         ⎋ Sign Out
                       </button>
@@ -635,44 +401,23 @@ export default function Homepage() {
                   ) : (
                     <>
                       <p className="hp-mob-auth-label">Your Account</p>
-                      <Link
-                        to="/login"
-                        className="hp-mob-signin"
-                        onClick={() => setMobileOpen(false)}
-                      >
+                      <Link to="/login" className="hp-mob-signin" onClick={() => setMobileOpen(false)}>
                         Sign In
                       </Link>
-                      <Link
-                        to="/signup/tenant"
-                        className="hp-mob-signup"
-                        onClick={() => setMobileOpen(false)}
-                      >
+                      <Link to="/signup/tenant" className="hp-mob-signup" onClick={() => setMobileOpen(false)}>
                         Sign Up as Tenant
                       </Link>
-                      <Link
-                        to="/signup/landlord"
-                        className="hp-mob-signup2"
-                        onClick={() => setMobileOpen(false)}
-                      >
+                      <Link to="/signup/landlord" className="hp-mob-signup2" onClick={() => setMobileOpen(false)}>
                         Sign Up as Landlord
                       </Link>
                     </>
                   )}
                 </div>
-
                 <div className="hp-mob-footer">
-                  <Link
-                    to="/dashboard/landlord"
-                    className="hp-mob-footer-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
+                  <Link to="/dashboard/landlord" className="hp-mob-footer-link" onClick={() => setMobileOpen(false)}>
                     <LayoutDashboard size={15} /> Landlord Dashboard
                   </Link>
-                  <Link
-                    to="/admin"
-                    className="hp-mob-footer-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
+                  <Link to="/admin" className="hp-mob-footer-link" onClick={() => setMobileOpen(false)}>
                     <Settings size={15} /> Admin Console
                   </Link>
                 </div>
@@ -685,52 +430,70 @@ export default function Homepage() {
             <Hero />
           </div>
 
-          {/* ── Search bar ── */}
-          <div className="hp-search-wrap" ref={searchRef}>
-            <form
-              className="hp-search"
-              onSubmit={(e) => e.preventDefault()}
-              aria-label="Search for rooms"
+          {/* ══ Search row — Map button LEFT + Search bar RIGHT ══ */}
+          <div className="hp-search-row" ref={searchRef}>
+
+            {/* 👇 Map button on the LEFT */}
+            <button
+              type="button"
+              onClick={() => setShowMap((v) => !v)}
+              aria-label={showMap ? "Hide map" : "Show map"}
+              className={`hp-map-btn${showMap ? " hp-map-btn--active" : ""}`}
             >
-              <SearchField
-                icon={MapPin}
-                label="City"
-                options={cityOptions}
-                value={cityVal}
-                onChange={setCityVal}
-                isOpen={activeField === "city"}
-                onToggle={() => toggleField("city")}
-              />
-              <div className="hp-sf-div" aria-hidden="true" />
-              <SearchField
-                icon={Home}
-                label="Room type"
-                options={typeOptions}
-                value={typeVal}
-                onChange={setTypeVal}
-                isOpen={activeField === "type"}
-                onToggle={() => toggleField("type")}
-              />
-              <div className="hp-sf-div" aria-hidden="true" />
-              <SearchField
-                icon={Wallet}
-                label="Budget (LKR)"
-                options={budgetOptions}
-                value={budgetVal}
-                onChange={setBudgetVal}
-                isOpen={activeField === "budget"}
-                onToggle={() => toggleField("budget")}
-              />
-              <Link to="/rooms" className="hp-sf-btn">
-                <Search
-                  size={15}
-                  aria-hidden="true"
-                  style={{ flexShrink: 0 }}
+              <MapIcon size={16} aria-hidden="true" />
+              {showMap ? "Hide Map" : "Map View"}
+            </button>
+
+            {/* 👇 Search bar on the RIGHT */}
+            <div className="hp-search-wrap" style={{ flex: 1, padding: 0, background: "transparent", border: "none", animation: "none" }}>
+              <form
+                className="hp-search"
+                onSubmit={(e) => e.preventDefault()}
+                aria-label="Search for rooms"
+              >
+                <SearchField
+                  icon={MapPin}
+                  label="City"
+                  options={cityOptions}
+                  value={cityVal}
+                  onChange={setCityVal}
+                  isOpen={activeField === "city"}
+                  onToggle={() => toggleField("city")}
                 />
-                Search
-              </Link>
-            </form>
+                <div className="hp-sf-div" aria-hidden="true" />
+                <SearchField
+                  icon={Home}
+                  label="Room type"
+                  options={typeOptions}
+                  value={typeVal}
+                  onChange={setTypeVal}
+                  isOpen={activeField === "type"}
+                  onToggle={() => toggleField("type")}
+                />
+                <div className="hp-sf-div" aria-hidden="true" />
+                <SearchField
+                  icon={Wallet}
+                  label="Budget (LKR)"
+                  options={budgetOptions}
+                  value={budgetVal}
+                  onChange={setBudgetVal}
+                  isOpen={activeField === "budget"}
+                  onToggle={() => toggleField("budget")}
+                />
+                <Link to="/rooms" className="hp-sf-btn">
+                  <Search size={15} aria-hidden="true" style={{ flexShrink: 0 }} />
+                  Search
+                </Link>
+              </form>
+            </div>
           </div>
+
+          {/* 👇 Map appears and disappears below search row */}
+          {showMap && (
+            <div className="hp-map-container">
+              <Map locations={[]} highlightId={null} />
+            </div>
+          )}
 
           {/* ── Trust stats ── */}
           <RevealSection className="hp-stats-bar">
@@ -749,9 +512,7 @@ export default function Homepage() {
           <RevealSection className="hp-section" delay={60}>
             <div className="hp-section-hd">
               <h2 className="hp-section-title">Browse by Category</h2>
-              <p className="hp-section-desc">
-                Find the type of space that suits your lifestyle
-              </p>
+              <p className="hp-section-desc">Find the type of space that suits your lifestyle</p>
             </div>
             <CategoryCarousel />
           </RevealSection>
@@ -760,37 +521,19 @@ export default function Homepage() {
           <RevealSection className="hp-section" delay={80}>
             <div className="hp-section-hd">
               <h2 className="hp-section-title">Featured Rooms</h2>
-              <p className="hp-section-desc">
-                Handpicked stays across Sri Lanka
-              </p>
+              <p className="hp-section-desc">Handpicked stays across Sri Lanka</p>
             </div>
             <div className="hp-rooms-grid">
-              {loadingFeatured ? (
-                <p style={{ textAlign: 'center', padding: '20px', gridColumn: '1 / -1' }}>Loading featured rooms...</p>
-              ) : featuredRooms.length > 0 ? (
-                featuredRooms.map((room, i) => (
-                  <div
-                    key={room.id}
-                    className="hp-card-reveal"
-                    style={{ "--card-i": i }}
-                  >
-                    <RoomCard room={room} />
-                  </div>
-                ))
-              ) : (
-                <p style={{ textAlign: 'center', padding: '20px', gridColumn: '1 / -1' }}>No featured rooms available</p>
-              )}
+              {mockRooms.slice(0, 3).map((room, i) => (
+                <div key={room.id} className="hp-card-reveal" style={{ "--card-i": i }}>
+                  <RoomCard room={room} />
+                </div>
+              ))}
             </div>
             <div className="hp-view-all-wrap">
               <Link to="/rooms" className="hp-view-all-btn">
                 View All Rooms
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path
                     d="M5 12h14M12 5l7 7-7 7"
                     stroke="currentColor"
@@ -816,16 +559,14 @@ export default function Homepage() {
           >
             <div className="hp-section-hd">
               <h2 className="hp-section-title">Popular Areas</h2>
-              <p className="hp-section-desc">
-                Trending neighborhoods across Sri Lanka
-              </p>
+              <p className="hp-section-desc">Trending neighborhoods across Sri Lanka</p>
             </div>
             <PlaceScroller />
           </RevealSection>
+
         </div>
       </section>
 
-      {/* ── Footer — outside hp-container so it spans full width ── */}
       <Footer />
       <Chatbot />
     </>
