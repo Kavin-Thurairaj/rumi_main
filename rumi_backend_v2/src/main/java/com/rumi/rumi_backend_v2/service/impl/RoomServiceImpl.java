@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class RoomServiceImpl implements RoomService {
     private final RuleRepo ruleRepo;
     private final PaymentConditionRepo paymentConditionRepo;
     private final UserRepo userRepo;
+    private final RoomImageRepo roomImageRepo;
     private final SupabaseAuthService supabaseAuthService;
 
     @Override
@@ -120,6 +122,69 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<RoomDetailResponse> getMyRooms(String authHeader) {
+        String userId = supabaseAuthService.getUserId(authHeader);
+        List<RoomDetail> rooms = roomRepo.findByRenter_SupabaseUid(userId);
+        List<RoomDetailResponse> result = new ArrayList<>();
+        for (RoomDetail room : rooms) {
+            Address address = room.getAddress();
+            RoomPrice price = room.getRoomPrice();
+            List<String> imageUrls = roomImageRepo.findByRoom_RoomId(room.getRoomId())
+                    .stream().map(RoomImage::getImageUrl).collect(Collectors.toList());
+            result.add(RoomDetailResponse.builder()
+                    .roomId(room.getRoomId())
+                    .roomTitle(room.getRoomTitle())
+                    .roomDescription(room.getRoomDescription())
+                    .roomStatus(room.getRoomStatus())
+                    .roomType(room.getRoomType())
+                    .genderAllowed(room.getGenderAllowed())
+                    .maxRoommates(room.getMaxRoommates())
+                    .address(address == null ? null : RoomDetailResponse.AddressDto.builder()
+                            .city(address.getCity())
+                            .country(address.getCountry())
+                            .addressLine(address.getAddressLine())
+                            .houseNumber(address.getHouseNumber())
+                            .build())
+                    .price(price == null ? null : RoomDetailResponse.PriceDto.builder()
+                            .amount(price.getAmount())
+                            .advance(price.getAdvance())
+                            .billingCycle(price.getBillingCycle())
+                            .build())
+                    .imageUrls(imageUrls)
+                    .build());
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public void deleteRoom(Long roomId, String authHeader) {
+        String userId = supabaseAuthService.getUserId(authHeader);
+        RoomDetail room = roomRepo.findByRoomId(roomId);
+        if (room == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found");
+        if (!room.getRenter().getSupabaseUid().equals(userId))
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You do not own this room");
+
+        // 1. Clear ManyToMany join tables
+        room.getAmenities().clear();
+        room.getRules().clear();
+        room.getPaymentConditions().clear();
+        roomRepo.save(room);
+
+        // 2. Delete images
+        List<RoomImage> images = roomImageRepo.findByRoom_RoomId(roomId);
+        roomImageRepo.deleteAll(images);
+
+        // 3. Delete address and price (OneToOne, no cascade set)
+        if (room.getAddress() != null) addressRepo.delete(room.getAddress());
+        if (room.getRoomPrice() != null) roomPriceRepo.delete(room.getRoomPrice());
+
+        // 4. Delete the room
+        roomRepo.delete(room);
+        log.info("Room {} deleted by user {}", roomId, userId);
+    }
+
+    @Override
     public RoomDetailResponse getRoom(Long roomId) {
         RoomDetail room = roomRepo.findByRoomId(roomId);
         if (room == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found");
@@ -133,6 +198,7 @@ public class RoomServiceImpl implements RoomService {
                 .genderAllowed(room.getGenderAllowed())
                 .maxRoommates(room.getMaxRoommates())
                 .roomStatus(room.getRoomStatus())
+                .roomType(room.getRoomType())
                 .address(address == null ? null : RoomDetailResponse.AddressDto.builder()
                         .houseNumber(address.getHouseNumber())
                         .addressLine(address.getAddressLine())

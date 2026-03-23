@@ -2,6 +2,7 @@ package com.rumi.rumi_backend_v2.dto;
 
 import com.rumi.rumi_backend_v2.enums.GenderAllowed;
 import com.rumi.rumi_backend_v2.enums.RoomStatus;
+import com.rumi.rumi_backend_v2.enums.RoomType;
 import com.rumi.rumi_backend_v2.enums.BillingCycle;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class RoomDetailResponse {
     private GenderAllowed genderAllowed;
     private int maxRoommates;
     private RoomStatus roomStatus;
+    private RoomType roomType;
     private AddressDto address;
     private PriceDto price;
     private List<AmenityDto> amenities;

@@ -309,22 +309,364 @@
   font-size: 12px;
 }
 
-.ld-edit-btn {
+/* Image placeholder */
+.ld-listing-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f0fe;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* Listing actions */
+.ld-listing-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ld-view-btn {
   background: none;
   border: 1.5px solid #00b8d9;
   color: #00b8d9;
   font-size: 12px;
   font-weight: 600;
-  padding: 5px 14px;
+  padding: 5px 12px;
   border-radius: 6px;
   cursor: pointer;
   font-family: inherit;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.ld-edit-btn:hover {
+.ld-view-btn:hover {
   background: #00b8d9;
   color: white;
+}
+
+.ld-delete-btn {
+  background: none;
+  border: 1.5px solid #ef4444;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ld-delete-btn:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+}
+
+.ld-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Error / retry state */
+.ld-listings-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0;
+  color: #ef4444;
+  font-size: 13px;
+}
+
+.ld-retry-btn {
+  background: none;
+  border: 1.5px solid #ef4444;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ld-retry-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* ── Image carousel arrows on listing card ── */
+.ld-listing-img-wrap {
+  position: relative;
+  width: 120px;
+  height: 100px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ld-listing-img-wrap .ld-listing-img,
+.ld-listing-img-wrap .ld-listing-img-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.ld-img-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 11px;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.15s ease;
+}
+
+.ld-img-arrow:hover {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.ld-img-arrow.prev { left: 3px; }
+.ld-img-arrow.next { right: 3px; }
+
+.ld-img-dots {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  z-index: 2;
+}
+
+.ld-img-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.55);
+  transition: background 0.15s ease;
+}
+
+.ld-img-dot.active {
+  background: white;
+}
+
+/* ── Post form (shown when showPostForm=true) ── */
+.ld-form-container {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 10px 24px rgba(0, 67, 128, 0.08);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.ld-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ld-form-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.ld-close-btn {
+  background: none;
+  border: 1.5px solid #e0e0e0;
+  color: #888;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.ld-close-btn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.ld-auth-notice {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #1e40af;
+}
+
+.ld-message {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ld-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.ld-error {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+}
+
+.ld-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ld-fieldset {
+  border: 1.5px solid #dbeafe;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f8faff;
+}
+
+.ld-fieldset legend {
+  font-size: 12px;
+  font-weight: 700;
+  color: #004a99;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 6px;
+}
+
+.ld-fieldset input[type="text"],
+.ld-fieldset input[type="number"],
+.ld-fieldset input[type="file"],
+.ld-fieldset textarea,
+.ld-fieldset select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  background: white;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.ld-fieldset input:focus,
+.ld-fieldset textarea:focus,
+.ld-fieldset select:focus {
+  border-color: #004a99;
+  box-shadow: 0 0 0 3px rgba(0, 74, 153, 0.1);
+}
+
+.ld-fieldset textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.ld-form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.ld-form-row > * { flex: 1; }
+
+.ld-form-row-full {
+  display: flex;
+  gap: 10px;
+}
+
+.ld-form-row-full > * { flex: 1; }
+
+.ld-image-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ld-img-item {
+  position: relative;
+  width: 72px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #dbeafe;
+}
+
+.ld-img-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ld-remove-img {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: rgba(0,0,0,0.55);
+  border: none;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.ld-submit-btn {
+  background: #004a99;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  font-family: inherit;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-top: 4px;
+}
+
+.ld-submit-btn:hover:not(:disabled) {
+  background: #003f7f;
+  transform: translateY(-1px);
+}
+
+.ld-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 /* Post New Listing CTA */

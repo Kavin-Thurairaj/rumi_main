@@ -40,7 +40,6 @@ const desktopNavLinks = [
   { label: "Browse Rooms", to: "/rooms" },
   { label: "Share a Room", to: "/share" },
   { label: "How it Works", to: "/how-it-works" },
-  { label: "List Your Space", to: "/signup/landlord" },
 ];
 
 const cityOptions = [
@@ -342,6 +341,12 @@ export default function Homepage() {
                 </Link>
               ))}
               <Link
+                to={user ? "/dashboard/landlord" : "/signup/landlord"}
+                className="hp-nav-link"
+              >
+                List Your Space
+              </Link>
+              <Link
                 to="/"
                 className="hp-nav-link"
                 onClick={(e) => {
@@ -549,7 +554,7 @@ export default function Homepage() {
                     How it Works
                   </Link>
                   <Link
-                    to="/signup/landlord"
+                    to={user ? "/dashboard/landlord" : "/signup/landlord"}
                     className="hp-mob-link"
                     onClick={() => setMobileOpen(false)}
                   >

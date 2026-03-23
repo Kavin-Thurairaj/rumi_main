@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface RoomRepo extends JpaRepository<RoomDetail, Long> {
     RoomDetail findByRoomId(Long roomId);
+    List<RoomDetail> findByRenter_SupabaseUid(String supabaseUid);
 }

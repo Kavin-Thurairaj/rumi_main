@@ -3,9 +3,11 @@ import "./Hero.css";
 import heroImage from "./hero-image.png";
 import { useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
+import { useAuth } from "../auth/AuthContext";
 
 export default function Hero() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <section className="hero">
@@ -17,7 +19,7 @@ export default function Hero() {
         <h1 className="her_3">Enjoy it</h1>
 
         <div className="hero-cta-row">
-          <button className="hero-post-btn" onClick={() => navigate("/login")}>
+          <button className="hero-post-btn" onClick={() => navigate(user ? "/dashboard/landlord" : "/login")}>
             <svg
               width="14" height="14"
               viewBox="0 0 24 24"

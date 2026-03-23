@@ -207,12 +207,8 @@ const ListingPage = () => {
     );
   }
 
-  const landlordInitials = room.landlord.name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
+  const landlordName = room.renter?.full_name || 'Landlord';
+  const landlordInitials = landlordName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
 
   return (
     <div className="lst-shell">
@@ -393,7 +389,7 @@ const ListingPage = () => {
                   <IconUser />
                 </div>
                 <div>
-                  <p className="lst-landlord-name">{room.renter?.full_name || 'Landlord'}</p>
+                <p className="lst-landlord-name">{landlordName}</p>
                   <p className="lst-landlord-since">Contact: {room.renter?.phone_number || 'Available on request'}</p>
                 </div>
               </div>

@@ -8,7 +8,7 @@ import TenantSignup from "./components/TenantSignup";
 import LandlordSignup from "./components/LandlordSignup";
 import AdminDashboard from "./components/AdminDashboard";
 import LandlordDashboard from "./components/LandlordDashboard";
-import ListingPage from "./room_listing/listing_page";
+import ListingPage from "./components/ListingPage";
 import BrowseRooms from "./components/BrowseRooms";
 import HowItWorks from "./components/HowItWorks";
 import RoomShareListing from "./room_share_lisiting/page/sharelisting";

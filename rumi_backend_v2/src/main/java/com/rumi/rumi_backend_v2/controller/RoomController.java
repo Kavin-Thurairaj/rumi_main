@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,33 @@ public class RoomController {
             return ResponseEntity.status(e.getStatusCode()).body(Map.of("error", e.getReason()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Failed to fetch room details"));
+        }
+    }
+
+    @GetMapping("/my-listings")
+    public ResponseEntity<?> getMyListings(@RequestHeader(value = "Authorization") String authHeader) {
+        try {
+            List<RoomDetailResponse> listings = roomService.getMyRooms(authHeader);
+            return ResponseEntity.ok(listings);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(Map.of("error", e.getReason()));
+        } catch (Exception e) {
+            log.error("Failed to fetch my listings: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Failed to fetch listings"));
+        }
+    }
+
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<?> deleteRoom(@PathVariable Long roomId,
+                                        @RequestHeader(value = "Authorization") String authHeader) {
+        try {
+            roomService.deleteRoom(roomId, authHeader);
+            return ResponseEntity.ok(Map.of("message", "Room deleted successfully"));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(Map.of("error", e.getReason()));
+        } catch (Exception e) {
+            log.error("Failed to delete room {}: {}", roomId, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Failed to delete room"));
         }
     }
 }
