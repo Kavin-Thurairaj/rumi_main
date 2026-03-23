@@ -6,6 +6,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fortawesome/fontawesome-free": "^7.2.0",
+    "@google-cloud/dialogflow": "^7.5.0",
     "@mui/material": "^7.3.7",
     "@mui/utils": "^7.3.9",
     "@supabase/supabase-js": "^2.99.3",

@@ -34,49 +34,47 @@ const LandlordSignup = () => {
     });
     if (error) setMessage(error.message);
   };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setMessage('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
+  if (formData.password !== formData.confirmPassword)
+    return setMessage('Passwords do not match.');
+  if (formData.password.length < 6)
+    return setMessage('Password must be at least 6 characters.');
+  if (!agreeToTerms)
+    return setMessage('Please agree to the Terms & Conditions.');
+  if (!formData.firstName || !formData.lastName)
+    return setMessage('Please enter your first and last name.');
 
-    if (formData.password !== formData.confirmPassword)
-      return setMessage("Passwords do not match.");
-    if (formData.password.length < 6)
-      return setMessage("Password must be at least 6 characters.");
-    if (!agreeToTerms)
-      return setMessage("Please agree to the Terms & Conditions.");
-    if (!formData.firstName || !formData.lastName)
-      return setMessage("Please enter your first and last name.");
+  setLoading(true);
 
-    setLoading(true);
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          first_name: formData.firstName,
+          last_name:  formData.lastName,
+          age:        parseInt(formData.age) || 0,
+          role:       'Landlord',
+          phone:      formData.phone || '',
+        }
+      }
+    });
 
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            age: parseInt(formData.age) || 0,
-            role: "Landlord",
-          },
-        },
-      });
+    if (error)      return setMessage(error.message);
+    if (!data.user) return setMessage('Could not create user. Try again.');
 
-      if (error) return setMessage(error.message);
-      if (!data.user) return setMessage("Could not create user. Try again.");
+    setMessage('✅ Account created! Please check your email to verify your account before logging in.');
 
-      // Email verification enabled — prompt user to check email
-      setMessage(
-        "✅ Account created! Please check your email to verify your account before logging in.",
-      );
-    } catch (err) {
-      setMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    setMessage('Something went wrong. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="ls-page">

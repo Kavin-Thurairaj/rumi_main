@@ -2,11 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../auth/supabaseClient";
 
+
+//
+// This page handles email verification after a user
+// signs up and clicks the confirmation link in their email.
+//
+
 export default function VerifyEmail() {
   const navigate = useNavigate();
   const [status, setStatus] = useState("verifying");
 
   useEffect(() => {
+
+
+  // status can be:
+  // 'verifying' — checking if the token worked (initial state)
+  // 'success'   — email confirmed, session is active
+  // 'error'     — token expired or invalid
+  
     // Supabase automatically handles the token in the URL
     // Just check if user is now logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -30,6 +43,8 @@ export default function VerifyEmail() {
         background: "linear-gradient(155deg, #dce8ff 0%, #edf3ff 100%)",
       }}
     >
+
+      
       <div
         style={{
           background: "#fff",

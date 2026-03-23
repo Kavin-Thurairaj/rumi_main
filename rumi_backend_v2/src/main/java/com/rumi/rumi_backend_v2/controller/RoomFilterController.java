@@ -3,6 +3,7 @@ package com.rumi.rumi_backend_v2.controller;
 import com.rumi.rumi_backend_v2.dto.RoomFilterResponse;
 import com.rumi.rumi_backend_v2.enums.GenderAllowed;
 import com.rumi.rumi_backend_v2.enums.RoomStatus;
+import com.rumi.rumi_backend_v2.enums.RoomType;
 import com.rumi.rumi_backend_v2.service.RoomFilterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,14 +30,17 @@ public class RoomFilterController {
             @RequestParam(required = false) Integer maxPrice,
             @RequestParam(required = false) String genderAllowed,
             @RequestParam(required = false) String roomStatus,
+            @RequestParam(required = false) String roomType,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         GenderAllowed genderAllowedEnum;
         RoomStatus roomStatusEnum;
+        RoomType roomTypeEnum;
         try {
             genderAllowedEnum = parseEnum(GenderAllowed.class, genderAllowed);
             roomStatusEnum = parseEnum(RoomStatus.class, roomStatus);
+            roomTypeEnum = parseEnum(RoomType.class, roomType);
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().build();
         }
@@ -62,34 +66,25 @@ public class RoomFilterController {
                 normalizedMaxPrice,
                 genderAllowedEnum,
                 roomStatusEnum,
+                roomTypeEnum,
                 pageable
         );
         return ResponseEntity.ok(results);
     }
 
     private String normalizeText(String value) {
-        if (value == null) {
-            return null;
-        }
+        if (value == null) return null;
         String trimmed = value.trim();
-        if (trimmed.isEmpty()) {
-            return null;
-        }
+        if (trimmed.isEmpty()) return null;
         return trimmed.toLowerCase(Locale.ROOT);
     }
 
     private <T extends Enum<T>> T parseEnum(Class<T> enumType, String value) {
-        if (value == null) {
-            return null;
-        }
+        if (value == null) return null;
         String trimmed = value.trim();
-        if (trimmed.isEmpty()) {
-            return null;
-        }
+        if (trimmed.isEmpty()) return null;
         for (T constant : enumType.getEnumConstants()) {
-            if (constant.name().equalsIgnoreCase(trimmed)) {
-                return constant;
-            }
+            if (constant.name().equalsIgnoreCase(trimmed)) return constant;
         }
         throw new IllegalArgumentException("Invalid value for " + enumType.getSimpleName());
     }

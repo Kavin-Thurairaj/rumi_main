@@ -1,0 +1,62 @@
+/* ════════════════════════════════════════════
+   Chatbot.css
+   Styles for the Dialogflow Messenger widget
+   All colours use CSS custom properties
+   (CSS variables) supported by df-messenger
+════════════════════════════════════════════ */
+
+df-messenger {
+
+  /* ── Titlebar (chat header) ── */
+  --df-messenger-button-titlebar-color: #003f8a;       /* Header background */
+  --df-messenger-button-titlebar-font-color: #ffffff;  /* Header text color */
+
+  /* ── Chat background ── */
+  --df-messenger-chat-background-color: #f7f9ff;       /* Main chat area background */
+
+  /* ── Font ── */
+  --df-messenger-font-family: 'Segoe UI', sans-serif;  /* Chat font */
+
+  /* ── User message bubbles (right side) ── */
+  --df-messenger-user-message: #003f8a;                /* User bubble background */
+  --df-messenger-user-message-text-color: #ffffff;     /* User bubble text */
+
+  /* ── Bot message bubbles (left side) ── */
+  --df-messenger-bot-message: #ffffff;                 /* Bot bubble background */
+  --df-messenger-bot-message-text-color: #0b1d40;      /* Bot bubble text */
+
+  /* ── Floating action button (chat icon) ── */
+  --df-messenger-minimized-icon-color: #ffffff;        /* Icon color on FAB */
+  --df-messenger-chat-bubble-background: #003f8a;      /* FAB background color */
+  --df-messenger-chat-bubble-icon-color: #ffffff;      /* FAB icon color */
+
+  /* ── Input field ── */
+  --df-messenger-send-icon: #003f8a;                   /* Send button color */
+  --df-messenger-input-box-color: #ffffff;             /* Input background */
+  --df-messenger-input-font-color: #0b1d40;            /* Input text color */
+  --df-messenger-input-placeholder-font-color: #a0b4d6;/* Placeholder text */
+  --df-messenger-focus-color: #003f8a;                 /* Focus ring color */
+
+  /* ── Suggestion chips (clickable option buttons) ── */
+  --df-messenger-chip-background: #003f8a;             /* Chip background */
+  --df-messenger-chip-border-color: #003f8a;           /* Chip border */
+  --df-messenger-chip-text-color: #ffffff;             /* Chip text — white for readability */
+  --df-messenger-chip-selected-background: #002d66;    /* Chip background when selected */
+  --df-messenger-chip-selected-border-color: #002d66;  /* Chip border when selected */
+  --df-messenger-chip-selected-text-color: #ffffff;    /* Chip text when selected */
+
+  /* ── Position — fixed to bottom right corner ── */
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999; /* Above all other elements on the page */
+}
+
+/* ── Mobile responsive ── */
+@media (max-width: 480px) {
+  df-messenger {
+    /* Move slightly closer to edge on small screens */
+    bottom: 16px;
+    right: 16px;
+  }
+}

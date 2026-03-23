@@ -4,6 +4,7 @@ import com.rumi.rumi_backend_v2.dto.RoomFilterResponse;
 import com.rumi.rumi_backend_v2.enums.BillingCycle;
 import com.rumi.rumi_backend_v2.enums.GenderAllowed;
 import com.rumi.rumi_backend_v2.enums.RoomStatus;
+import com.rumi.rumi_backend_v2.enums.RoomType;
 import com.rumi.rumi_backend_v2.repository.RoomFilterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,28 +24,31 @@ public class RoomFilterService {
             Integer maxPrice,
             GenderAllowed genderAllowed,
             RoomStatus roomStatus,
+            RoomType roomType,
             Pageable pageable
     ) {
-        String genderStr = genderAllowed != null ? genderAllowed.name() : null;
-        String statusStr = roomStatus != null ? roomStatus.name() : null;
+        String genderStr   = genderAllowed != null ? genderAllowed.name() : null;
+        String statusStr   = roomStatus    != null ? roomStatus.name()    : null;
+        String roomTypeStr = roomType      != null ? roomType.name()      : null;
 
         Page<Object[]> results = roomFilterRepository.filterRoomsNative(
-                city, country, minPrice, maxPrice, genderStr, statusStr, pageable
+                city, country, minPrice, maxPrice, genderStr, statusStr, roomTypeStr, pageable
         );
 
         return results.map(row -> new RoomFilterResponse(
                 ((Number) row[0]).longValue(),
                 (String) row[1],
                 (String) row[2],
-                GenderAllowed.valueOf((String) row[3]),
-                RoomStatus.valueOf((String) row[4]),
-                ((Number) row[5]).intValue(),
+                row[3] != null ? GenderAllowed.valueOf((String) row[3]) : null,
+                row[4] != null ? RoomStatus.valueOf((String) row[4])    : null,
+                row[5] != null ? ((Number) row[5]).intValue()           : 0,
                 (String) row[6],
                 (String) row[7],
                 (String) row[8],
                 ((Number) row[9]).intValue(),
                 BillingCycle.valueOf((String) row[10]),
-                (String) row[11]
+                (String) row[11],
+                row[12] != null ? RoomType.valueOf((String) row[12])    : null
         ));
     }
 

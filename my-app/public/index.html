@@ -15,6 +15,24 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+   
+     <style>
+      df-messenger {
+        --df-messenger-button-titlebar-color: #003f8a;
+        --df-messenger-chat-bubble-background: #003f8a;
+        --df-messenger-minimized-icon-color: #ffffff;
+        --df-messenger-chip-background: #003f8a;
+        --df-messenger-chip-border-color: #003f8a;
+        --df-messenger-chip-text-color: #ffffff;
+        --df-messenger-chip-selected-background: #002d66;
+        --df-messenger-chip-selected-text-color: #ffffff;
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 9999;
+      }
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -39,5 +57,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+          <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
   </body>
 </html>

@@ -165,12 +165,6 @@ const LoginPage = () => {
               </button>
             </div>
 
-            <div className="lp-forgot-row">
-              <a href="#" className="lp-forgot-link">
-                Forgot password?
-              </a>
-            </div>
-
             {message && (
               <p style={{ color: "red", fontSize: 13, margin: "0" }}>
                 {message}
